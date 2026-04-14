@@ -217,5 +217,5 @@ MIT License
 ---
 
 <p align="center">
-  <sub>Made with ❤️ for Hackathon Club 2024</sub>
+  <sub>Made with ❤️ for Hackathon Club 2026</sub>
 </p>

@@ -1,81 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --color-bg-base: #F5F0E8;
-  --color-card-base: #FFFFFF;
-  --color-primary: #1a1a1a;
-  --color-secondary: #4a4a4a;
-  --color-accent-red: #D9230F;
-  --color-accent-blue: #0047AB;
+  --color-background: #E3D5CA;
+  --color-card: #C8B6A6;
+  --color-primary: #8D7B68;
+  --color-secondary: #A4907C;
+  --color-accent-red: #ef4444;
+  --color-accent-blue: #2563eb;
+  --color-accent-green: #22c55e;
   
-  --font-serif: 'Georgia', 'Times New Roman', serif;
+  --font-serif: 'Playfair Display', 'Georgia', serif;
   --font-sans: 'Inter', 'Helvetica Neue', sans-serif;
-  --font-impact: 'Impact', 'Anton', sans-serif;
 }
 
 @layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
   body {
-    @apply m-0 p-0 font-sans text-[#0f0f0f] bg-bg-base overflow-x-hidden selection:bg-accent-red selection:text-white;
-    background-image: 
-      radial-gradient(#00000005 1px, transparent 0),
-      radial-gradient(#00000005 1px, transparent 0);
-    background-size: 20px 20px;
-    background-position: 0 0, 10px 10px;
+    font-family: var(--font-sans);
+    background-color: var(--color-background);
+    color: #1a1a1a;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    font-weight: 600;
   }
 }
 
-/* Hide scrollbar but keep functionality */
 ::-webkit-scrollbar {
-  display: none;
-}
-* {
-  scrollbar-width: none;
+  width: 6px;
+  height: 6px;
 }
 
-.newspaper-border {
-  @apply border-black;
-  border-width: 2px;
+::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-.newspaper-border-thick {
-  @apply border-black;
-  border-width: 5px;
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 3px;
 }
 
-.paper-shadow {
-  box-shadow: 10px 10px 0px 0px #000000;
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-secondary);
 }
 
-.paper-shadow-red {
-  box-shadow: 10px 10px 0px 0px #D9230F;
+.glass-card {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
-.paper-shadow-hover:hover {
-  box-shadow: 15px 15px 0px 0px #000000;
-  transform: translate(-5px, -5px);
+.premium-card {
+  background: linear-gradient(145deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.3) 100%);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.1),
+    0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
-.heading-serif {
-  font-family: var(--font-serif);
+.glow-red {
+  box-shadow: 0 0 40px rgba(239, 68, 68, 0.3), 0 0 80px rgba(239, 68, 68, 0.1);
 }
 
-.heading-impact {
-  font-family: var(--font-impact);
-  letter-spacing: -0.05em;
+.glow-green {
+  box-shadow: 0 0 40px rgba(34, 197, 94, 0.3), 0 0 80px rgba(34, 197, 94, 0.1);
 }
 
-.newspaper-column {
-  column-count: 1;
+.glow-blue {
+  box-shadow: 0 0 40px rgba(37, 99, 235, 0.3), 0 0 80px rgba(37, 99, 235, 0.1);
 }
 
-@media (min-width: 768px) {
-  .newspaper-column-2 {
-    column-count: 2;
-    column-gap: 2rem;
-    column-rule: 1px solid #e5e7eb;
-  }
+.text-gradient {
+  background: linear-gradient(135deg, #8D7B68 0%, #A4907C 50%, #C8B6A6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.glass-morphism {
-  @apply backdrop-blur-xl bg-white/40 border border-black/10;
+.animate-float {
+  animation: float 6s ease-in-out infinite;
 }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }

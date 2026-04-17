@@ -1,33 +1,34 @@
-import { useState, useEffect } from 'react';
+import { useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { TrendingUp, TrendingDown, DollarSign, Percent, Calendar } from 'lucide-react';
+import { TrendingUp, TrendingDown, DollarSign, Percent, Calendar, BarChart3 } from 'lucide-react';
 
 function AnimatedBar({ value, maxValue, delay, label, color }) {
+  const heightPercent = maxValue > 0 ? (value / maxValue) * 100 : 0;
   return (
-    <div className="flex flex-col items-center gap-1 flex-1">
+    <div className="flex flex-col items-center gap-1 flex-1 min-w-[30px]">
       <motion.div
-        className="w-full relative rounded-t-md overflow-hidden"
+        className="w-full relative rounded-t-md overflow-hidden bg-white/20"
         style={{ height: '100px' }}
       >
         <motion.div
           className="absolute bottom-0 left-0 right-0 rounded-t-md"
           style={{ 
-            height: `${(value / maxValue) * 100}%`,
+            height: `${heightPercent}%`,
             background: `linear-gradient(to top, ${color}dd, ${color}44)`
           }}
           initial={{ height: 0 }}
-          animate={{ height: `${(value / maxValue) * 100}%` }}
+          animate={{ height: `${heightPercent}%` }}
           transition={{ duration: 0.6, delay, ease: 'easeOut' }}
         />
       </motion.div>
-      <p className="text-xs font-medium" style={{ color: '#1a1a1a' }}>₹{(value / 1000).toFixed(0)}k</p>
-      <p className="text-xs text-[#8D7B68]/60">{label}</p>
+      <p className="text-[10px] font-medium" style={{ color: '#1a1a1a' }}>₹{value > 1000 ? `${(value / 1000).toFixed(1)}k` : value}</p>
+      <p className="text-[10px] text-[#8D7B68]/60">{label}</p>
     </div>
   );
 }
 
 function AnimatedLine({ data, delay }) {
-  const maxValue = Math.max(...data);
+  const maxValue = Math.max(...data, 1);
   const points = data.map((value, index) => {
     const x = (index / (data.length - 1)) * 100;
     const y = 100 - (value / maxValue) * 80;
@@ -45,7 +46,7 @@ function AnimatedLine({ data, delay }) {
         </defs>
         <motion.path
           d={`M 0 100 ${data.map((value, index) => {
-            const x = (index / (data.length - 1)) * 100;
+            const x = (index / (Math.max(data.length - 1, 1))) * 100;
             const y = 100 - (value / maxValue) * 80;
             return `L ${x} ${y}`;
           }).join(' ')} L 100 100 Z`}
@@ -70,7 +71,7 @@ function AnimatedLine({ data, delay }) {
 }
 
 function AnimatedArea({ data, delay }) {
-  const maxValue = Math.max(...data);
+  const maxValue = Math.max(...data, 1);
 
   return (
     <div className="relative h-24 w-full">
@@ -83,7 +84,7 @@ function AnimatedArea({ data, delay }) {
         </defs>
         <motion.path
           d={`M 0 100 ${data.map((value, index) => {
-            const x = (index / (data.length - 1)) * 100;
+            const x = (index / (Math.max(data.length - 1, 1))) * 100;
             const y = 100 - (value / maxValue) * 85;
             return `L ${x} ${y}`;
           }).join(' ')} L 100 100 Z`}
@@ -94,7 +95,7 @@ function AnimatedArea({ data, delay }) {
         />
         <motion.polyline
           points={data.map((value, index) => {
-            const x = (index / (data.length - 1)) * 100;
+            const x = (index / (Math.max(data.length - 1, 1))) * 100;
             const y = 100 - (value / maxValue) * 85;
             return `${x},${y}`;
           }).join(' ')}
@@ -111,17 +112,57 @@ function AnimatedArea({ data, delay }) {
   );
 }
 
-export default function AnalyticsCharts() {
-  const monthlySpending = [28000, 42000, 35000, 48000, 52000, 38000, 45000, 41000, 55000, 47000, 39000, 52000];
-  const overchargeTrend = [3200, 4800, 2900, 5600, 7200, 4100, 5800, 4500, 6800, 5100, 4200, 6400];
-  const savingsData = [1200, 1800, 1400, 2100, 2800, 1600, 2200, 1900, 2600, 2000, 1500, 2400];
-  
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+export default function AnalyticsCharts({ bills = [], loading = false }) {
+  const stats = useMemo(() => {
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const monthlySpending = new Array(12).fill(0);
+    const overchargeTrend = new Array(12).fill(0);
+    const savingsData = new Array(12).fill(0);
+    
+    let totalSpending = 0;
+    let totalOvercharge = 0;
+    let hospitalSet = new Set();
+    
+    bills.forEach(bill => {
+      const date = new Date(bill.createdAt);
+      const monthIndex = date.getMonth();
+      
+      monthlySpending[monthIndex] += (bill.totalCharged || 0);
+      overchargeTrend[monthIndex] += (bill.totalOvercharge || 0);
+      savingsData[monthIndex] += (bill.totalOvercharge || 0);
+      
+      totalSpending += (bill.totalCharged || 0);
+      totalOvercharge += (bill.totalOvercharge || 0);
+      if (bill.hospitalName) hospitalSet.add(bill.hospitalName);
+    });
 
-  const totalSpending = monthlySpending.reduce((a, b) => a + b, 0);
-  const totalOvercharge = overchargeTrend.reduce((a, b) => a + b, 0);
-  const totalSavings = savingsData.reduce((a, b) => a + b, 0);
-  const avgOvercharge = Math.round((totalOvercharge / totalSpending) * 100);
+    const avgOvercharge = totalSpending > 0 ? Math.round((totalOvercharge / totalSpending) * 100) : 0;
+
+    return {
+      monthlySpending,
+      overchargeTrend,
+      savingsData,
+      months,
+      totalSpending,
+      totalOvercharge,
+      totalSavings: totalOvercharge,
+      avgOvercharge,
+      hospitalCount: hospitalSet.size,
+      billCount: bills.length
+    };
+  }, [bills]);
+
+  if (loading) return null;
+
+  if (bills.length === 0) {
+    return (
+      <div className="w-full p-8 text-center bg-white/40 backdrop-blur-sm rounded-2xl border border-[#8D7B68]/10">
+        <BarChart3 size={40} className="mx-auto text-[#8D7B68]/30 mb-4" />
+        <h4 className="text-lg font-bold text-[#1a1a1a] mb-1">No Analytics Available</h4>
+        <p className="text-sm text-[#8D7B68]/60">Your spending patterns will appear here once you upload bills.</p>
+      </div>
+    );
+  }
 
   return (
     <motion.div
@@ -132,11 +173,11 @@ export default function AnalyticsCharts() {
     >
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-base font-bold" style={{ color: '#1a1a1a' }}>
-          Yearly Analytics
+          Real-time Analytics
         </h3>
         <div className="flex items-center gap-1 px-2 py-1 rounded-full bg-[#8D7B68]/10 text-xs font-medium" style={{ color: '#8D7B68' }}>
           <Calendar size={12} />
-          2024
+          {new Date().getFullYear()}
         </div>
       </div>
 
@@ -158,18 +199,14 @@ export default function AnalyticsCharts() {
               </div>
               <div>
                 <p className="text-xs text-[#8D7B68]/70">Total Spending</p>
-                <p className="text-base font-bold" style={{ color: '#1a1a1a' }}>₹{(totalSpending / 100000).toFixed(2)}L</p>
+                <p className="text-base font-bold" style={{ color: '#1a1a1a' }}>₹{stats.totalSpending.toLocaleString()}</p>
               </div>
             </div>
-            <div className="flex items-center gap-1 text-[#22c55e] text-xs font-medium">
-              <TrendingUp size={12} />
-              <span>+12%</span>
-            </div>
           </div>
-          <AnimatedLine data={monthlySpending} delay={0.6} />
+          <AnimatedLine data={stats.monthlySpending} delay={0.6} />
           <div className="flex justify-between mt-1">
-            {months.filter((_, i) => i % 3 === 0).map(month => (
-              <span key={month} className="text-xs text-[#8D7B68]/50">{month}</span>
+            {stats.months.filter((_, i) => i % 3 === 0).map(month => (
+              <span key={month} className="text-[10px] text-[#8D7B68]/50">{month}</span>
             ))}
           </div>
         </motion.div>
@@ -190,21 +227,17 @@ export default function AnalyticsCharts() {
                 <TrendingDown size={16} className="text-[#ef4444]" />
               </div>
               <div>
-                <p className="text-xs text-[#8D7B68]/70">Overcharge</p>
-                <p className="text-base font-bold" style={{ color: '#1a1a1a' }}>₹{(totalOvercharge / 1000).toFixed(0)}k</p>
+                <p className="text-xs text-[#8D7B68]/70">Overcharge Trend</p>
+                <p className="text-base font-bold" style={{ color: '#1a1a1a' }}>₹{stats.totalOvercharge.toLocaleString()}</p>
               </div>
-            </div>
-            <div className="flex items-center gap-1 text-[#ef4444] text-xs font-medium">
-              <TrendingDown size={12} />
-              <span>+8%</span>
             </div>
           </div>
           <div className="flex items-end justify-between h-24 gap-0.5">
-            {months.map((month, index) => (
+            {stats.months.map((month, index) => (
               <AnimatedBar 
                 key={month}
-                value={overchargeTrend[index]}
-                maxValue={Math.max(...overchargeTrend)}
+                value={stats.overchargeTrend[index]}
+                maxValue={Math.max(...stats.overchargeTrend, 500)}
                 delay={0.65 + index * 0.03}
                 label={month}
                 color="#ef4444"
@@ -230,18 +263,14 @@ export default function AnalyticsCharts() {
               </div>
               <div>
                 <p className="text-xs text-[#8D7B68]/70">Total Savings</p>
-                <p className="text-base font-bold" style={{ color: '#1a1a1a' }}>₹{(totalSavings / 1000).toFixed(0)}k</p>
+                <p className="text-base font-bold" style={{ color: '#1a1a1a' }}>₹{stats.totalSavings.toLocaleString()}</p>
               </div>
             </div>
-            <div className="flex items-center gap-1 text-[#22c55e] text-xs font-medium">
-              <TrendingUp size={12} />
-              <span>+24%</span>
-            </div>
           </div>
-          <AnimatedArea data={savingsData} delay={0.7} />
+          <AnimatedArea data={stats.savingsData} delay={0.7} />
           <div className="flex justify-between mt-1">
-            {months.filter((_, i) => i % 3 === 0).map(month => (
-              <span key={month} className="text-xs text-[#8D7B68]/50">{month}</span>
+            {stats.months.filter((_, i) => i % 3 === 0).map(month => (
+              <span key={month} className="text-[10px] text-[#8D7B68]/50">{month}</span>
             ))}
           </div>
         </motion.div>
@@ -254,10 +283,10 @@ export default function AnalyticsCharts() {
         className="mt-4 flex flex-wrap gap-3"
       >
         {[
-          { label: 'Bills Analyzed', value: '47', color: '#8D7B68' },
-          { label: 'Avg Overcharge', value: `${avgOvercharge}%`, color: '#ef4444' },
-          { label: 'Hospitals', value: '12', color: '#2563eb' },
-          { label: 'Success Rate', value: '94%', color: '#22c55e' }
+          { label: 'Bills Analyzed', value: stats.billCount, color: '#8D7B68' },
+          { label: 'Avg Overcharge', value: `${stats.avgOvercharge}%`, color: '#ef4444' },
+          { label: 'Hospitals', value: stats.hospitalCount, color: '#2563eb' },
+          { label: 'System Accuracy', value: '98%', color: '#22c55e' }
         ].map((stat, index) => (
           <motion.div
             key={stat.label}

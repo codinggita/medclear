@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Download, LayoutDashboard, FileText } from 'lucide-react';
 
@@ -24,9 +25,38 @@ const itemVariants = {
   }
 };
 
+import { getBillHistory } from '../../utils/api';
+
 export default function ReportsPage({ onNavigateToDashboard, onNavigateToUpload, onNavigateToInsights, currentPage }) {
+  const [currentBill, setCurrentBill] = useState(null);
+  const [history, setHistory] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchAllData = async () => {
+      try {
+        setLoading(true);
+        const [savedBillStr, historyData] = await Promise.all([
+          Promise.resolve(localStorage.getItem('lastBill')),
+          getBillHistory()
+        ]);
+
+        if (savedBillStr) {
+          setCurrentBill(JSON.parse(savedBillStr));
+        }
+        setHistory(historyData);
+      } catch (err) {
+        console.error('Failed to load reports data:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAllData();
+  }, []);
+
   const handleSelectBill = (bill) => {
-    console.log('Selected bill:', bill);
+    setCurrentBill(bill);
   };
 
   return (
@@ -85,19 +115,23 @@ export default function ReportsPage({ onNavigateToDashboard, onNavigateToUpload,
           </motion.div>
 
           <motion.div variants={itemVariants} className="mb-6">
-            <CurrentBillCard />
+            <CurrentBillCard bill={currentBill} />
           </motion.div>
 
           <motion.div variants={itemVariants} className="mb-6">
-            <HistoryList onSelectBill={handleSelectBill} />
+            <HistoryList 
+              onSelectBill={handleSelectBill} 
+              history={history} 
+              loading={loading} 
+            />
           </motion.div>
           
           <motion.div variants={itemVariants} className="mb-6">
-            <AnalyticsCharts />
+            <AnalyticsCharts bills={history} loading={loading} />
           </motion.div>
           
           <motion.div variants={itemVariants}>
-            <InsightsPanel />
+            <InsightsPanel bills={history} loading={loading} />
           </motion.div>
         </div>
       </main>

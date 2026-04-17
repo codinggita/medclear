@@ -1,6 +1,6 @@
+import { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { 
-  Lightbulb, 
   PiggyBank, 
   AlertTriangle, 
   TrendingDown, 
@@ -8,67 +8,112 @@ import {
   Building2,
   ArrowRight,
   Sparkles,
-  Shield
+  Shield,
+  Zap,
+  Lightbulb
 } from 'lucide-react';
 
-const insightsData = [
-  {
-    id: 1,
-    type: 'savings',
-    icon: PiggyBank,
-    title: 'You saved ₹12,400 this year',
-    description: 'Based on 47 bills analyzed, you\'ve avoided ₹12,400 in overcharges.',
-    color: '#22c55e',
-    bgColor: 'rgba(34, 197, 94, 0.1)'
-  },
-  {
-    id: 2,
-    type: 'alert',
-    icon: AlertTriangle,
-    title: 'Hospital charges 30% higher',
-    description: 'Apollo Hospital charges 30% more than government-mandated rates.',
-    color: '#ef4444',
-    bgColor: 'rgba(239, 68, 68, 0.1)'
-  },
-  {
-    id: 3,
-    type: 'recommendation',
-    icon: Pill,
-    title: 'Switch to generic medicines',
-    description: '8 branded medicines have generic equivalents at 60% lower cost.',
-    color: '#2563eb',
-    bgColor: 'rgba(37, 99, 235, 0.1)'
-  },
-  {
-    id: 4,
-    type: 'trend',
-    icon: TrendingDown,
-    title: 'Lab test costs trending down',
-    description: 'Your lab test expenses decreased by 18% compared to last year.',
-    color: '#8D7B68',
-    bgColor: 'rgba(141, 123, 104, 0.1)'
-  },
-  {
-    id: 5,
-    type: 'hospital',
-    icon: Building2,
-    title: 'Better option nearby',
-    description: 'Max Hospital is 2km away with same MRI at 40% lower cost.',
-    color: '#f59e0b',
-    bgColor: 'rgba(245, 158, 11, 0.1)'
-  },
-  {
-    id: 6,
-    type: 'tip',
-    icon: Sparkles,
-    title: 'Insurance claim tip',
-    description: 'You can claim ₹8,500 more by including rejected line items.',
-    color: '#8b5cf6',
-    bgColor: 'rgba(139, 92, 246, 0.1)'
-  }
-];
+export default function InsightsPanel({ bills = [], loading = false }) {
+  const insights = useMemo(() => {
+    if (bills.length === 0) return [];
 
-export default function InsightsPanel() {
+    const report = [];
+    const totalSavings = bills.reduce((sum, b) => sum + (b.totalOvercharge || 0), 0).toLocaleString();
+    const overchargedBills = bills.filter(b => b.totalOvercharge > 0);
+    const latestBill = bills[0];
+    const latestOverchargePercent = latestBill.totalCharged > 0 
+      ? Math.round((latestBill.totalOvercharge / latestBill.totalCharged) * 100) 
+      : 0;
+
+    // 1. Total Savings
+    report.push({
+      id: 1,
+      type: 'savings',
+      icon: PiggyBank,
+      title: `Saved ₹${totalSavings} Total`,
+      description: `Based on ${bills.length} bills analyzed, MedClear has saved you ₹${totalSavings} in potential overcharges.`,
+      color: '#22c55e',
+      bgColor: 'rgba(34, 197, 94, 0.1)'
+    });
+
+    // 2. High Alert (if latest reflects high overcharge)
+    if (latestOverchargePercent > 20) {
+      report.push({
+        id: 2,
+        type: 'alert',
+        icon: AlertTriangle,
+        title: 'Critical Overcharge Alert',
+        description: `Your latest bill from ${latestBill.hospitalName || 'the hospital'} has a ${latestOverchargePercent}% overcharge rate. Immediate audit recommended.`,
+        color: '#ef4444',
+        bgColor: 'rgba(239, 68, 68, 0.1)'
+      });
+    }
+
+    // 3. Category Insights
+    const items = bills.flatMap(b => b.items || []);
+    const medicineOvercharges = items.filter(i => i.isOvercharged && (i.rawName.toLowerCase().includes('tab') || i.rawName.toLowerCase().includes('inj') || i.rawName.toLowerCase().includes('mg')));
+    
+    if (medicineOvercharges.length > 5) {
+      report.push({
+        id: 3,
+        type: 'recommendation',
+        icon: Pill,
+        title: 'High Medicine Surcharge',
+        description: `We detected ${medicineOvercharges.length} medicines priced above reference. Ask for generic equivalents to save up to 60%.`,
+        color: '#2563eb',
+        bgColor: 'rgba(37, 99, 235, 0.1)'
+      });
+    }
+
+    // 4. Hospital Insight
+    const hospitalMap = {};
+    bills.forEach(b => {
+      if (b.hospitalName) {
+        hospitalMap[b.hospitalName] = (hospitalMap[b.hospitalName] || 0) + (b.totalOvercharge || 0);
+      }
+    });
+    
+    const worstHospital = Object.entries(hospitalMap).sort((a,b) => b[1] - a[1])[0];
+    if (worstHospital && worstHospital[1] > 5000) {
+      report.push({
+        id: 5,
+        type: 'hospital',
+        icon: Building2,
+        title: `Audit focus: ${worstHospital[0]}`,
+        description: `${worstHospital[0]} has the highest cumulative overcharge (₹${worstHospital[1].toLocaleString()}) across your history.`,
+        color: '#f59e0b',
+        bgColor: 'rgba(245, 158, 11, 0.1)'
+      });
+    }
+
+    // 5. Default tips if report too short
+    if (report.length < 3) {
+      report.push({
+        id: 6,
+        type: 'tip',
+        icon: Sparkles,
+        title: 'AI Smart Tip',
+        description: 'Always check if "Nursing Charges" or "Service Fees" align with Ward category standards.',
+        color: '#8b5cf6',
+        bgColor: 'rgba(139, 92, 246, 0.1)'
+      });
+    }
+
+    return report;
+  }, [bills]);
+
+  if (loading) return null;
+
+  if (bills.length === 0) {
+    return (
+      <div className="w-full p-8 text-center bg-white/40 backdrop-blur-sm rounded-2xl border border-[#8D7B68]/10">
+        <Lightbulb size={40} className="mx-auto text-[#8D7B68]/30 mb-4" />
+        <h4 className="text-lg font-bold text-[#1a1a1a] mb-1">No AI Insights Yet</h4>
+        <p className="text-sm text-[#8D7B68]/60">Upload your bills to unlock smart savings recommendations.</p>
+      </div>
+    );
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -82,7 +127,7 @@ export default function InsightsPanel() {
             Smart Insights
           </h3>
           <div className="px-2 py-0.5 rounded-full bg-[#8D7B68]/10 text-xs font-medium" style={{ color: '#8D7B68' }}>
-            AI
+            AI GENERATED
           </div>
         </div>
         <motion.button
@@ -95,14 +140,14 @@ export default function InsightsPanel() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-        {insightsData.map((insight, index) => {
+        {insights.map((insight, index) => {
           const Icon = insight.icon;
           return (
             <motion.div
               key={insight.id}
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.55 + index * 0.05 }}
+              transition={{ delay: index * 0.05 }}
               whileHover={{ scale: 1.01, y: -2 }}
               className="group relative p-4 rounded-xl cursor-pointer"
               style={{ 
@@ -141,7 +186,7 @@ export default function InsightsPanel() {
       >
         <Shield size={14} className="text-[#22c55e]" />
         <span className="text-xs" style={{ color: '#6b6b6b' }}>
-          <span className="font-semibold">Privacy First:</span> Your data is encrypted
+          <span className="font-semibold">Privacy First:</span> Your data is end-to-end encrypted
         </span>
       </motion.div>
     </motion.div>

@@ -110,6 +110,7 @@ export default function UploadBill({ onNavigateToDashboard }) {
   const [files, setFiles] = useState([]);
   const [uploadProgress, setUploadProgress] = useState(null);
   const [uploadComplete, setUploadComplete] = useState(false);
+  const [auditResult, setAuditResult] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
   const [showCamera, setShowCamera] = useState(false);
   const fileInputRef = useRef(null);
@@ -161,21 +162,67 @@ export default function UploadBill({ onNavigateToDashboard }) {
     setFiles(prev => prev.filter(f => f.id !== id));
   };
 
-  const simulateUpload = () => {
+  const handleRealUpload = async () => {
     if (files.length === 0) return;
+    setUploadProgress(10);
     
-    setUploadProgress(0);
-    
-    const interval = setInterval(() => {
-      setUploadProgress(prev => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setUploadComplete(true);
-          return 100;
-        }
-        return prev + Math.random() * 15 + 5;
+    const formData = new FormData();
+    formData.append('file', files[0].file);
+
+    try {
+      const res = await fetch('http://localhost:5000/api/v1/bills/upload', {
+        method: 'POST',
+        body: formData,
       });
-    }, 200);
+      const data = await res.json();
+      if (!data.success) throw new Error(data.error);
+      
+      const jobId = data.data.jobId;
+      setUploadProgress(20);
+
+      // Transition to SSE
+      const eventSource = new EventSource(`http://localhost:5000/api/v1/bills/job/${jobId}/stream`);
+
+      eventSource.onmessage = (e) => {
+        const payload = JSON.parse(e.data);
+        
+        switch (payload.status) {
+          case 'QUEUED':
+            setUploadProgress(30);
+            break;
+          case 'PROCESSING':
+            setUploadProgress(prev => Math.min(prev + 5, 90)); // Simulate progressive load
+            break;
+          case 'COMPLETED':
+            eventSource.close();
+            setUploadProgress(100);
+            setTimeout(() => {
+              setUploadComplete(true);
+              setAuditResult(payload.result);
+            }, 500);
+            break;
+          case 'FAILED_OCR':
+          case 'FAILED_MATCH':
+          case 'TIMEOUT':
+            eventSource.close();
+            alert('Analysis Interrupted: ' + payload.error);
+            setUploadProgress(null);
+            break;
+          default:
+            break;
+        }
+      };
+
+      eventSource.onerror = () => {
+        eventSource.close();
+        alert('Network connection to stream lost.');
+        setUploadProgress(null);
+      };
+      
+    } catch (err) {
+      alert('Upload failed: ' + err.message);
+      setUploadProgress(null);
+    }
   };
 
   const formatFileSize = (bytes) => {
@@ -228,17 +275,46 @@ export default function UploadBill({ onNavigateToDashboard }) {
               className="text-3xl font-serif font-bold mb-3"
               style={{ color: '#8D7B68' }}
             >
-              Upload Successful!
+              Analysis Complete!
             </motion.h2>
             
-            <motion.p 
+            <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
-              className="text-[#8D7B68] mb-8 max-w-md"
+              className="text-[#8D7B68] mb-8 w-full max-w-lg mx-auto text-left bg-white p-6 rounded-2xl shadow-sm border border-[#8D7B68]/20"
             >
-              Your bill has been uploaded and is being analyzed. We'll notify you once the analysis is complete.
-            </motion.p>
+              {auditResult ? (
+                <>
+                  <div className="flex justify-between font-bold text-lg mb-4 border-b pb-2">
+                    <span>Total Charged:</span>
+                    <span>${auditResult.totalCharged.toFixed(2)}</span>
+                  </div>
+                  <div className="flex justify-between font-bold text-lg mb-4 text-[#ef4444] border-b pb-2">
+                    <span>Overcharge Detected:</span>
+                    <span>${auditResult.totalOvercharge.toFixed(2)}</span>
+                  </div>
+                  <h3 className="font-semibold mb-2">Item Breakdown:</h3>
+                  <div className="space-y-2 max-h-48 overflow-y-auto pr-2">
+                    {auditResult.items.map((item, idx) => (
+                      <div key={idx} className={`p-3 rounded-xl border ${item.isOvercharged ? 'bg-red-50 border-red-200' : 'bg-gray-50 border-gray-200'}`}>
+                        <div className="flex justify-between">
+                          <span className="font-medium truncate max-w-[200px]" title={item.rawName}>{item.rawName}</span>
+                          <span>${item.totalPrice.toFixed(2)}</span>
+                        </div>
+                        {item.isOvercharged && (
+                          <div className="text-xs text-red-600 mt-1">
+                            Overcharged by ${item.overchargeAmount.toFixed(2)}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <p>Results are being prepared...</p>
+              )}
+            </motion.div>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -508,7 +584,7 @@ export default function UploadBill({ onNavigateToDashboard }) {
                 <motion.button
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
-                  onClick={simulateUpload}
+                  onClick={handleRealUpload}
                   className="w-full mt-6 py-4 rounded-2xl font-semibold text-white flex items-center justify-center gap-3"
                   style={{ backgroundColor: '#8D7B68' }}
                 >

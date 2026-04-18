@@ -1,0 +1,23 @@
+{
+  "total_boxes": 44,
+  "rows": [
+    "CITY GENERAL HOSPITAL | 123 Health Way",
+    "Metrostoris, CA 90210",
+    "Phone: (555) 123-4567 | Email: billing@citygeneralcom",
+    "PATIENT BILL STATEMENT",
+    "Patient Name: John A. Smith | Patient ID: | 567890",
+    "Date of Service: 05/15/2023 | Room Number: 204",
+    "Description | Quanity | Unit Price | Total Cost",
+    "X-Ray Chest | S150.00 | S150.00",
+    "Blood Test (CBC) | S80.00 | S80.00",
+    "IV Antibiotics | 3 | S120.00 | S360.00",
+    "Consultation Fee | S200.00 | S200.00",
+    "Pain Medication | 4 | S15.00 | S60.00",
+    "Room Charge | 2 | S300.00 | S600.00",
+    "Subtotal: | S1,450.00",
+    "Taxes & Fees: | S50.00",
+    "GRAND TOTAL: | S1,500.00",
+    "PAYMENT DUE BY: 05/30/2023",
+    "For questions regarding this bill; please contact our billing department at (555) 123,4567."
+  ]
+}

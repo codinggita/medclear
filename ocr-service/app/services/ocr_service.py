@@ -116,7 +116,7 @@ def parse_line_items(rows):
         
         if TOTAL_PATTERN.search(line_text):
             if prices:
-                total_cand = max(prices)and 
+                total_cand = max(prices)
                 if total_cand > extracted_total:
                     extracted_total = total_cand
             continue

@@ -1,41 +1,16 @@
-import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useAnimation } from 'framer-motion';
+import { useState, useRef, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Upload, ArrowRight, Loader2, CheckCircle, Sparkles, Shield, FileText, Image, X, Zap } from 'lucide-react';
 
 import Navbar from '../Navbar';
 import ProcessTimeline from './ProcessTimeline';
-
-const floatAnimation = {
-  animate: {
-    y: [0, -12, 0],
-    rotate: [0, 3, -3, 0],
-    transition: { duration: 4, repeat: Infinity, ease: 'easeInOut' }
-  }
-};
-
-const pulseGlow = {
-  animate: {
-    boxShadow: [
-      '0 0 0 0 rgba(141, 123, 104, 0)',
-      '0 0 30px 5px rgba(141, 123, 104, 0.3)',
-      '0 0 0 0 rgba(141, 123, 104, 0)'
-    ],
-    transition: { duration: 2, repeat: Infinity }
-  }
-};
+import { processBill, getSSEUrl } from '../../utils/api';
 
 const floatVariants = {
   animate: {
     y: [0, -8, 0],
     rotate: [0, 5, -5, 0],
     transition: { duration: 3, repeat: Infinity, ease: 'easeInOut' }
-  }
-};
-
-const shimmerVariants = {
-  animate: {
-    backgroundPosition: ['200% 0', '-200% 0'],
-    transition: { duration: 2, repeat: Infinity, ease: 'linear' }
   }
 };
 
@@ -68,11 +43,14 @@ function ConfettiPiece({ delay, side }) {
 
 export default function UploadPage({ onNavigateToDashboard, onNavigateToReports, onNavigateToInsights, currentPage }) {
   const [files, setFiles] = useState([]);
-  const [uploadProgress, setUploadProgress] = useState(null);
-  const [processStep, setProcessStep] = useState(1);
-  const [uploadComplete, setUploadComplete] = useState(false);
+  const [jobId, setJobId] = useState(null);
+  const [processStep, setProcessStep] = useState(0);
+  const [status, setStatus] = useState('idle');
+  const [error, setError] = useState(null);
+  const [result, setResult] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef(null);
+  const eventSourceRef = useRef(null);
 
   const handleDragOver = (e) => {
     e.preventDefault();
@@ -92,7 +70,7 @@ export default function UploadPage({ onNavigateToDashboard, onNavigateToReports,
   };
 
   const addFiles = (newFiles) => {
-    const validFiles = newFiles
+    const valid = newFiles
       .filter(file => file.type === 'application/pdf' || file.type.startsWith('image/'))
       .map(file => ({
         id: Math.random().toString(36).substr(2, 9),
@@ -102,23 +80,14 @@ export default function UploadPage({ onNavigateToDashboard, onNavigateToReports,
         type: file.type
       }));
     
-    if (validFiles.length > 0) {
-      setFiles([...files, ...validFiles]);
+    if (valid.length > 0) {
+      setFiles(prev => [...prev, ...valid]);
     }
   };
 
-  useEffect(() => {
-    if (uploadComplete && uploadProgress === 100) {
-      const timer = setTimeout(() => {
-        onNavigateToReports();
-      }, 2000);
-      return () => clearTimeout(timer);
-    }
-  }, [uploadComplete, uploadProgress, onNavigateToReports]);
-
   const handleFileSelect = (e) => {
-    const selectedFiles = Array.from(e.target.files);
-    const validFiles = selectedFiles
+    const selected = Array.from(e.target.files);
+    const valid = selected
       .filter(file => file.type === 'application/pdf' || file.type.startsWith('image/'))
       .map(file => ({
         id: Math.random().toString(36).substr(2, 9),
@@ -128,14 +97,25 @@ export default function UploadPage({ onNavigateToDashboard, onNavigateToReports,
         type: file.type
       }));
     
-    if (validFiles.length > 0) {
-      setFiles([...files, ...validFiles]);
+    if (valid.length > 0) {
+      setFiles(prev => [...prev, ...valid]);
     }
     e.target.value = '';
   };
 
+  const handleTrySample = async () => {
+    try {
+      const response = await fetch('/sample-bill.png');
+      const blob = await response.blob();
+      const file = new File([blob], 'sample-bill.png', { type: 'image/png' });
+      addFiles([file]);
+    } catch (err) {
+      console.error('Failed to load sample:', err);
+    }
+  };
+
   const removeFile = (id) => {
-    setFiles(files.filter(f => f.id !== id));
+    setFiles(f => f.filter(x => x.id !== id));
   };
 
   const formatFileSize = (bytes) => {
@@ -144,33 +124,85 @@ export default function UploadPage({ onNavigateToDashboard, onNavigateToReports,
     return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
   };
 
-  const simulateUpload = () => {
+  const subscribeToJob = (jobId) => {
+    const eventSource = new EventSource(getSSEUrl(jobId));
+    eventSourceRef.current = eventSource;
+
+    eventSource.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data);
+        
+        if (data.status === 'PROCESSING') {
+          setProcessStep(2);
+        } else if (data.status === 'COMPLETED') {
+          setProcessStep(3);
+          setStatus('completed');
+          if (data.result) {
+            setResult(data.result);
+            localStorage.setItem('lastBill', JSON.stringify(data.result));
+          }
+          eventSource.close();
+        } else if (data.status?.startsWith('FAILED')) {
+          setStatus('error');
+          setError(data.error || 'Processing failed');
+          eventSource.close();
+        }
+      } catch (err) {
+        console.error('SSE parse error:', err);
+      }
+    };
+
+    eventSource.onerror = () => {
+      if (status !== 'completed') {
+        setStatus('error');
+        setError('Connection to server lost');
+      }
+      eventSource.close();
+    };
+  };
+
+  const handleAnalyze = async () => {
     if (files.length === 0) return;
     
-    setUploadProgress(0);
+    setStatus('uploading');
     setProcessStep(1);
-    
-    const interval = setInterval(() => {
-      setUploadProgress(prev => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setUploadComplete(true);
-          setProcessStep(4);
-          return 100;
-        }
-        
-        const newProgress = prev + Math.random() * 10 + 8;
-        
-        if (newProgress > 25 && newProgress <= 50 && processStep < 2) {
-          setProcessStep(2);
-        } else if (newProgress > 50 && newProgress <= 80 && processStep < 3) {
-          setProcessStep(3);
-        }
-        
-        return newProgress;
-      });
-    }, 250);
+    setError(null);
+
+    try {
+      const data = await processBill(files[0].file);
+      
+      if (data && data.jobId) {
+        setJobId(data.jobId);
+        subscribeToJob(data.jobId);
+      } else {
+        throw new Error('Upload failed: No Job ID received');
+      }
+    } catch (err) {
+      setStatus('error');
+      setError(err.message || 'Failed to upload bill');
+    }
   };
+
+  useEffect(() => {
+    if (status === 'completed') {
+      const timer = setTimeout(() => {
+        onNavigateToReports();
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [status, onNavigateToReports]);
+
+  useEffect(() => {
+    return () => {
+      if (eventSourceRef.current) {
+        eventSourceRef.current.close();
+      }
+    };
+  }, []);
+
+  const isProcessing = status === 'uploading' || status === 'processing';
+  const isComplete = status === 'completed';
+  const hasError = status === 'error';
 
   return (
     <motion.div 
@@ -194,22 +226,14 @@ export default function UploadPage({ onNavigateToDashboard, onNavigateToReports,
       <motion.div 
         className="absolute w-[500px] h-[500px] rounded-full blur-[150px] opacity-20"
         style={{ backgroundColor: '#8D7B68', top: '-10%', left: '-10%' }}
-        animate={{
-          x: [0, 100, 0],
-          y: [0, 50, 0],
-          scale: [1, 1.2, 1]
-        }}
+        animate={{ x: [0, 100, 0], y: [0, 50, 0], scale: [1, 1.2, 1] }}
         transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
       />
 
       <motion.div 
         className="absolute w-[400px] h-[400px] rounded-full blur-[120px] opacity-15"
         style={{ backgroundColor: '#A4907C', bottom: '-5%', right: '-5%' }}
-        animate={{
-          x: [0, -80, 0],
-          y: [0, -60, 0],
-          scale: [1, 1.1, 1]
-        }}
+        animate={{ x: [0, -80, 0], y: [0, -60, 0], scale: [1, 1.1, 1] }}
         transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
       />
 
@@ -229,10 +253,7 @@ export default function UploadPage({ onNavigateToDashboard, onNavigateToReports,
             transition={{ duration: 0.6 }}
             className="mb-8 text-center"
           >
-            <motion.div
-              animate={floatVariants.animate}
-              className="inline-flex mb-4"
-            >
+            <motion.div animate={floatVariants.animate} className="inline-flex mb-4">
               <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#8D7B68] to-[#A4907C] flex items-center justify-center shadow-lg">
                 <Sparkles size={28} className="text-white" />
               </div>
@@ -264,26 +285,20 @@ export default function UploadPage({ onNavigateToDashboard, onNavigateToReports,
           </motion.div>
 
           <AnimatePresence mode="wait">
-            {!uploadComplete ? (
+            {!isComplete && !hasError ? (
               <motion.div
                 key="upload-area"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
               >
-                <motion.div
-                  animate={isDragging ? { scale: 1.02 } : { scale: 1 }}
-                  className="relative"
-                >
+                <motion.div animate={isDragging ? { scale: 1.02 } : { scale: 1 }} className="relative">
                   <motion.div
                     className="absolute inset-0 rounded-3xl"
                     style={{ 
                       background: `linear-gradient(135deg, rgba(141, 123, 104, ${isDragging ? 0.2 : 0.1}), rgba(164, 144, 124, ${isDragging ? 0.15 : 0.05}))`
                     }}
-                    animate={isDragging ? {
-                      scale: [1, 1.01, 1],
-                      opacity: [0.2, 0.35, 0.2]
-                    } : {}}
+                    animate={isDragging ? { scale: [1, 1.01, 1], opacity: [0.2, 0.35, 0.2] } : {}}
                     transition={{ duration: 1.5, repeat: Infinity }}
                   />
                   
@@ -331,18 +346,30 @@ export default function UploadPage({ onNavigateToDashboard, onNavigateToReports,
                         {isDragging ? 'Release to upload' : 'Drop your medical bill here'}
                       </p>
                       <p className="text-base text-[#8D7B68]/70 mb-5">or click to browse files</p>
+
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleTrySample();
+                        }}
+                        className="mb-8 px-6 py-2.5 rounded-xl text-sm font-bold bg-white border border-[#8D7B68]/20 text-[#8D7B68] shadow-sm flex items-center gap-2 hover:bg-[#8D7B68]/5 transition-colors"
+                      >
+                        <Zap size={14} className="fill-[#8D7B68]" />
+                        Try a Sample Bill
+                      </motion.button>
                       
                       <div className="flex flex-wrap justify-center gap-2">
                         {[
                           { icon: FileText, label: 'PDF', color: '#ef4444' },
                           { icon: Image, label: 'Images', color: '#2563eb' },
                           { icon: Shield, label: 'Secure', color: '#22c55e' }
-                        ].map((item, index) => (
+                        ].map((item) => (
                           <motion.div 
                             key={item.label}
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.3 + index * 0.1 }}
                             whileHover={{ scale: 1.08, y: -3 }}
                             className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/60 backdrop-blur-sm border border-[#8D7B68]/15 text-base font-medium"
                             style={{ color: item.color }}
@@ -397,13 +424,13 @@ export default function UploadPage({ onNavigateToDashboard, onNavigateToReports,
                   </motion.div>
                 )}
 
-                {files.length > 0 && uploadProgress === null && (
+                {files.length > 0 && !isProcessing && (
                   <motion.button
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     whileHover={{ scale: 1.02, y: -3 }}
                     whileTap={{ scale: 0.98 }}
-                    onClick={simulateUpload}
+                    onClick={handleAnalyze}
                     className="w-full mt-5 py-4 rounded-2xl font-semibold text-base text-white flex items-center justify-center gap-2 shadow-lg"
                     style={{ 
                       background: 'linear-gradient(135deg, #8D7B68, #A4907C)',
@@ -416,7 +443,7 @@ export default function UploadPage({ onNavigateToDashboard, onNavigateToReports,
                   </motion.button>
                 )}
 
-                {uploadProgress !== null && uploadProgress < 100 && (
+                {isProcessing && (
                   <motion.div 
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -429,22 +456,12 @@ export default function UploadPage({ onNavigateToDashboard, onNavigateToReports,
                             animate={{ rotate: 360 }}
                             transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}
                           >
-                            <Upload size={16} className="text-[#8D7B68]" />
+                            <Loader2 size={16} className="text-[#8D7B68]" />
                           </motion.div>
-                          <span className="text-base font-medium" style={{ color: '#8D7B68' }}>Processing</span>
+                          <span className="text-base font-medium" style={{ color: '#8D7B68' }}>
+                            {status === 'uploading' ? 'Uploading' : 'Processing'}
+                          </span>
                         </div>
-                        <span className="text-base font-bold" style={{ color: '#8D7B68' }}>
-                          {Math.min(Math.round(uploadProgress), 100)}%
-                        </span>
-                      </div>
-                      <div className="h-2 rounded-full bg-[#8D7B68]/15 overflow-hidden">
-                        <motion.div
-                          className="h-full rounded-full"
-                          style={{ background: 'linear-gradient(90deg, #8D7B68, #A4907C)' }}
-                          initial={{ width: 0 }}
-                          animate={{ width: `${Math.min(uploadProgress, 100)}%` }}
-                          transition={{ duration: 0.2 }}
-                        />
                       </div>
                     </div>
                     
@@ -453,6 +470,35 @@ export default function UploadPage({ onNavigateToDashboard, onNavigateToReports,
                     </div>
                   </motion.div>
                 )}
+              </motion.div>
+            ) : hasError ? (
+              <motion.div
+                key="error"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="py-12 text-center"
+              >
+                <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-[#ef4444]/20 flex items-center justify-center">
+                  <X size={48} className="text-[#ef4444]" />
+                </div>
+                
+                <h2 className="text-3xl font-bold mb-2" style={{ color: '#1a1a1a' }}>
+                  Processing Failed
+                </h2>
+                
+                <p className="text-lg text-[#ef4444] mb-4">
+                  {error || 'An error occurred'}
+                </p>
+                
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => { setStatus('idle'); setFiles([]); setError(null); setJobId(null); }}
+                  className="px-6 py-3 rounded-2xl font-semibold text-white"
+                  style={{ background: 'linear-gradient(135deg, #8D7B68, #A4907C)' }}
+                >
+                  Try Again
+                </motion.button>
               </motion.div>
             ) : (
               <motion.div
@@ -491,17 +537,6 @@ export default function UploadPage({ onNavigateToDashboard, onNavigateToReports,
                 >
                   Redirecting to your detailed report...
                 </motion.p>
-                
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.8 }}
-                  className="flex items-center justify-center gap-2 mt-4"
-                >
-                  <div className="w-2 h-2 rounded-full bg-[#8D7B68]" style={{ animation: 'pulse 1s infinite' }} />
-                  <div className="w-2 h-2 rounded-full bg-[#8D7B68]" style={{ animation: 'pulse 1s infinite 0.2s' }} />
-                  <div className="w-2 h-2 rounded-full bg-[#8D7B68]" style={{ animation: 'pulse 1s infinite 0.4s' }} />
-                </motion.div>
               </motion.div>
             )}
           </AnimatePresence>

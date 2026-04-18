@@ -1,15 +1,11 @@
-/**
- * File: bill.routes.js
- * 
- * Purpose:
- * Entry points for the medical billing audit pipeline.
- * 
- * Responsibilities:
- * - Route: POST /api/audit/bill -> Accept bill upload for analysis
- * - Route: GET /api/audit/history -> Retrieve user's past audit results
- * - Apply UploadMiddleware to the POST route for file handling
- * - Apply AuthMiddleware to ensure ownership of data
- * 
- * Flow:
- * Request → Router → AuthMiddleware → UploadMiddleware → Bill Validator → Bill Controller
- */
+const express = require('express');
+const router = express.Router();
+const upload = require('../middlewares/upload');
+const billController = require('../controllers/bill.controller');
+
+router.post('/upload', upload.single('file'), billController.uploadBill);
+router.get('/job/:jobId/stream', billController.streamJobStatus);
+router.get('/history', billController.getHistory);
+router.get('/job/:jobId', billController.getJob);
+
+module.exports = router;

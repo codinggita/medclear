@@ -1,16 +1,37 @@
-/**
- * File: server.js
- * 
- * Purpose: 
- * The entry point for the Node.js backend. Responsible for starting the HTTP server
- * and managing the initialization sequence.
- * 
- * Responsibilities:
- * - Load environment variables via env.config.js
- * - Connect to MongoDB via db.config.js
- * - Initialize the Express application from app.js
- * - Listen on the configured port
- * 
- * Flow:
- * config -> db connection -> app start -> listen
- */
+require('dotenv').config();
+const http = require('http');
+const app = require('./src/app');
+const connectDB = require('./src/config/db');
+const logger = require('./src/utils/logger');
+
+const server = http.createServer(app);
+const PORT = process.env.PORT || 5000;
+
+const startServer = async () => {
+  try {
+    await connectDB();
+    server.listen(PORT, () => {
+      logger.info(`Server running on port ${PORT} [${process.env.NODE_ENV || 'development'}]`);
+    });
+  } catch (err) {
+    logger.error('Failed to start server:', err.message);
+    process.exit(1);
+  }
+};
+
+const shutdown = (signal) => {
+  logger.info(`${signal} received. Shutting down gracefully...`);
+  server.close(() => {
+    logger.info('HTTP server closed');
+    process.exit(0);
+  });
+  setTimeout(() => {
+    logger.error('Forced shutdown after timeout');
+    process.exit(1);
+  }, 10000);
+};
+
+process.on('SIGTERM', () => shutdown('SIGTERM'));
+process.on('SIGINT', () => shutdown('SIGINT'));
+
+startServer();

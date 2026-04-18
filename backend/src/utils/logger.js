@@ -1,11 +1,19 @@
-/**
- * File: logger.js
- * 
- * Purpose:
- * Standardization of system logs for monitoring and debugging.
- * 
- * Responsibilities:
- * - Differentiate between DEBUG, INFO, WARN, and ERROR levels
- * - Format log messages with timestamps and relevant metadata
- * - Handle log streams (Console for development, potential file/external service for production)
- */
+const winston = require('winston');
+
+const logger = winston.createLogger({
+  level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
+  format: winston.format.combine(
+    winston.format.timestamp(),
+    winston.format.json()
+  ),
+  transports: [
+    new winston.transports.Console({
+      format: winston.format.combine(
+        winston.format.colorize(),
+        winston.format.simple()
+      )
+    })
+  ]
+});
+
+module.exports = logger;

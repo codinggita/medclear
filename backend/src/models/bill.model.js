@@ -1,21 +1,43 @@
-/**
- * File: bill.model.js
- * 
- * Purpose:
- * Defines the MongoDB schema for medical bills and audit artifacts.
- * 
- * Responsibilities:
- * - Persist structured billing items extracted from OCR
- * - Store overcharge calculations and detected theft amounts
- * - Map each audit record to a specific User
- * - Store metadata about the hospital (name, category, location)
- * - Record timestamps for audit completion
- * 
- * Data Schema:
- * - userId: ObjectId (Reference to User)
- * - hospitalName: String
- * - items: Array [ { name, chargedAmount, cappedAmount, isOvercharged } ]
- * - totalCharged: Number
- * - totalTheft: Number
- * - auditDate: Date (default: now)
- */
+const mongoose = require('mongoose');
+
+const BillItemSchema = new mongoose.Schema({
+  rawName: { type: String, required: true },
+  matchedReference: { type: mongoose.Schema.Types.ObjectId, ref: 'ReferenceItem' },
+  quantity: { type: Number, default: 1 },
+  unitPrice: { type: Number, required: true },
+  totalPrice: { type: Number, required: true },
+  isOvercharged: { type: Boolean, default: false },
+  overchargeAmount: { type: Number, default: 0 },
+  matchMethod: { type: String, enum: ['TEXT_SEARCH', 'REGEX', 'LEVENSHTEIN', 'JACCARD', 'ALIAS', 'NONE'], default: 'NONE' },
+  ocrConfidence: { type: Number, default: 0 },
+  matchConfidence: { type: Number, default: 0 }
+});
+
+const BillSchema = new mongoose.Schema({
+  jobId: {
+    type: String,
+    required: true,
+    unique: true,
+    index: true
+  },
+  status: {
+    type: String,
+    enum: ['QUEUED', 'PROCESSING', 'COMPLETED', 'FAILED_OCR', 'FAILED_MATCH', 'TIMEOUT'],
+    default: 'QUEUED'
+  },
+  hospitalName: { type: String },
+  items: [BillItemSchema],
+  totalCharged: { type: Number, default: 0 },
+  calculatedTotal: { type: Number, default: 0 },
+  totalOvercharge: { type: Number, default: 0 },
+  auditDate: { type: Date, default: Date.now },
+  error: { type: String },
+  timings: {
+    uploadMs: { type: Number },
+    queueWaitMs: { type: Number },
+    ocrMs: { type: Number },
+    matchMs: { type: Number }
+  }
+}, { timestamps: true });
+
+module.exports = mongoose.model('Bill', BillSchema);

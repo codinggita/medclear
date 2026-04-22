@@ -19,52 +19,7 @@ import {
 } from 'recharts';
 import { TrendingUp, TrendingDown, AlertCircle, CheckCircle, DollarSign, ChevronDown, ChevronRight, PieChart as PieChartIcon, BarChart3, LineChart as LineChartIcon, Activity } from 'lucide-react';
 
-const barData = [
-  { name: 'Room Rent', charged: 18500, expected: 12000, diff: 6500 },
-  { name: 'Consultation', charged: 3500, expected: 2500, diff: 1000 },
-  { name: 'Medical Supplies', charged: 8200, expected: 6500, diff: 1700 },
-  { name: 'Lab Tests', charged: 4500, expected: 3200, diff: 1300 },
-  { name: 'Medicines', charged: 7600, expected: 4200, diff: 3400 },
-  { name: 'Procedure', charged: 12000, expected: 8500, diff: 3500 },
-  { name: 'Nursing', charged: 4800, expected: 3200, diff: 1600 },
-];
-
-const pieData = [
-  { name: 'Hospital Stay', value: 28500, color: '#8D7B68', percent: 35 },
-  { name: 'Medicines', value: 20400, color: '#A4907C', percent: 25 },
-  { name: 'Medical Supplies', value: 16320, color: '#C8B6A6', percent: 20 },
-  { name: 'Lab Diagnostics', value: 9792, color: '#2563eb', percent: 12 },
-  { name: 'Doctor Fees', value: 6528, color: '#22c55e', percent: 8 },
-];
-
-const lineData = [
-  { month: 'Jan', savings: 1200, average: 1500 },
-  { month: 'Feb', savings: 1800, average: 1500 },
-  { month: 'Mar', savings: 2400, average: 1500 },
-  { month: 'Apr', savings: 1600, average: 1500 },
-  { month: 'May', savings: 3200, average: 1500 },
-  { month: 'Jun', savings: 2800, average: 1500 },
-  { month: 'Jul', savings: 4100, average: 1500 },
-  { month: 'Aug', savings: 3500, average: 1500 },
-];
-
-const areaData = [
-  { month: 'Jan', cumulative: 1200, target: 5000 },
-  { month: 'Feb', cumulative: 3000, target: 5000 },
-  { month: 'Mar', cumulative: 5400, target: 5000 },
-  { month: 'Apr', cumulative: 7000, target: 5000 },
-  { month: 'May', cumulative: 10200, target: 10000 },
-  { month: 'Jun', cumulative: 13000, target: 15000 },
-  { month: 'Jul', cumulative: 17100, target: 20000 },
-  { month: 'Aug', cumulative: 20600, target: 25000 },
-];
-
-const categoryStats = [
-  { name: 'Room Rent', status: 'high', message: '32% above recommended' },
-  { name: 'Medicines', status: 'high', message: '45% above generic rates' },
-  { name: 'Lab Tests', status: 'normal', message: 'Within fair range' },
-  { name: 'Procedure', status: 'high', message: '28% above CGHS rates' },
-];
+// Data props will be passed from Dashboard
 
 function CustomTooltip({ active, payload, label }) {
   if (active && payload && payload.length) {
@@ -112,9 +67,37 @@ function PieTooltip({ active, payload }) {
   return null;
 }
 
-export default function Analytics() {
+export default function Analytics({ 
+  barData = [], 
+  pieData = [], 
+  lineData = [], 
+  areaData = [], 
+  categoryStats = [],
+  isLoading = false
+}) {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [openSection, setOpenSection] = useState('charged');
+  
+  if (isLoading) {
+    return (
+      <div className="relative premium-card rounded-3xl p-6 md:p-10 min-h-[600px] flex flex-col gap-8">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#8D7B68]/5 to-[#A4907C]/5 animate-pulse" />
+        <div className="h-10 w-64 bg-[#8D7B68]/20 rounded-full animate-pulse mx-auto" />
+        <div className="flex gap-6 justify-center">
+          <div className="h-24 w-40 bg-[#8D7B68]/20 rounded-2xl animate-pulse" />
+          <div className="h-24 w-40 bg-[#8D7B68]/20 rounded-2xl animate-pulse" />
+          <div className="h-24 w-40 bg-[#22c55e]/20 rounded-2xl animate-pulse" />
+        </div>
+        <div className="h-12 w-full bg-[#8D7B68]/20 rounded-2xl animate-pulse mt-4" />
+        <div className="flex-1 bg-[#8D7B68]/10 rounded-2xl animate-pulse" />
+      </div>
+    );
+  }
+
+  if (barData.length === 0) {
+    return null; // Dashboard handles empty state gracefully
+  }
+
   const totalCharged = barData.reduce((sum, item) => sum + item.charged, 0);
   const totalExpected = barData.reduce((sum, item) => sum + item.expected, 0);
   const totalSavings = totalCharged - totalExpected;

@@ -9,64 +9,28 @@ import {
   ArrowRight
 } from 'lucide-react';
 
-const insights = [
-  {
-    type: 'overcharge',
-    icon: AlertTriangle,
-    title: 'Overcharge Detected',
-    description: 'ICU room charges are 54% higher than government cg rates.',
-    action: 'View Details',
-    color: '#ef4444',
-    bg: 'bg-[#ef4444]/10',
-  },
-  {
-    type: 'recommendation',
-    icon: Lightbulb,
-    title: 'Recommendation',
-    description: 'Consider requesting itemized bill for better negotiation.',
-    action: 'Learn More',
-    color: '#2563eb',
-    bg: 'bg-[#2563eb]/10',
-  },
-  {
-    type: 'savings',
-    icon: TrendingDown,
-    title: 'Potential Savings',
-    description: 'You can save up to ₹13,900 by disputing inflated charges.',
-    action: 'Start Dispute',
-    color: '#22c55e',
-    bg: 'bg-[#22c55e]/10',
-  },
-  {
-    type: 'generic',
-    icon: Pill,
-    title: 'Generic Alternative',
-    description: 'Brand medications can be replaced with generics at 60% less.',
-    action: 'Find Generics',
-    color: '#8D7B68',
-    bg: 'bg-[#8D7B68]/10',
-  },
-  {
-    type: 'compliance',
-    icon: Shield,
-    title: 'Regulatory Compliance',
-    description: 'This bill may violate Ayushman Bharat pricing guidelines.',
-    action: 'Check Guidelines',
-    color: '#A4907C',
-    bg: 'bg-[#A4907C]/10',
-  },
-  {
-    type: 'verified',
-    icon: FileCheck,
-    title: 'Verified Data',
-    description: 'All government rate comparisons are up to date as of 2024.',
-    action: 'View Source',
-    color: '#22c55e',
-    bg: 'bg-[#22c55e]/10',
-  },
-];
+// Insights will be passed from Dashboard
 
-export default function Insights() {
+export default function Insights({ insightsData = [], isLoading = false }) {
+  if (isLoading) {
+    return (
+      <div className="relative premium-card rounded-3xl p-6 md:p-10 min-h-[300px]">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#A4907C]/10 to-[#8D7B68]/5 animate-pulse" />
+        <div className="h-8 w-48 bg-[#8D7B68]/20 rounded-full animate-pulse mx-auto mb-4" />
+        <div className="h-4 w-64 bg-[#8D7B68]/20 rounded-full animate-pulse mx-auto mb-8" />
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+          {[1, 2, 3].map(i => (
+            <div key={i} className="h-32 bg-[#8D7B68]/10 rounded-2xl animate-pulse" />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (insightsData.length === 0) {
+    return null;
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -87,7 +51,7 @@ export default function Insights() {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-          {insights.map((insight, index) => {
+          {insightsData.map((insight, index) => {
             const Icon = insight.icon;
             return (
               <motion.div

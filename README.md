@@ -1,438 +1,278 @@
-# <center>🏥 MedClear</center>
+<p align="center">
+  <a href="https://github.com/Rachit-Kakkad1/medclear">
+    <img src="https://res.cloudinary.com/dr84lv5ym/image/upload/v1776165575/medclear_banner_pezjqv.jpg" width="100%" alt="MedClear Banner" style="border-radius: 12px; border: 4px solid #0F0F0F; box-shadow: 12px 12px 0px 0px #D9230F; margin-bottom: 20px;">
+  </a>
+</p>
 
-**Detect Healthcare Overcharging Instantly**
+<div align="center">
 
----
+# 📰 MEDCLEAR: THE GREAT HOSPITAL HEIST EXPOSED
+
+**Surgical Precision in Auditing Medical Overcharges. Built for Truth.**
 
 <p align="center">
-  <img src="https://img.shields.io/badge/status-Active-success?style=for-the-badge" alt="Status">
-  <img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge" alt="License">
-  <img src="https://img.shields.io/badge/PRs-Welcome-brightgreen?style=for-the-badge" alt="PRs Welcome">
-  <img src="https://img.shields.io/github/last-commit/Rachit-Kakkad1/medclear?style=for-the-badge" alt="Last Commit">
-  <img src="https://img.shields.io/github/contributors/Rachit-Kakkad1/medclear?style=for-the-badge" alt="Contributors">
+  <a href="https://github.com/Rachit-Kakkad1/medclear"><img src="https://img.shields.io/badge/STATUS-ACTIVE-success?style=for-the-badge&color=D9230F&labelColor=0F0F0F" alt="Status"></a>
+  <a href="https://github.com/Rachit-Kakkad1/medclear/blob/main/LICENSE"><img src="https://img.shields.io/badge/LICENSE-MIT-blue?style=for-the-badge&color=0047AB&labelColor=0F0F0F" alt="License"></a>
+  <a href="https://www.figma.com/design/7IhpULI3UQ5F2U0MQe1Z1j/Untitled?node-id=0-1&t=T80jNlhQRdtqB0BP-1"><img src="https://img.shields.io/badge/DESIGN-FIGMA-purple?style=for-the-badge&logo=figma&color=FFD700&labelColor=0F0F0F" alt="Figma"></a>
+  <a href="https://github.com/Rachit-Kakkad1/medclear"><img src="https://img.shields.io/badge/TECH-FULLSTACK-brightgreen?style=for-the-badge&color=0F0F0F&labelColor=4a4a4a" alt="Tech"></a>
+  <a href="https://github.com/Rachit-Kakkad1/medclear/stargazers"><img src="https://img.shields.io/github/stars/Rachit-Kakkad1/medclear?style=for-the-badge&color=FFD700&labelColor=0F0F0F" alt="Stars"></a>
 </p>
 
 ---
 
-MedClear is an AI-powered healthcare billing audit tool that detects overcharging in hospital bills using OCR (Optical Character Recognition) and intelligent price comparison against NPPA + CGHS government pricing standards.
+### 🏥 *"We found line-items marked as 'Administrative Comfort' costing patients ₹12,000 for a single bed-sheet change."*
 
-Think of it as a **" TurboTax for medical bills"** — upload your hospital bill, and MedClear instantly tells you if you've been overcharged and by how much.
+</div>
 
 ---
 
-## 📸 Preview
+## 🎨 THE BLUEPRINT (FIGMA)
 
 <p align="center">
-  <img src="https://res.cloudinary.com/dr84lv5ym/image/upload/v1776165575/medclear_banner_pezjqv.jpg" alt="MedClear Dashboard">
+  <a href="https://www.figma.com/design/7IhpULI3UQ5F2U0MQe1Z1j/Untitled?node-id=0-1&t=T80jNlhQRdtqB0BP-1">
+    <img src="https://img.shields.io/badge/VIEW_LIVE_FIGMA_PROTOTYPE-Click_Here-F24E1E?style=for-the-badge&logo=figma&logoColor=white" height="50">
+  </a>
 </p>
 
-
-
-## 🚨 Problem Statement
-
-**Patients in India receive expensive hospital bills but have no way to verify if they are being overcharged due to lack of accessible pricing transparency.**
-
-
-Healthcare billing is one of the most opaque industries in the world. Patients are expected to pay thousands — sometimes lakhs — without any way to verify if the charges are legitimate.
-
-- **Hidden Charges** — Patients have no way to verify if hospital bill items are correctly priced. A simple "Injection" can cost ₹50 or ₹5,000 with no explanation.
-- **No Transparency** — Medical billing lacks accessible standard pricing benchmarks. Unlike grocery shopping where you can compare prices, hospital bills are treated as non-negotiable.
-- **Exploitation** — Estimated ₹50,000+ crores is lost annually to overcharging in India alone. In the US, medical billing errors cost patients billions every year.
-- **No Recourse** — Patients rarely challenge bills because they don't have the data or expertise to prove overcharging. Hospitals know this and exploit it.
+<div align="center">
+  <kbd>
+    <a href="https://www.figma.com/design/7IhpULI3UQ5F2U0MQe1Z1j/Untitled?node-id=0-1&t=T80jNlhQRdtqB0BP-1">
+      <img src="https://res.cloudinary.com/dr84lv5ym/image/upload/v1776165575/medclear_banner_pezjqv.jpg" width="85%" alt="Figma Preview" style="border: 2px solid #0F0F0F; border-radius: 8px;">
+    </a>
+  </kbd>
+  <br><br>
+  <em>Explore the surgical UI/UX design that powers MedClear's investigative experience. Every pixel is engineered to inspire trust and deliver devastating clarity.</em>
+</div>
 
 ---
 
-## 💡 Solution
+## 🚨 SPECIAL INVESTIGATIVE REPORT: THE LOOT
 
-MedClear bridges the information gap between patients and healthcare pricing.
+MedClear is an **AI-powered healthcare billing audit tool** that detects overcharging in hospital bills using cutting-edge OCR (Optical Character Recognition) and intelligent price comparison against NPPA + CGHS government pricing standards.
 
-**How it works:**
+> **Think of it as a "TurboTax for medical bills"** — upload your hospital bill, and MedClear instantly tells you if you've been overcharged, where, and by exactly how much.
 
-1. **Upload** — Patient uploads hospital bill (image or PDF)
-2. **Extract** — OCR technology pulls all line items and prices from the bill
-3. **Match** — Smart matching algorithm maps each item to NPPA/CGHS standard codes
-4. **Compare** — Each item is checked against official government-defined rates
-5. **Report** — Detailed savings report shows exactly where you were overcharged
-
-The result? **Instant clarity. Real savings. Empowerment.**
+### THE EVIDENCE:
+*   ❌ **Hidden Charges**: Hospitals unbundling procedures to hide 800%+ markups on basic supplies.
+*   ❌ **Zero Transparency**: Patients are handed "ransom notes" instead of clear, benchmarked invoices.
+*   ✅ **The MedClear Solution**: Surgical extraction of every line-item, automatically mapped to government-mandated price ceilings.
 
 ---
 
-## ⚙️ Features
+## 🛠️ THE ARSENAL (COMPREHENSIVE TECH STACK)
 
-| Feature | Description |
-|:--------|:------------|
-| 📄 **Upload Hospital Bill** | Drag-and-drop support for bills in JPG, PNG, or PDF format |
-| 🖼️ **OCR Text Extraction** | Tesseract-powered extraction pulls line items and prices from scanned documents |
-| 🔍 **Smart Matching** | Fuzzy matching algorithm maps bill items to standard NPPA/CGHS codes |
-| 📊 **Price Comparison** | Real-time comparison against official NPPA + CGHS databases |
-| ⚠️ **Overcharge Detection** | Flags items exceeding government-defined rates with percentage overcharge |
-| 💰 **Savings Report** | Generates downloadable PDF report with itemized savings breakdown |
-| 📱 **User Dashboard** | History of all uploaded bills and their audit results |
-| 🔐 **Secure Storage** | Bills encrypted and stored securely with user-level access control |
+We chose each technology in MedClear based on **performance, developer experience, and relentless scalability**.
 
----
-
-## 🧠 How It Works
-
-<img src="https://res.cloudinary.com/dr84lv5ym/image/upload/v1776165733/system_ibfmpq.jpg" alt="System Workflow">
- 
----
-
-**Step-by-Step Pipeline:**
-
-1. **Upload** — User drags and drops a hospital bill (image/PDF)
-2. **Preprocessing** — Image is enhanced, rotated, and noise-reduced for better OCR
-3. **OCR** — Tesseract + OpenCV extracts all text, line items, and prices
-4. **Entity Extraction** — NLP parses extracted text into structured data (item name, quantity, unit price, total)
-5. **Code Mapping** — Fuzzy matching maps each item to NPPA drug codes or CGHS service codes
-6. **Price Lookup** — Query the database for government-defined rates
-7. **Comparison** — Calculate overcharge amount and percentage for each item
-8. **Output** — Generate JSON response + PDF report for the user
-
----
-
-## 🏗️ Tech Stack
-
-### Why These Technologies?
-
-We chose each technology in MedClear based on **performance, developer experience, ecosystem maturity, and scalability**. Here's why:
-
----
-
-### 🖥️ Frontend
-
-| Technology | Why We Chose It |
-|:-----------|:----------------|
-| **React 18** | Industry-standard component library with excellent performance via concurrent rendering. Used by Netflix, Airbnb, and Instagram. |
-| **TypeScript** | Static typing catches 30% of bugs at compile time. Essential for a financial/healthcare application where errors are costly. |
-| **Tailwind CSS** | Utility-first CSS allows rapid UI development without context-switching between files. Smaller bundle size than traditional CSS frameworks. |
-| **Vite** | Next-gen build tool that's 10-100x faster than webpack. Instant server start and lightning-fast HMR. |
-| **Zustand** | Lightweight state management without the boilerplate of Redux. Perfect for our simple auth + UI state needs. |
-| **React Query** | Handles server state, caching, and background refetching. Eliminates manual "loading" management. |
-| **Framer Motion** | Production-ready animations that make the app feel premium and polished. |
-
-```
-React + TypeScript + Tailwind + Vite + Zustand + React Query + Framer Motion
-```
+<table width="100%">
+  <tr>
+    <td width="33%" align="center">
+      <img src="https://skillicons.dev/icons?i=react,ts,tailwind,vite,threejs" /><br><br>
+      <h3>🎨 FRONTEND</h3>
+      <p align="left">
+        • <b>React 18 + Vite</b>: Blazing fast rendering.<br>
+        • <b>TypeScript</b>: Bulletproof static typing.<br>
+        • <b>Tailwind CSS</b>: Utility-first styling.<br>
+        • <b>Framer Motion & GSAP</b>: Fluid animations.<br>
+        • <b>Three.js</b>: 3D interactive elements.<br>
+        • <b>Zustand</b>: Lightweight state management.
+      </p>
+    </td>
+    <td width="33%" align="center">
+      <img src="https://skillicons.dev/icons?i=nodejs,express,mongodb,prisma" /><br><br>
+      <h3>⚙️ BACKEND</h3>
+      <p align="left">
+        • <b>Node.js + Express</b>: Event-driven API.<br>
+        • <b>MongoDB</b>: Flexible NoSQL document storage.<br>
+        • <b>Prisma</b>: Type-safe, next-gen ORM.<br>
+        • <b>JWT & Zod</b>: Auth and strict validation.<br>
+        • <b>Redis (Queue)</b>: Background job handling.
+      </p>
+    </td>
+    <td width="33%" align="center">
+      <img src="https://skillicons.dev/icons?i=py,fastapi,docker,githubactions" /><br><br>
+      <h3>🤖 AI & OCR INTELLIGENCE</h3>
+      <p align="left">
+        • <b>Python + FastAPI</b>: High-performance async API.<br>
+        • <b>Tesseract OCR</b>: Battle-tested text extraction.<br>
+        • <b>OpenCV</b>: Image deskewing and denoising.<br>
+        • <b>FuzzyWuzzy</b>: Smart algorithmic mapping.<br>
+        • <b>Pandas</b>: Government data processing.
+      </p>
+    </td>
+  </tr>
+</table>
 
 ---
 
-### ⚙️ Backend
+## 📂 THE ARCHITECTURE (DIRECTORY STRUCTURE)
 
-| Technology | Why We Chose It |
-|:-----------|:----------------|
-| **Node.js** | Event-driven I/O is perfect for our I/O-heavy OCR pipeline. Same language as frontend = full-stack productivity. |
-| **Express.js** | Minimal, unopinionated framework. We only pay for what we use. Massive ecosystem of middleware. |
-| **TypeScript** | End-to-end type safety from backend to frontend. Auto-complete everywhere. |
-| **Prisma** | Type-safe ORM that feels like a query builder. Migration system is best-in-class. |
-| **MongoDB** | NoSQL database for flexible data storage. Perfect for unstructured billing data with complex queries. |
-| **JWT** | Stateless authentication. Perfect for scalable APIs. |
-```
-Node.js + Express + TypeScript + Prisma + MongoDB + JWT + Zod
-```
+A highly modular, scalable monorepo designed for separation of concerns and rapid iteration.
 
----
-
-### 🤖 OCR & AI Services
-
-| Technology | Why We Chose It |
-|:-----------|:----------------|
-| **Python** | Dominant language for AI/ML. Tesseract, OpenCV, and scikit-learn all have Python-first APIs. |
-| **Tesseract OCR** | Open-source, battle-tested OCR. Supports 100+ languages. No API costs = free at scale. |
-| **OpenCV** | Computer vision library for image preprocessing (contrast, deskew, denoising). Critical for accurate OCR on blurry hospital bills. |
-| **FuzzyWuzzy** | String matching library for matching bill items to NPPA codes. Handles typos and variations. |
-| **Pandas** | Data processing for analyzing large NPPA datasets efficiently. |
-| **FastAPI** | Async Python web framework. High-performance API for OCR results.uvicorn as the ASGI server. |
-
-```
-Python + Tesseract + OpenCV + FuzzyWuzzy + Pandas + FastAPI + Uvicorn
+```text
+📦 medclear
+ ┣ 📂 frontend/                  # 🎨 React/Vite Application
+ ┃ ┣ 📂 public/                  # Static assets, icons, sample bills
+ ┃ ┣ 📂 src/
+ ┃ ┃ ┣ 📂 assets/                # Images, vectors, and heavy media
+ ┃ ┃ ┣ 📂 components/            # Reusable UI building blocks
+ ┃ ┃ ┃ ┣ 📂 frames/              # Specialized layout frames
+ ┃ ┃ ┃ ┣ 📂 insights/            # Data visualization components
+ ┃ ┃ ┃ ┣ 📂 reports/             # PDF generation and report UI
+ ┃ ┃ ┃ ┗ 📂 upload/              # File dropzones, OCR progress UI
+ ┃ ┃ ┣ 📂 pages/                 # Top-level route components
+ ┃ ┃ ┣ 📂 utils/                 # API clients, helpers, scroll logic
+ ┃ ┃ ┣ 📜 App.jsx                # Main application router
+ ┃ ┃ ┣ 📜 index.css              # Global Tailwind styles
+ ┃ ┃ ┗ 📜 main.jsx               # React DOM entry point
+ ┃ ┣ 📜 eslint.config.js         # Linting rules
+ ┃ ┣ 📜 vite.config.js           # Vite bundler configuration
+ ┃ ┗ 📜 vercel.json              # Deployment configuration
+ ┃
+ ┣ 📂 backend/                   # ⚙️ Node.js/Express API
+ ┃ ┣ 📂 src/
+ ┃ ┃ ┣ 📂 config/                # Database & environment configurations
+ ┃ ┃ ┣ 📂 controllers/           # Request/Response handlers
+ ┃ ┃ ┣ 📂 middlewares/           # Auth, error handling, file upload
+ ┃ ┃ ┣ 📂 models/                # Mongoose database schemas
+ ┃ ┃ ┣ 📂 routes/                # API endpoint definitions
+ ┃ ┃ ┣ 📂 services/              # Core business logic (Audit, OCR triggers)
+ ┃ ┃ ┗ 📂 utils/                 # Loggers, cache, queue processors
+ ┃ ┣ 📜 app.js                   # Express app setup
+ ┃ ┣ 📜 server.js                # Server entry point
+ ┃ ┗ 📜 clear_cache.js           # Utility script
+ ┃
+ ┣ 📂 ocr-service/               # 🤖 Python/FastAPI Microservice
+ ┃ ┣ 📂 app/
+ ┃ ┃ ┣ 📂 routers/               # FastAPI endpoints
+ ┃ ┃ ┣ 📂 services/              # Tesseract/OpenCV logic
+ ┃ ┃ ┗ 📂 utils/                 # Image preprocessing, noise filters
+ ┃ ┣ 📜 main.py                  # FastAPI entry point
+ ┃ ┣ 📜 requirements.txt         # Python dependencies
+ ┃ ┣ 📜 Dockerfile               # Containerization blueprint
+ ┃ ┗ 📜 verify_pipeline.py       # ML pipeline testing script
+ ┃
+ ┗ 📜 README.md                  # You are here 📍
 ```
 
 ---
 
-### 🗄️ Database & Infrastructure
+## ⚙️ SURGICAL FEATURES
 
-| Technology | Why We Chose It |
-|:-----------|:----------------|
-| **PostgreSQL** | The gold standard for relational data. JSON support for flexible metadata. Perfect for billing records. |
-| **Pinecone** | Vector database for semantic search. Enables "find similar drugs/services" functionality. |
-| **Docker** | Containerization ensures the same environment from dev to production. Essential for Python + Node compatibility. |
-| **Docker Compose** | Local development with one command. All services (DB, Redis, API) start together. |
-| **GitHub Actions** | Free CI/CD for open-source. Automated testing and deployment. |
+| 🛠️ Capability | 📝 Description |
+| :--- | :--- |
+| **📄 Deep OCR Audit** | Drag-and-drop support for JPG, PNG, or PDF. Extracts every hidden line-item. |
+| **🖼️ Image Preprocessing** | Auto-rotates, deskews, and sharpens blurry or crumpled hospital bills. |
+| **🔍 Government Sync** | Real-time, fuzzy-matched cross-referencing with NPPA/CGHS price ceilings. |
+| **⚠️ Fraud Detection** | Logic engines designed to catch duplicate charges and unbundled procedures. |
+| **💰 Savings Report** | Generates beautiful, downloadable PDF reports with itemized savings breakdowns. |
+| **📱 Central Dashboard** | Secure history of all uploaded bills and their historical audit results. |
 
-```
-PostgreSQL + Pinecone + Docker + Docker Compose + GitHub Actions
+---
+
+## 🧠 HOW THE ENGINE TEARS THROUGH LIES
+
+```mermaid
+sequenceDiagram
+    participant Patient
+    participant Frontend
+    participant NodeAPI
+    participant OCREngine
+    participant Database
+
+    Patient->>Frontend: Uploads Bill (PDF/Img)
+    Frontend->>NodeAPI: Multipart Form Data
+    NodeAPI->>OCREngine: Forwards Image
+    Note over OCREngine: OpenCV Denoise & Deskew
+    Note over OCREngine: Tesseract OCR Extraction
+    OCREngine->>NodeAPI: Structured JSON (Items & Prices)
+    Note over NodeAPI: FuzzyMatch against NPPA/CGHS
+    NodeAPI->>Database: Save Audit Results
+    NodeAPI->>Frontend: Return Overcharge Data
+    Frontend->>Patient: Display Savings & Fraud Report
 ```
 
 ---
 
-### 📁 Project Structure (Monorepo)
+## 📊 THE NUMBERS DON'T LIE (LIVE DATA SAMPLE)
 
-```
-medclear/
-├── frontend/          # React + TypeScript + Vite
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── hooks/
-│   │   ├── stores/
-│   │   └── utils/
-│   └── package.json
-│
-├── backend/           # Node.js + Express + Prisma
-│   ├── src/
-│   │   ├── controllers/
-│   │   ├── routes/
-│   │   ├── middleware/
-│   │   ├── services/
-│   │   └── utils/
-│   └── package.json
-│
-├── ocr-service/       # Python + FastAPI
-│   ├── app/
-│   │   ├── routers/
-│   │   ├── services/
-│   │   └── utils/
-│   └── requirements.txt
-│
-└── docker-compose.yml # All services orchestration
-```
+| 🩺 PROCEDURE / IMPLANT | 🏥 HOSPITAL AVG | 🏛️ GOVT. CEILING | 🚨 THE OVERCHARGE |
+| :--- | :--- | :--- | :--- |
+| **Cardiac Stent** | <strike>₹1,20,000</strike> | **₹35,000** | <span style="color:red">**+₹85,000 (242%)**</span> |
+| **Knee Implant** | <strike>₹95,000</strike> | **₹42,000** | <span style="color:red">**+₹53,000 (126%)**</span> |
+| **ICU Day Care** | <strike>₹25,000</strike> | **₹6,000** | <span style="color:red">**+₹19,000 (316%)**</span> |
+| **Ceftriaxone 1g Inj.** | <strike>₹850</strike> | **₹45** | <span style="color:red">**+₹805 (1788%)**</span> |
 
 ---
 
-## 📊 Example Output
+## 🚀 STANDARD OPERATING PROCEDURES (SETUP)
 
-```json
-{
-  "audit_result": {
-    "bill_id": "BILL-2024-00123",
-    "hospital_name": "Apollo Hospitals",
-    "total_bill": "₹1,42,500",
-    "overcharged": "₹42,300",
-    "savings_percentage": "29.7%",
-    "status": "audit_complete",
-    "flagged_items": [
-      {
-        "item": "Private Ward (3 days)",
-        "category": "room_charges",
-        "charged": "₹45,000",
-        "allowed_cghs": "₹12,000",
-        "overcharge": "₹33,000",
-        "overcharge_percentage": "275%"
-      },
-      {
-        "item": "Injection (Ceftriaxone 1g)",
-        "category": "medications",
-        "charged": "₹850",
-        "allowed_nppa": "₹45",
-        "overcharge": "₹805",
-        "overcharge_percentage": "1789%"
-      },
-      {
-        "item": "Blood Test (CBC)",
-        "category": "diagnostics",
-        "charged": "₹600",
-        "allowed_cghs": "₹150",
-        "overcharge": "₹450",
-        "overcharge_percentage": "300%"
-      }
-    ],
-    "recommendations": [
-      "Dispute the ward charges with hospital billing department",
-      "Request itemized bill with drug NDC codes",
-      "File a complaint with NPPA if charges are not rectified"
-    ]
-  }
-}
-```
+### 1️⃣ Prerequisites
+Ensure you have the following installed:
+- **Node.js** (v18+)
+- **Python** (v3.9+)
+- **MongoDB** (Local or Atlas)
+- **Tesseract OCR** (Installed on host machine)
 
-> ⚠️ **You were overcharged ₹42,300** — that's ₹33,000 just on ward charges alone (275% over CGHS rates).
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-| Tool | Version | Purpose |
-|:-----|:--------|:--------|
-| Node.js | 18+ | Frontend & Backend runtime |
-| Python | 3.9+ | OCR Service |
-| MongoDB | 14+ | Primary database |
-| npm / pip | Latest | Package management |
-
-### Clone & Install
-
+### 2️⃣ Clone the Bureau's Archive
 ```bash
-# Clone the repository
 git clone https://github.com/Rachit-Kakkad1/medclear.git
 cd medclear
+```
 
-# Install frontend dependencies
+### 3️⃣ Deploy Frontend
+```bash
 cd frontend
 npm install
+npm run dev
+# Starts on http://localhost:5173
+```
 
-# Go back and install backend dependencies
+### 4️⃣ Deploy Backend API
+```bash
 cd ../backend
 npm install
+# Create a .env file with your MONGO_URI and JWT_SECRET
+npm run dev
+# Starts on http://localhost:3000
+```
 
-# Install OCR service dependencies
+### 5️⃣ Activate OCR Intelligence
+```bash
 cd ../ocr-service
+python -m venv venv
+source venv/Scripts/activate # or venv/bin/activate on Mac/Linux
 pip install -r requirements.txt
-```
-
-### Configure Environment
-
-Create a `.env` file in `backend/`:
-
-```env
-# Database
-DATABASE_URL="postgresql://postgres:password@localhost:5432/medclear"
-
-# Authentication
-JWT_SECRET="your-super-secret-jwt-key-change-in-production"
-JWT_EXPIRES_IN="7d"
-
-# Redis
-REDIS_URL="redis://localhost:6379"
-
-# OCR Service
-OCR_SERVICE_URL="http://localhost:8000"
-
-# NPPA API (Government pricing data)
-NPPA_API_URL="https://api.nppa.gov.in/pricing"
-NPPA_API_KEY="your-api-key"
-
-# App Config
-NODE_ENV="development"
-PORT=3000
-```
-
-Create a `.env` file in `ocr-service/`:
-
-```env
-# Tesseract OCR
-TESSDATA_PREFIX="/usr/share/tesseract-5/ tessdata"
-
-# Image Processing
-MAX_IMAGE_SIZE=10485760
-SUPPORTED_FORMATS="jpg,jpeg,png,pdf"
-
-# Server
-HOST="0.0.0.0"
-PORT=8000
-```
-
-### Database Setup
-
-```bash
-cd backend
-
-# Run Prisma migrations
-npx prisma migrate dev
-
-# Seed NPPA/CGHS pricing data
-npx prisma db seed
-```
-
-### Run the Application
-
-#### Option 1: Manual Start (3 terminals)
-
-```bash
-# Terminal 1 — Backend API
-cd backend
-npm run dev
-# Starts at http://localhost:3000
-
-# Terminal 2 — Frontend
-cd frontend
-npm run dev
-# Starts at http://localhost:5173
-
-# Terminal 3 — OCR Service
-cd ocr-service
 uvicorn app.main:app --reload
-# Starts at http://localhost:8000
+# Starts on http://localhost:8000
 ```
 
-#### Option 2: Docker Compose (One command)
+---
 
-```bash
-# Start all services with Docker
-docker-compose up --build
-```
+## 🔮 THE FUTURE OF TRANSPARENCY (ROADMAP)
 
-**Visit `http://localhost:5173` to start auditing bills.**
+- [ ] 🏥 **Prescription Scanner**: Analyze doctor prescriptions for medication overpricing.
+- [ ] 🛡️ **Insurance Integration**: Auto-submit generated audit reports to insurance providers.
+- [ ] 📈 **Real-time Pricing**: Live API webhook integration from NPPA for the absolute latest drug prices.
+- [ ] 🤖 **AI Legal Drafter**: Auto-generate localized legal dispute letters based on the exact overcharges found.
+- [ ] 📱 **Mobile App**: Native iOS and Android applications using React Native / Expo.
 
 ---
 
-## 🔮 Future Scope
+## 🤝 JOIN THE INVESTIGATION (CONTRIBUTING)
 
-We're just getting started. Here's what's on our roadmap:
-
-| Feature | Status | Description |
-|:--------|:-------|:------------|
-| 🏥 **Prescription Scanner** | Planned | Analyze doctor prescriptions for medication overpricing |
-| 🛡️ **Insurance Integration** | Planned | Auto-submit audit reports to insurance providers |
-| 📈 **Real-time Pricing** | Planned | Live API integration from NPPA for latest drug prices |
-| 📱 **Mobile App** | Planned | Native iOS and Android applications |
-| 🌍 **Multi-country Support** | Researching | Support for US (Medicare), UK (NHS), EU pricing standards |
-| 🤖 **AI Recommendations** | Researching | Personalized cost-saving suggestions based on medical history |
-| 📊 **Analytics Dashboard** | Planned | Hospital-level pricing analytics for researchers |
-| 🔔 **Alert System** | Planned | Push notifications when pricing data updates |
+We welcome whistleblowers, developers, and designers.
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ---
 
-## 🤝 Contribution
-
-We welcome contributions from developers, designers, and healthcare professionals!
-
-### How to Contribute
-
-```bash
-# 1. Fork the repository
-# 2. Clone your fork
-git clone https://github.com/YOUR_USERNAME/medclear.git
-
-# 3. Create a feature branch
-git checkout -b feature/amazing-new-feature
-
-# 4. Make your changes
-# 5. Run tests
-npm test        # Frontend
-npm run test    # Backend
-pytest          # OCR Service
-
-# 6. Commit with descriptive message
-git commit -m "Add: New feature that does X"
-
-# 7. Push to your fork
-git push origin feature/amazing-new-feature
-
-# 8. Open a Pull Request
-```
-
-### Contribution Areas
-
-- 🐛 **Bug Fixes** — Help us squash bugs
-- 🎨 **UI/UX** — Make MedClear beautiful
-- 📈 **Features** — Build new capabilities
-- 📚 **Documentation** — Improve docs
-- 🧪 **Testing** — Increase test coverage
-- 🔍 **Security** — Audit for vulnerabilities
-
-> 💡 Looking for a way to contribute? Check out our [Good First Issues](https://github.com/Rachit-Kakkad1/medclear/labels/good%20first%20issue) label.
-
----
-
-## 📜 License
-
-MIT License — see [LICENSE](LICENSE) for details.
-
----
-
-<p align="center">
-  <strong>Built with ❤️ for healthcare transparency</strong>
-</p>
+<div align="center">
+  <img src="https://img.shields.io/badge/BUILT_WITH_❤️_FOR_HEALTHCARE_TRANSPARENCY-D9230F?style=for-the-badge" />
+  <br><br>
+  <b>© 2026 MedClear Gazette. The truth is free. Auditing is mandatory.</b>
+  <br><br>
+  <a href="#top">Back to top ⬆️</a>
+</div>

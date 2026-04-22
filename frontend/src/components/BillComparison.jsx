@@ -1,25 +1,37 @@
 import { motion } from 'framer-motion';
 import { FileText, CheckCircle, ArrowRight, AlertCircle } from 'lucide-react';
 
-const rawBillItems = [
-  { name: 'Room Charges (ICU)', original: 18500, expected: 12000, flag: true },
-  { name: 'Doctor Consultation', original: 3500, expected: 2500, flag: false },
-  { name: 'Medical Supplies', original: 8200, expected: 6500, flag: true },
-  { name: 'Lab Tests', original: 4500, expected: 3200, flag: false },
-  { name: 'Medications', original: 7600, expected: 4200, flag: true },
-];
-
-const structuredData = [
-  { category: 'Room & Board', amount: 12000, status: 'verified' },
-  { category: 'Professional Fees', amount: 2500, status: 'verified' },
-  { category: 'Medical Supplies', amount: 6500, status: 'adjusted' },
-  { category: 'Diagnostic Tests', amount: 3200, status: 'verified' },
-  { category: 'Pharmaceuticals', amount: 4200, status: 'adjusted' },
-];
-
-export default function BillComparison() {
+export default function BillComparison({ rawBillItems = [], structuredData = [], isLoading = false }) {
   const totalOriginal = rawBillItems.reduce((sum, item) => sum + item.original, 0);
   const totalExpected = rawBillItems.reduce((sum, item) => sum + item.expected, 0);
+
+  if (isLoading) {
+    return (
+      <div className="relative premium-card rounded-3xl p-6 md:p-10 min-h-[400px]">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#A4907C]/10 to-[#8D7B68]/5 animate-pulse" />
+        <div className="relative">
+          <div className="h-8 w-48 bg-[#8D7B68]/20 rounded-full animate-pulse mx-auto mb-4" />
+          <div className="h-4 w-64 bg-[#8D7B68]/20 rounded-full animate-pulse mx-auto mb-10" />
+          <div className="grid lg:grid-cols-2 gap-8">
+            <div className="glass-card rounded-2xl p-6 h-[300px] animate-pulse" />
+            <div className="glass-card rounded-2xl p-6 h-[300px] animate-pulse" />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (rawBillItems.length === 0) {
+    return (
+      <div className="relative premium-card rounded-3xl p-6 md:p-10 text-center">
+        <div className="w-16 h-16 rounded-full bg-[#8D7B68]/10 flex items-center justify-center mx-auto mb-4">
+          <FileText size={32} className="text-[#8D7B68]" />
+        </div>
+        <h3 className="font-serif text-2xl text-[#1a1a1a] mb-2">No Bills Processed Yet</h3>
+        <p className="text-[#8D7B68]">Upload a bill to see the transformation and savings.</p>
+      </div>
+    );
+  }
 
   return (
     <motion.div

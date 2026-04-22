@@ -32,11 +32,39 @@ function AnimatedNumber({ value, prefix = '', suffix = '', duration = 2000 }) {
   );
 }
 
-export default function HeroPanel() {
-  const totalBill = 42300;
-  const expectedCost = 28400;
-  const overcharge = 13900;
-  const savings = Math.round((overcharge / totalBill) * 100);
+export default function HeroPanel({ totalBill = 0, expectedCost = 0, overcharge = 0, isLoading = false }) {
+  const savings = totalBill > 0 ? Math.round((overcharge / totalBill) * 100) : 0;
+
+  if (isLoading) {
+    return (
+      <div className="relative overflow-hidden premium-card rounded-3xl p-6 md:p-10 min-h-[300px]">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#8D7B68]/10 to-[#A4907C]/10 animate-pulse" />
+        <div className="relative flex flex-col lg:flex-row items-center justify-between gap-8">
+          <div className="flex-1 text-center lg:text-left space-y-4">
+            <div className="h-6 w-32 bg-[#8D7B68]/20 rounded-full animate-pulse mx-auto lg:mx-0" />
+            <div className="h-12 w-3/4 bg-[#8D7B68]/20 rounded-xl animate-pulse mx-auto lg:mx-0" />
+            <div className="h-6 w-full bg-[#8D7B68]/20 rounded-xl animate-pulse" />
+          </div>
+          <div className="flex flex-col sm:flex-row gap-4 md:gap-6 w-full lg:w-auto">
+            <div className="glass-card rounded-2xl p-6 min-w-[180px] h-32 animate-pulse flex flex-col justify-center gap-2">
+              <div className="h-4 w-24 bg-[#8D7B68]/20 rounded" />
+              <div className="h-8 w-32 bg-[#8D7B68]/20 rounded" />
+            </div>
+            <div className="flex flex-col gap-4">
+              <div className="glass-card rounded-2xl p-6 min-w-[180px] h-[120px] animate-pulse flex flex-col justify-center gap-2">
+                <div className="h-4 w-24 bg-[#2563eb]/20 rounded" />
+                <div className="h-8 w-32 bg-[#2563eb]/20 rounded" />
+              </div>
+              <div className="glass-card rounded-2xl p-6 min-w-[180px] h-[120px] animate-pulse flex flex-col justify-center gap-2">
+                <div className="h-4 w-32 bg-[#ef4444]/20 rounded" />
+                <div className="h-8 w-32 bg-[#ef4444]/20 rounded" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <motion.div

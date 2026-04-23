@@ -1,186 +1,362 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
+/* ─── Icon Components ─── */
+const ShieldCheckIcon = ({ size = 24, className = '' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className}>
+    <path d="M12 2L3 7v5c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" fill="currentColor" opacity="0.2" />
+    <path d="M12 2L3 7v5c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" stroke="currentColor" strokeWidth="1.5" fill="none" />
+    <path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const ShieldMedicalIcon = ({ size = 48 }) => (
+  <svg width={size} height={size} viewBox="0 0 48 48" fill="none">
+    <path d="M24 4L8 12v8c0 11.1 6.84 21.48 16 24 9.16-2.52 16-12.9 16-24v-8L24 4z" fill="#8D7B68" />
+    <path d="M24 4L8 12v8c0 11.1 6.84 21.48 16 24 9.16-2.52 16-12.9 16-24v-8L24 4z" fill="url(#shieldGrad)" />
+    <path d="M22 18v4h-4v4h4v4h4v-4h4v-4h-4v-4h-4z" fill="white" />
+    <defs>
+      <linearGradient id="shieldGrad" x1="8" y1="4" x2="40" y2="48">
+        <stop offset="0%" stopColor="#A4907C" />
+        <stop offset="100%" stopColor="#8D7B68" />
+      </linearGradient>
+    </defs>
+  </svg>
+);
+
+const BarChartIcon = ({ size = 28, className = '' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className}>
+    <rect x="3" y="12" width="4" height="9" rx="1" fill="currentColor" opacity="0.6" />
+    <rect x="10" y="8" width="4" height="13" rx="1" fill="currentColor" opacity="0.8" />
+    <rect x="17" y="4" width="4" height="17" rx="1" fill="currentColor" />
+  </svg>
+);
+
+const LockIcon = ({ size = 28, className = '' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className}>
+    <rect x="5" y="11" width="14" height="10" rx="2" fill="currentColor" opacity="0.8" />
+    <path d="M8 11V7a4 4 0 118 0v4" stroke="currentColor" strokeWidth="2" fill="none" />
+    <circle cx="12" cy="16" r="1.5" fill="white" />
+  </svg>
+);
+
+const GoogleIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24">
+    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+    <path d="M5.84 14.1c-.22-.66-.35-1.36-.35-2.1s.13-1.44.35-2.1V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l3.66-2.84z" fill="#FBBC05"/>
+    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
+  </svg>
+);
+
+const EyeIcon = ({ open }) => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8D7B68" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    {open ? (
+      <>
+        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+        <circle cx="12" cy="12" r="3" />
+      </>
+    ) : (
+      <>
+        <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24" />
+        <line x1="1" y1="1" x2="23" y2="23" />
+      </>
+    )}
+  </svg>
+);
+
+const LockSmallIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8D7B68" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+    <path d="M7 11V7a5 5 0 0110 0v4" />
+  </svg>
+);
+
+/* ─── Animation Variants ─── */
+const fadeUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: (i) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+  }),
+};
+
+const staggerContainer = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.08, delayChildren: 0.2 },
+  },
+};
+
+/* ─── Feature Cards ─── */
+const features = [
+  { icon: ShieldCheckIcon, title: 'Audit & Verify', desc: 'AI-powered bill audits' },
+  { icon: BarChartIcon, title: 'Prevent Overcharge', desc: 'Identify unfair billing' },
+  { icon: LockIcon, title: 'Secure & Private', desc: 'Your data is 100% protected' },
+];
+
+/* ─── Main Component ─── */
 const LoginPage = ({ onNavigateBack, onNavigateToDashboard }) => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { 
-      opacity: 1,
-      transition: { duration: 0.8, ease: "easeOut" }
-    }
-  };
+  const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
 
-  const cardVariants = {
-    hidden: { opacity: 0, y: 40, scale: 0.95 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      scale: 1,
-      transition: { duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] } 
-    }
-  };
-
-  const textVariants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: (i) => ({
-      opacity: 1,
-      y: 0,
-      transition: { delay: 0.5 + i * 0.1, duration: 0.6 }
-    })
-  };
-
-  const blobVariants = {
-    animate1: {
-      x: [0, 100, -50, 0],
-      y: [0, 50, 100, 0],
-      scale: [1, 1.2, 0.9, 1],
-      transition: { duration: 25, repeat: Infinity, ease: "linear" }
-    },
-    animate2: {
-      x: [0, -80, 40, 0],
-      y: [0, 120, -30, 0],
-      scale: [1, 0.8, 1.1, 1],
-      transition: { duration: 20, repeat: Infinity, ease: "linear" }
-    },
-    animate3: {
-      x: [0, 30, -70, 0],
-      y: [0, -90, 50, 0],
-      scale: [1, 1.3, 1, 1],
-      transition: { duration: 22, repeat: Infinity, ease: "linear" }
-    }
+  const handleSignIn = (e) => {
+    e.preventDefault();
+    onNavigateToDashboard();
   };
 
   return (
-    <motion.div 
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-      className="min-h-screen flex selection:bg-[#8D7B68] selection:text-white"
-      style={{ backgroundColor: '#E3D5CA' }}
-    >
-      <div className="hidden lg:flex flex-1 relative overflow-hidden items-center justify-center p-12">
-        <motion.div 
-          variants={blobVariants}
-          animate="animate1"
-          className="absolute w-[500px] h-[500px] rounded-full blur-[120px] opacity-40 mix-blend-multiply"
-          style={{ backgroundColor: '#C8B6A6', top: '10%', left: '5%' }}
+    <div className="min-h-screen flex flex-col lg:flex-row" style={{ backgroundColor: '#F5EFE7' }}>
+      
+      {/* ─── Left Panel ─── */}
+      <div className="hidden lg:flex lg:w-[48%] flex-col relative overflow-hidden">
+        
+        {/* Full-bleed Background Image */}
+        <img
+          src="/parliament.png"
+          alt="Government building"
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ filter: 'sepia(20%) saturate(70%) brightness(1.05)' }}
         />
-        <motion.div 
-          variants={blobVariants}
-          animate="animate2"
-          className="absolute w-[400px] h-[400px] rounded-full blur-[100px] opacity-30 mix-blend-multiply"
-          style={{ backgroundColor: '#8D7B68', bottom: '15%', right: '10%' }}
-        />
-        <motion.div 
-          variants={blobVariants}
-          animate="animate3"
-          className="absolute w-[600px] h-[600px] rounded-full blur-[150px] opacity-20"
-          style={{ backgroundColor: '#A4907C', top: '40%', right: '20%' }}
-        />
+        
+        {/* Gradient Mask Overlay — heavy at top (for text readability), lighter at bottom (image shows through) */}
+        <div className="absolute inset-0" style={{
+          background: `
+            linear-gradient(180deg, 
+              rgba(245, 239, 231, 0.97) 0%, 
+              rgba(245, 239, 231, 0.94) 15%,
+              rgba(232, 221, 212, 0.88) 35%,
+              rgba(227, 213, 202, 0.75) 55%,
+              rgba(227, 213, 202, 0.50) 75%,
+              rgba(227, 213, 202, 0.30) 90%,
+              rgba(227, 213, 202, 0.15) 100%
+            )
+          `
+        }} />
 
-        <div className="relative z-10 text-center">
-          <motion.p 
-            custom={0}
-            variants={textVariants}
-            className="text-[1.5rem] font-light tracking-[0.3em] uppercase opacity-60"
-            style={{ color: '#8D7B68' }}
+        {/* Logo — on top of everything */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="relative z-10 flex items-center gap-3 p-8 pb-0"
+        >
+          <div className="w-10 h-10 rounded-xl bg-[#8D7B68] flex items-center justify-center shadow-lg">
+            <ShieldCheckIcon size={22} className="text-white" />
+          </div>
+          <div>
+            <span className="text-[#1a1a1a] font-bold text-lg tracking-wide">MEDCLEAR</span>
+            <p className="text-[#8D7B68] text-[10px] tracking-[0.15em] uppercase -mt-1">The Medical Billing Authority</p>
+          </div>
+        </motion.div>
+
+        {/* Content — on top of everything */}
+        <div className="relative z-10 flex-1 flex flex-col justify-center px-10 xl:px-14 pb-0">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            animate="visible"
           >
-            MedClear
-          </motion.p>
-          <motion.h2 
-            custom={1}
-            variants={textVariants}
-            className="text-[4rem] font-medium leading-tight mt-4 tracking-tight"
-            style={{ color: '#8D7B68' }}
-          >
-            Clarity in healthcare <br /> begins here.
-          </motion.h2>
-          <motion.div 
-            custom={2}
-            variants={textVariants}
-            className="w-12 h-[1px] mx-auto mt-8 opacity-40"
-            style={{ backgroundColor: '#8D7B68' }}
-          />
+            {/* Badge */}
+            <motion.div variants={fadeUp} custom={0}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 backdrop-blur-sm"
+              style={{ backgroundColor: 'rgba(141, 123, 104, 0.15)' }}
+            >
+              <ShieldCheckIcon size={16} className="text-[#8D7B68]" />
+              <span className="text-[#8D7B68] text-sm font-medium">Trusted. Transparent. Accountable.</span>
+            </motion.div>
+
+            {/* Heading */}
+            <motion.h1 variants={fadeUp} custom={1}
+              className="text-[2.6rem] xl:text-[3rem] font-bold leading-[1.15] text-[#1a1a1a] mb-6"
+              style={{ fontFamily: "'Georgia', serif" }}
+            >
+              Building a fairer<br />
+              healthcare system<br />
+              <span style={{
+                background: 'linear-gradient(135deg, #A4907C, #8D7B68)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}>
+                with data and<br />transparency.
+              </span>
+            </motion.h1>
+
+            {/* Description */}
+            <motion.p variants={fadeUp} custom={2}
+              className="text-[#5a5a5a] text-base leading-relaxed max-w-sm mb-10"
+            >
+              MedClear is India's trusted platform for auditing medical bills, exposing overcharges, and ensuring accountability in healthcare.
+            </motion.p>
+
+            {/* Feature Cards */}
+            <motion.div variants={fadeUp} custom={3}
+              className="flex gap-6 mb-8"
+            >
+              {features.map((f, i) => {
+                const Icon = f.icon;
+                return (
+                  <div key={i} className="flex flex-col items-center text-center w-28">
+                    <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-3 backdrop-blur-sm"
+                      style={{ backgroundColor: 'rgba(141, 123, 104, 0.18)' }}
+                    >
+                      <Icon size={26} className="text-[#8D7B68]" />
+                    </div>
+                    <span className="text-[#1a1a1a] text-xs font-bold mb-1">{f.title}</span>
+                    <span className="text-[#7a6a5a] text-[11px] leading-tight">{f.desc}</span>
+                  </div>
+                );
+              })}
+            </motion.div>
+          </motion.div>
         </div>
       </div>
 
-      <div className="flex-1 flex items-center justify-center p-6 sm:p-12">
-        <motion.div 
-          variants={cardVariants}
-          className="w-full max-w-[450px] p-10 backdrop-blur-3xl border border-white/20 rounded-[2.5rem] shadow-2xl overflow-hidden relative group transition-all"
-          style={{ backgroundColor: 'rgba(200, 182, 166, 0.4)' }}
+      {/* ─── Right Panel ─── */}
+      <div className="flex-1 flex flex-col items-center justify-center p-6 sm:p-10 lg:p-16"
+        style={{ backgroundColor: '#ffffff' }}
+      >
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="w-full max-w-[420px]"
         >
-          <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/asfalt-dark.png')]" />
-
-          <div className="relative z-10">
-            <motion.div 
-              custom={0}
-              variants={textVariants}
-              className="mb-10 text-center lg:text-left"
+          {/* Shield Icon */}
+          <div className="flex justify-center mb-6">
+            <motion.div
+              initial={{ scale: 0.5, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
             >
-              <h1 className="text-4xl font-semibold mb-3 tracking-tight" style={{ color: '#8D7B68' }}>
-                Welcome to MedClear
-              </h1>
-              <p className="text-lg opacity-80" style={{ color: '#8D7B68' }}>
-                Understand your healthcare costs with clarity
-              </p>
+              <ShieldMedicalIcon size={56} />
             </motion.div>
+          </div>
 
-            <motion.div 
-              custom={1}
-              variants={textVariants}
-              className="space-y-4"
-            >
-              <motion.button 
-                onClick={onNavigateToDashboard}
-                whileHover={{ y: -4, boxShadow: '0 10px 20px -10px rgba(141, 123, 104, 0.4)' }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full py-4 px-6 flex items-center justify-center gap-4 rounded-2xl font-semibold text-white transition-all shadow-lg cursor-pointer"
-                style={{ backgroundColor: '#8D7B68' }}
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#fff"/>
-                  <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#fff"/>
-                  <path d="M5.84 14.1c-.22-.66-.35-1.36-.35-2.1s.13-1.44.35-2.1V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l3.66-2.84z" fill="#fff"/>
-                  <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#fff"/>
-                </svg>
-                Sign in with Google
-              </motion.button>
+          {/* Heading */}
+          <div className="text-center mb-8">
+            <h1 className="text-3xl font-bold text-[#1a1a1a] mb-2" style={{ fontFamily: "'Georgia', serif" }}>
+              Welcome Back
+            </h1>
+            <p className="text-[#8D7B68] text-sm">
+              Sign in to continue to your MedClear account
+            </p>
+          </div>
 
-              <motion.button 
-                onClick={onNavigateToDashboard}
-                whileHover={{ y: -2, opacity: 0.8 }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full py-3 px-6 flex items-center justify-center rounded-2xl font-medium text-sm transition-all cursor-pointer border"
-                style={{ borderColor: '#8D7B68', color: '#8D7B68' }}
-              >
-                Skip for now
-              </motion.button>
-              
-              <div className="py-4 flex items-center gap-4">
-                <div className="h-px flex-1 opacity-20" style={{ backgroundColor: '#8D7B68' }} />
-                <span className="text-xs uppercase tracking-widest opacity-40 font-bold" style={{ color: '#8D7B68' }}>Secure Encryption</span>
-                <div className="h-px flex-1 opacity-20" style={{ backgroundColor: '#8D7B68' }} />
+          {/* Google Button */}
+          <motion.button
+            onClick={onNavigateToDashboard}
+            whileHover={{ y: -2, boxShadow: '0 8px 25px rgba(0,0,0,0.1)' }}
+            whileTap={{ scale: 0.98 }}
+            className="w-full py-3.5 px-6 flex items-center justify-center gap-3 rounded-xl font-medium text-[#1a1a1a] bg-white border border-[#e0e0e0] shadow-sm hover:shadow-md transition-all cursor-pointer mb-6"
+          >
+            <GoogleIcon />
+            Continue with Google
+          </motion.button>
+
+          {/* OR Divider */}
+          <div className="flex items-center gap-4 mb-6">
+            <div className="h-px flex-1 bg-[#e0e0e0]" />
+            <span className="text-[#8D7B68] text-sm font-medium">OR</span>
+            <div className="h-px flex-1 bg-[#e0e0e0]" />
+          </div>
+
+          {/* Sign-In Form */}
+          <form onSubmit={handleSignIn} className="space-y-5">
+            {/* Email */}
+            <div>
+              <label className="block text-sm font-semibold text-[#1a1a1a] mb-2">Email address</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                className="w-full px-4 py-3 rounded-xl border border-[#e0e0e0] bg-white text-[#1a1a1a] text-sm placeholder-[#b0a090] focus:outline-none focus:ring-2 focus:ring-[#8D7B68]/30 focus:border-[#8D7B68] transition-all"
+              />
+            </div>
+
+            {/* Password */}
+            <div>
+              <label className="block text-sm font-semibold text-[#1a1a1a] mb-2">Password</label>
+              <div className="relative">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter your password"
+                  className="w-full px-4 py-3 pr-12 rounded-xl border border-[#e0e0e0] bg-white text-[#1a1a1a] text-sm placeholder-[#b0a090] focus:outline-none focus:ring-2 focus:ring-[#8D7B68]/30 focus:border-[#8D7B68] transition-all"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 cursor-pointer opacity-60 hover:opacity-100 transition-opacity"
+                >
+                  <EyeIcon open={showPassword} />
+                </button>
               </div>
+            </div>
 
-              <motion.div 
-                 initial={{ opacity: 0 }}
-                 animate={{ opacity: 0.6 }}
-                 transition={{ delay: 1, duration: 2 }}
-                 className="text-center"
-              >
-                <p className="text-xs tracking-tight" style={{ color: '#8D7B68' }}>
-                  By continuing, you agree to our <span className="underline cursor-pointer">Terms of Service</span> and <span className="underline cursor-pointer">Privacy Policy</span>.
-                </p>
-              </motion.div>
-            </motion.div>
+            {/* Remember + Forgot */}
+            <div className="flex items-center justify-between">
+              <label className="flex items-center gap-2 cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                  className="w-4 h-4 rounded border-[#C8B6A6] accent-[#8D7B68]"
+                />
+                <span className="text-sm text-[#6b6b6b]">Remember me</span>
+              </label>
+              <button type="button" className="text-sm text-[#8D7B68] font-medium hover:underline cursor-pointer">
+                Forgot password?
+              </button>
+            </div>
+
+            {/* Sign In Button */}
+            <motion.button
+              type="submit"
+              whileHover={{ y: -2, boxShadow: '0 10px 30px rgba(141, 123, 104, 0.3)' }}
+              whileTap={{ scale: 0.98 }}
+              className="w-full py-3.5 rounded-xl font-semibold text-white shadow-lg cursor-pointer transition-all text-base"
+              style={{
+                background: 'linear-gradient(135deg, #A4907C 0%, #8D7B68 100%)',
+              }}
+            >
+              Sign in
+            </motion.button>
+          </form>
+
+          {/* Sign Up Link */}
+          <p className="text-center mt-6 text-sm text-[#6b6b6b]">
+            Don't have an account?{' '}
+            <button className="text-[#8D7B68] font-semibold hover:underline cursor-pointer">
+              Sign up
+            </button>
+          </p>
+        </motion.div>
+
+        {/* Footer */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8, duration: 1 }}
+          className="mt-auto pt-8"
+        >
+          <div className="flex items-center justify-center gap-2 text-xs text-[#8D7B68]">
+            <LockSmallIcon />
+            <span>
+              By signing in, you agree to our{' '}
+              <button className="underline cursor-pointer font-medium hover:text-[#1a1a1a] transition-colors">Terms of Service</button>
+              {' '}and{' '}
+              <button className="underline cursor-pointer font-medium hover:text-[#1a1a1a] transition-colors">Privacy Policy</button>.
+            </span>
           </div>
         </motion.div>
       </div>
-
-      <div className="fixed top-0 left-0 w-32 h-32 border-t-[1px] border-l-[1px] opacity-10 m-8" style={{ borderColor: '#8D7B68' }} />
-      <div className="fixed bottom-0 right-0 w-32 h-32 border-b-[1px] border-r-[1px] opacity-10 m-8" style={{ borderColor: '#8D7B68' }} />
-    </motion.div>
+    </div>
   );
 };
 

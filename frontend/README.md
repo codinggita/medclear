@@ -1,83 +1,59 @@
-# 🏥 MedClear - The Ultimate Medical Bill Audit Platform
+# 🏥 MedClear Frontend | Precision Medical Bill Analysis
 
-<p align="center">
-  <img src="public/logo.png" alt="MedClear Logo" width="120" />
-  <br/>
-  <sub>India's #1 Medical Bill Verification Platform</sub>
-</p>
+[![React](https://img.shields.io/badge/React-19.0-blue?logo=react)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-8.0-646CFF?logo=vite)](https://vitejs.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0-38B2AC?logo=tailwind-css)](https://tailwindcss.com/)
+[![Three.js](https://img.shields.io/badge/Three.js-r183-black?logo=three.js)](https://threejs.org/)
+[![License](https://img.shields.io/badge/License-Proprietary-red.svg)](#)
 
----
-
-## 🚀 Project Overview
-
-**MedClear** is a world-class, ultra-premium landing page for a medical billing fraud detection startup. Built with React + Tailwind CSS, it features a stunning newspaper-inspired design that combines classic editorial aesthetics with modern SaaS functionality.
-
-### ✨ Key Features
-
-- 🗞️ **Breaking News Ticker** - Animated scrolling headlines
-- 📰 **Newspaper-Style Design** - Heavy typography, black borders, Georgia serif fonts
-- 📊 **Interactive Analytics** - Real-time charts (Bar, Line, Pie)
-- 🔍 **Live Bill Demo** - Upload and analyze medical bills
-- 🏛️ **Government Database** - NPPA, CGHS, Ayushman Bharat integration
-- 💬 **FAQ Accordion** - Expandable Q&A section
-- 📱 **Fully Responsive** - Works on all devices
+Welcome to the **MedClear Frontend**, the state-of-the-art user interface for our AI-powered medical bill transparency and audit platform. This application provides a high-performance, visually stunning experience designed to empower users with clarity in their healthcare spending.
 
 ---
+
+## 🚀 Overview
+
+MedClear Frontend is engineered for **transparency and impact**. By fusing modern web technologies with advanced data visualization, it transforms intimidating medical bills into clear, actionable insights through interactive dashboards, 3D spatial UI elements, and cinematic motion design.
+
+## ✨ Key Features
+
+-   **🔍 Intelligent Bill Parsing**: Seamless interface for uploading medical bills with real-time OCR status tracking.
+-   **📊 Dynamic Analytics**: Interactive cost-trend analysis and department-wise breakdown powered by **Recharts**.
+-   **🧊 3D Spatial UI**: Immersive data exploration using **React Three Fiber** for a next-gen dashboard experience.
+-   **🎬 Cinematic UX**: Butter-smooth transitions and scroll-driven animations using **GSAP**, **Framer Motion**, and **Lenis**.
+-   **⚖️ Audit Engine Interface**: Side-by-side comparison of billed vs. fair-market costs.
+-   **💡 Proactive Insights**: AI-driven detection of duplicate charges, upcoding, and unbundled services.
 
 ## 🛠️ Tech Stack
 
-| Technology | Purpose |
-|-----------|---------|
-| **React 19** | UI Framework |
-| **Tailwind CSS 4** | Styling |
-| **Recharts** | Data Visualization |
-| **Framer Motion** | Animations |
-| **Vite** | Build Tool |
-| **ESLint** | Code Quality |
-
----
-
-## 🎨 Design System
-
-### Color Palette
-
-```css
---background: #E3D5CA;    /* Warm cream */
---card: #C8B6A6;          /* Card backgrounds */
---primary: #8D7B68;        /* Primary brown */
---secondary: #A4907C;      /* Secondary tan */
---red: #ef4444;            /* Overcharge alerts */
---blue: #2563eb;           /* CTA buttons */
---green: #22c55e;          /* Valid items */
-```
-
-### Typography
-
-- **Headlines**: Georgia, serif
-- **Body**: Inter, sans-serif  
-- **Accents**: Bold, uppercase, tracking-widest
+| Category | Technology | Description |
+| :--- | :--- | :--- |
+| **Framework** | **React 19** | Latest concurrent features for maximum responsiveness. |
+| **Build Tool** | **Vite 8** | Lightning-fast HMR and optimized production bundling. |
+| **Styling** | **Tailwind 4** | CSS-first configuration with high-performance jit compilation. |
+| **3D Graphics** | **Three.js** | Powering `@react-three/fiber` and `@react-three/drei`. |
+| **Animation** | **GSAP & Framer** | Professional-grade motion and micro-interactions. |
+| **Data Viz** | **Recharts** | Composable and responsive charting components. |
 
 ---
 
 ## 📁 Project Structure
 
-```
+```text
 frontend/
-├── public/
-│   ├── logo.png          # MedClear logo
-│   └── favicon.png       # Website favicon
 ├── src/
-│   ├── components/
-│   │   └── LandingPage.jsx    # Main landing page
-│   ├── assets/
-│   │   └── hero.png
-│   ├── App.jsx
-│   ├── main.jsx
-│   └── index.css
-├── index.html
-├── package.json
-├── vite.config.js
-└── README.md
+│   ├── assets/             # Images, SVGs, and 3D assets
+│   ├── components/         # Atomic and molecular UI components
+│   │   ├── frames/         # Landing page storytelling segments
+│   │   ├── insights/       # Specialized analysis views
+│   │   ├── reports/        # Data-heavy reporting modules
+│   │   └── upload/         # Processing and file handling UI
+│   ├── pages/              # Composite views (Dashboard, etc.)
+│   ├── utils/              # API clients (axios), hooks, and helpers
+│   ├── App.jsx             # Main router and state orchestration
+│   └── main.jsx            # Application bootstrap
+├── public/                 # Static assets (favicons, manifest)
+├── vite.config.js          # Vite configuration with API Proxy
+└── package.json            # Manifest and dependencies
 ```
 
 ---
@@ -85,137 +61,49 @@ frontend/
 ## 🚦 Getting Started
 
 ### Prerequisites
+-   **Node.js**: v18.0.0+
+-   **Backend**: Ensure the MedClear API is running (defaults to `http://localhost:5000`)
 
-- Node.js 18+
-- npm or pnpm
+### Installation & Development
 
-### Installation
+1.  **Clone & Enter**:
+    ```bash
+    cd frontend
+    ```
 
-```bash
-# Navigate to frontend directory
-cd frontend
+2.  **Install Dependencies**:
+    ```bash
+    npm install
+    ```
 
-# Install dependencies
-npm install
+3.  **Launch Dev Server**:
+    ```bash
+    npm run dev
+    ```
+    The UI will be accessible at `http://localhost:5173`. API requests are automatically proxied to the backend.
 
-# Start development server
-npm run dev
-
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
-```
-
----
-
-## 📋 Available Scripts
-
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start development server |
-| `npm run build` | Build for production |
-| `npm run preview` | Preview production build |
-| `npm run lint` | Run ESLint |
-
----
-
-## 🖥️ Development Server
+### Production Build
 
 ```bash
-npm run dev
-```
-
-Opens at: **http://localhost:5173**
-
----
-
-## 📦 Build for Production
-
-```bash
-npm run build
-```
-
-Output in: `frontend/dist/`
-
----
-
-## 🎯 Page Sections
-
-1. **Breaking News Ticker** - Rotating headlines at top
-2. **Hero** - Giant "STOP OVERPAYING FOR HEALTHCARE" cover story
-3. **Bill Mockup** - Interactive hospital bill with overcharge detection
-4. **Analytics** - 3 charts showing price comparisons, trends, savings
-5. **Features** - 4 card grid (OCR, Smart Matching, Price Comparison, Bill Audit)
-6. **Interactive Demo** - Live bill upload/analysis split panel
-7. **Testimonials** - Success stories with quotes
-8. **Government Database** - Real NPPA/CGHS/Ayushman panels
-9. **FAQ** - 5 expandable questions
-10. **CTA** - Final "Know Before You Pay" section
-11. **Footer** - Newsletter, contact, links
-
----
-
-## 🔧 Configuration
-
-### Tailwind CSS
-
-Configuration in `vite.config.js` using `@tailwindcss/vite`:
-
-```javascript
-import tailwindcss from '@tailwindcss/vite'
-```
-
-### Environment Variables
-
-Create `.env` file:
-
-```env
-VITE_API_URL=http://localhost:3000
+npm run build    # Generates optimized /dist folder
+npm run preview  # Previews production build locally
 ```
 
 ---
 
-## 📱 Responsive Breakpoints
+## 🔌 API Proxying
 
-| Breakpoint | Width |
-|-----------|-------|
-| Mobile | < 640px |
-| Tablet | 640px - 1024px |
-| Desktop | > 1024px |
+The frontend is pre-configured to proxy `/api` and `/health` requests to `http://localhost:5000` during development, ensuring seamless communication with the MedClear Backend without CORS hurdles.
 
 ---
 
-## 🎨 Design Principles
+<!-- ## 🤝 Contributing
 
-- ✅ Heavy black borders (2px/4px)
-- ✅ Hard shadows (box-shadow: 8px 8px 0px #000)
-- ✅ Georgia serif for headlines
-- ✅ Bold uppercase kickers
-- ✅ Staggered animations
-- ✅ Pulsing alerts for overcharges
-- ✅ Clean white/cream contrast
-- ❌ No clutter
-- ❌ No gradients except essential
-- ❌ No student-level design
+This is a proprietary component of the MedClear suite. Please refer to the root `CONTRIBUTING.md` for guidelines on UI/UX standards and component patterns. -->
 
 ---
 
-## 🏆 Credits
+## ⚖️ License
 
-**MedClear** - The Medical Billing Authority
+© 2026 MedClear. All rights reserved. Proprietary and Confidential.
 
-Built with ❤️ in India
-
----
-
-## 📄 License
-
-MIT License
-
----
-
-<p align="center">
-  <sub>Made with ❤️ for Hackathon Club 2026</sub>
-</p>

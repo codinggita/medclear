@@ -34,7 +34,16 @@ const itemVariants = {
   }
 };
 
-export default function Dashboard({ onLogout, onNavigateToUpload, currentPage }) {
+export default function Dashboard({ 
+  onLogout, 
+  onNavigateToUpload, 
+  onNavigateToGovData, 
+  onNavigateToProfile,
+  onNavigateToNotifications,
+  onNavigateToReports,
+  onNavigateToInsights,
+  currentPage 
+}) {
   const [bills, setBills] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -173,7 +182,17 @@ export default function Dashboard({ onLogout, onNavigateToUpload, currentPage })
       variants={pageVariants}
       className="min-h-screen"
     >
-      <Navbar onLogout={onLogout} onNavigateToUpload={onNavigateToUpload} onNavigateToDashboard={() => {}} onNavigateToReports={() => {}} onNavigateToInsights={() => {}} currentPage={currentPage} />
+      <Navbar 
+        onLogout={onLogout} 
+        onNavigateToUpload={onNavigateToUpload} 
+        onNavigateToDashboard={() => {}} 
+        onNavigateToReports={onNavigateToReports} 
+        onNavigateToInsights={onNavigateToInsights} 
+        onNavigateToGovData={onNavigateToGovData} 
+        onNavigateToProfile={onNavigateToProfile}
+        onNavigateToNotifications={onNavigateToNotifications}
+        currentPage={currentPage} 
+      />
       
       <main className="pt-24 pb-12 px-4 md:px-8">
         <div className="max-w-7xl mx-auto">

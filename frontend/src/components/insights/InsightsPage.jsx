@@ -189,7 +189,14 @@ function AnimatedBarChart({ data, color }) {
   );
 }
 
-export default function InsightsPage({ onNavigateToDashboard, onNavigateToUpload, currentPage }) {
+export default function InsightsPage({ 
+  onNavigateToDashboard, 
+  onNavigateToUpload, 
+  onNavigateToGovData, 
+  onNavigateToProfile,
+  onNavigateToNotifications,
+  currentPage 
+}) {
   const [activeInsight, setActiveInsight] = useState(null);
 
   return (
@@ -203,6 +210,9 @@ export default function InsightsPage({ onNavigateToDashboard, onNavigateToUpload
         onLogout={onNavigateToDashboard} 
         onNavigateToUpload={onNavigateToUpload}
         onNavigateToDashboard={onNavigateToDashboard}
+        onNavigateToGovData={onNavigateToGovData}
+        onNavigateToProfile={onNavigateToProfile}
+        onNavigateToNotifications={onNavigateToNotifications}
         currentPage={currentPage}
       />
 

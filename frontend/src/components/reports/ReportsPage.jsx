@@ -27,7 +27,15 @@ const itemVariants = {
 
 import { getBillHistory } from '../../utils/api';
 
-export default function ReportsPage({ onNavigateToDashboard, onNavigateToUpload, onNavigateToInsights, currentPage }) {
+export default function ReportsPage({ 
+  onNavigateToDashboard, 
+  onNavigateToUpload, 
+  onNavigateToInsights, 
+  onNavigateToGovData, 
+  onNavigateToProfile,
+  onNavigateToNotifications,
+  currentPage 
+}) {
   const [currentBill, setCurrentBill] = useState(null);
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -72,6 +80,9 @@ export default function ReportsPage({ onNavigateToDashboard, onNavigateToUpload,
         onNavigateToUpload={onNavigateToUpload}
         onNavigateToDashboard={onNavigateToDashboard}
         onNavigateToInsights={onNavigateToInsights}
+        onNavigateToGovData={onNavigateToGovData}
+        onNavigateToProfile={onNavigateToProfile}
+        onNavigateToNotifications={onNavigateToNotifications}
         currentPage={currentPage}
       />
 

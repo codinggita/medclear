@@ -191,6 +191,61 @@ async function seed() {
     await ReferenceItem.insertMany(dataWithMax);
     console.log(`Seeded ${dataWithMax.length} reference items with maxAllowedPrice`);
 
+    const Scheme = require('./models/Scheme');
+    await Scheme.deleteMany({});
+    console.log('Cleared existing scheme data');
+
+    const schemes = [
+      {
+        name: 'Ayushman Bharat PM-JAY',
+        minIncome: 0,
+        maxIncome: 500000, // typically targeted at lower-income, proxy
+        states: [], // National
+        benefits: ['Up to ₹5 lakhs per family per year', 'Covers secondary and tertiary care hospitalization', 'Cashless access to health care services'],
+        coverageAmount: 500000,
+        description: 'A national public health insurance fund of the Government of India that aims to provide free access to health insurance coverage for low income earners in the country.'
+      },
+      {
+        name: 'Mahatma Jyotiba Phule Jan Arogya Yojana',
+        minIncome: 0,
+        maxIncome: 100000, // For BPL/Annapurna/Antyodaya
+        states: ['Maharashtra'],
+        benefits: ['Up to ₹1.5 lakhs per family per year', 'Covers 971 surgeries/therapies/procedures', 'Free follow-up consultations'],
+        coverageAmount: 150000,
+        description: 'A flagship health insurance scheme of the Government of Maharashtra providing end to end cashless services for identified diseases through a network of service providers.'
+      },
+      {
+        name: 'Central Government Health Scheme (CGHS)',
+        minIncome: 0,
+        maxIncome: 10000000, // Applies to central govt employees regardless of income, setting high bound
+        states: [], // National
+        benefits: ['Comprehensive medical care', 'Dispensary services including medicines', 'Hospitalization at government and empanelled hospitals'],
+        coverageAmount: 1000000, // Proxy value
+        description: 'Provides comprehensive medical care to the Central Government employees and pensioners enrolled under the scheme.'
+      },
+      {
+        name: 'Chief Minister\'s Comprehensive Health Insurance Scheme',
+        minIncome: 0,
+        maxIncome: 120000,
+        states: ['Tamil Nadu'],
+        benefits: ['Up to ₹5 lakhs per family per year', 'Cashless treatment at empanelled hospitals'],
+        coverageAmount: 500000,
+        description: 'A scheme by the Tamil Nadu government to provide quality healthcare to eligible persons.'
+      },
+      {
+        name: 'Biju Swasthya Kalyan Yojana',
+        minIncome: 0,
+        maxIncome: 500000,
+        states: ['Odisha'],
+        benefits: ['Up to ₹5 lakhs per family per year (₹10 lakhs for women members)', 'Universal health coverage in state govt hospitals'],
+        coverageAmount: 500000,
+        description: 'An initiative by the Government of Odisha to provide universal health coverage, with special emphasis on the health protection of economically vulnerable families.'
+      }
+    ];
+
+    await Scheme.insertMany(schemes);
+    console.log(`Seeded ${schemes.length} government schemes`);
+
     process.exit(0);
   } catch (err) {
     console.error('Seed error:', err);

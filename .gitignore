@@ -76,3 +76,5 @@ uploads/
 # OCR
 tessdata/
 *.traineddata
+# Database
+backend/db/

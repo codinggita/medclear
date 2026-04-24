@@ -41,7 +41,16 @@ function ConfettiPiece({ delay, side }) {
   );
 }
 
-export default function UploadPage({ onNavigateToDashboard, onNavigateToReports, onNavigateToInsights, currentPage }) {
+export default function UploadPage({ 
+  onNavigateToDashboard, 
+  onNavigateToReports, 
+  onNavigateToInsights, 
+  onNavigateToGovData,
+  onNavigateToProfile,
+  onNavigateToNotifications,
+  onLogout,
+  currentPage 
+}) {
   const [files, setFiles] = useState([]);
   const [jobId, setJobId] = useState(null);
   const [processStep, setProcessStep] = useState(0);
@@ -238,11 +247,15 @@ export default function UploadPage({ onNavigateToDashboard, onNavigateToReports,
       />
 
       <Navbar 
-        onLogout={onNavigateToDashboard} 
-        onNavigateToUpload={() => {}}
-        onNavigateToDashboard={onNavigateToDashboard}
-        onNavigateToInsights={onNavigateToInsights}
-        currentPage={currentPage}
+        onLogout={onLogout} 
+        onNavigateToUpload={() => {}} 
+        onNavigateToDashboard={onNavigateToDashboard} 
+        onNavigateToReports={onNavigateToReports} 
+        onNavigateToInsights={onNavigateToInsights} 
+        onNavigateToGovData={onNavigateToGovData} 
+        onNavigateToProfile={onNavigateToProfile}
+        onNavigateToNotifications={onNavigateToNotifications}
+        currentPage={currentPage} 
       />
 
       <main className="pt-24 pb-12 px-4 md:px-8 relative z-10">

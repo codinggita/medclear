@@ -43,7 +43,10 @@ app.get('/health', (req, res) => {
   res.json({ success: true, status: 'REST API is running' });
 });
 
+const schemeRoutes = require('./routes/schemeRoutes');
+
 app.use('/api/v1/bills', billRoutes);
+app.use('/api/v1/schemes', schemeRoutes);
 
 app.use((req, res) => {
   res.status(404).json({ success: false, error: 'ROUTE_NOT_FOUND' });

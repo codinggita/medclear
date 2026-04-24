@@ -5,6 +5,9 @@ import UploadPage from './components/upload/UploadPage';
 import ReportsPage from './components/reports/ReportsPage';
 import InsightsPage from './components/insights/InsightsPage';
 import Dashboard from './pages/Dashboard';
+import GovSchemesPage from './pages/GovSchemesPage';
+import ProfilePage from './pages/ProfilePage';
+import NotificationsPage from './pages/NotificationsPage';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('landing');
@@ -24,12 +27,27 @@ function App() {
           onNavigateToDashboard={() => setCurrentPage('dashboard')}
         />
       )}
-      {currentPage === 'dashboard' && <Dashboard onLogout={handleLogout} onNavigateToUpload={() => setCurrentPage('upload')} currentPage={currentPage} />}
+      {currentPage === 'dashboard' && (
+        <Dashboard 
+          onLogout={handleLogout} 
+          onNavigateToUpload={() => setCurrentPage('upload')} 
+          onNavigateToGovData={() => setCurrentPage('gov-data')} 
+          onNavigateToProfile={() => setCurrentPage('profile')}
+          onNavigateToNotifications={() => setCurrentPage('notifications')}
+          onNavigateToReports={() => setCurrentPage('reports')}
+          onNavigateToInsights={() => setCurrentPage('insights')}
+          currentPage={currentPage} 
+        />
+      )}
       {currentPage === 'upload' && (
         <UploadPage 
           onNavigateToDashboard={() => setCurrentPage('dashboard')} 
           onNavigateToReports={() => setCurrentPage('reports')}
           onNavigateToInsights={() => setCurrentPage('insights')}
+          onNavigateToGovData={() => setCurrentPage('gov-data')}
+          onNavigateToProfile={() => setCurrentPage('profile')}
+          onNavigateToNotifications={() => setCurrentPage('notifications')}
+          onLogout={handleLogout}
           currentPage={currentPage}
         />
       )}
@@ -38,6 +56,9 @@ function App() {
           onNavigateToDashboard={() => setCurrentPage('dashboard')}
           onNavigateToUpload={() => setCurrentPage('upload')}
           onNavigateToInsights={() => setCurrentPage('insights')}
+          onNavigateToGovData={() => setCurrentPage('gov-data')}
+          onNavigateToProfile={() => setCurrentPage('profile')}
+          onNavigateToNotifications={() => setCurrentPage('notifications')}
           currentPage={currentPage}
         />
       )}
@@ -45,6 +66,45 @@ function App() {
         <InsightsPage 
           onNavigateToDashboard={() => setCurrentPage('dashboard')}
           onNavigateToUpload={() => setCurrentPage('upload')}
+          onNavigateToGovData={() => setCurrentPage('gov-data')}
+          onNavigateToProfile={() => setCurrentPage('profile')}
+          onNavigateToNotifications={() => setCurrentPage('notifications')}
+          currentPage={currentPage}
+        />
+      )}
+      {currentPage === 'gov-data' && (
+        <GovSchemesPage 
+          onLogout={handleLogout}
+          onNavigateToDashboard={() => setCurrentPage('dashboard')}
+          onNavigateToUpload={() => setCurrentPage('upload')}
+          onNavigateToReports={() => setCurrentPage('reports')}
+          onNavigateToInsights={() => setCurrentPage('insights')}
+          onNavigateToProfile={() => setCurrentPage('profile')}
+          onNavigateToNotifications={() => setCurrentPage('notifications')}
+          currentPage={currentPage}
+        />
+      )}
+      {currentPage === 'profile' && (
+        <ProfilePage 
+          onLogout={handleLogout}
+          onNavigateToDashboard={() => setCurrentPage('dashboard')}
+          onNavigateToUpload={() => setCurrentPage('upload')}
+          onNavigateToReports={() => setCurrentPage('reports')}
+          onNavigateToInsights={() => setCurrentPage('insights')}
+          onNavigateToGovData={() => setCurrentPage('gov-data')}
+          onNavigateToNotifications={() => setCurrentPage('notifications')}
+          currentPage={currentPage}
+        />
+      )}
+      {currentPage === 'notifications' && (
+        <NotificationsPage 
+          onLogout={handleLogout}
+          onNavigateToDashboard={() => setCurrentPage('dashboard')}
+          onNavigateToUpload={() => setCurrentPage('upload')}
+          onNavigateToReports={() => setCurrentPage('reports')}
+          onNavigateToInsights={() => setCurrentPage('insights')}
+          onNavigateToGovData={() => setCurrentPage('gov-data')}
+          onNavigateToProfile={() => setCurrentPage('profile')}
           currentPage={currentPage}
         />
       )}

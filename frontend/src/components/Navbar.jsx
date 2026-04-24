@@ -21,7 +21,7 @@ const routes = [
   { name: 'Government Data', icon: Building2, path: '/gov-data' },
 ];
 
-export default function Navbar({ onLogout, onNavigateToUpload, onNavigateToDashboard, onNavigateToReports, onNavigateToInsights, currentPage }) {
+export default function Navbar({ onLogout, onNavigateToUpload, onNavigateToDashboard, onNavigateToReports, onNavigateToInsights, onNavigateToGovData, onNavigateToProfile, onNavigateToNotifications, currentPage }) {
   const [scrolled, setScrolled] = useState(false);
   const [activeRoute, setActiveRoute] = useState(currentPage || '/');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -34,6 +34,8 @@ export default function Navbar({ onLogout, onNavigateToUpload, onNavigateToDashb
       'reports': '/reports',
       'insights': '/insights',
       'gov-data': '/gov-data',
+      'profile': '/profile',
+      'notifications': '/notifications',
     };
     setActiveRoute(routeMap[currentPage] || '/');
   }, [currentPage]);
@@ -56,6 +58,8 @@ export default function Navbar({ onLogout, onNavigateToUpload, onNavigateToDashb
       onNavigateToReports();
     } else if (route.name === 'Insights' && onNavigateToInsights) {
       onNavigateToInsights();
+    } else if (route.name === 'Government Data' && onNavigateToGovData) {
+      onNavigateToGovData();
     }
   };
 
@@ -133,7 +137,8 @@ export default function Navbar({ onLogout, onNavigateToUpload, onNavigateToDashb
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            className="relative p-2 rounded-lg hover:bg-white/40 transition-colors"
+            onClick={onNavigateToNotifications}
+            className={`relative p-2 rounded-lg transition-colors ${activeRoute === '/notifications' ? 'bg-white/60' : 'hover:bg-white/40'}`}
           >
             <Bell size={20} className="text-[#8D7B68]" />
             <span className="absolute top-1 right-1 w-2 h-2 bg-[#ef4444] rounded-full" />
@@ -141,7 +146,8 @@ export default function Navbar({ onLogout, onNavigateToUpload, onNavigateToDashb
 
           <motion.div
             whileHover={{ scale: 1.05 }}
-            className="w-9 h-9 rounded-full bg-[#A4907C] flex items-center justify-center cursor-pointer overflow-hidden border-2 border-white/50"
+            onClick={onNavigateToProfile}
+            className={`w-9 h-9 rounded-full flex items-center justify-center cursor-pointer overflow-hidden border-2 transition-colors ${activeRoute === '/profile' ? 'border-[#8D7B68] bg-[#8D7B68]' : 'border-white/50 bg-[#A4907C]'}`}
           >
             <User size={18} className="text-white" />
           </motion.div>

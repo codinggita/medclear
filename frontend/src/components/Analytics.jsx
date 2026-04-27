@@ -214,8 +214,8 @@ export default function Analytics({
                   +{Math.round((totalSavings / totalCharged) * 100)}% Over
                 </span>
               </div>
-              <div className="h-[280px]">
-                <ResponsiveContainer width="100%" height="100%">
+              <div className="h-[280px] w-full" style={{ minHeight: '280px' }}>
+                <ResponsiveContainer width="99.9%" height="100%">
                   <BarChart data={barData} barGap={6}>
                     <CartesianGrid strokeDasharray="3 3" stroke="rgba(141, 123, 104, 0.15)" vertical={false} />
                     <XAxis 
@@ -273,36 +273,38 @@ export default function Analytics({
                 <h4 className="font-serif text-xl text-[#1a1a1a]">Category Breakdown</h4>
                 <span className="px-3 py-1 rounded-full text-xs font-bold bg-[#8D7B68]/15 text-[#8D7B68]">5 Categories</span>
               </div>
-              <div className="h-[280px] flex items-center">
-                <ResponsiveContainer width="55%" height="100%">
-                  <PieChart>
-                    <Pie
-                      data={pieData}
-                      cx="50%"
-                      cy="50%"
-                      innerRadius={60}
-                      outerRadius={95}
-                      paddingAngle={3}
-                      dataKey="value"
-                      animationDuration={1500}
-                      onMouseEnter={(_, index) => setSelectedCategory(index)}
-                      onMouseLeave={() => setSelectedCategory(null)}
-                    >
-                      {pieData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.color} stroke="white" strokeWidth={selectedCategory === index ? 3 : 1} />
-                      ))}
-                    </Pie>
-                    <Tooltip content={<PieTooltip />} />
-                  </PieChart>
-                </ResponsiveContainer>
-                <div className="w-[45%] space-y-2">
+              <div className="flex flex-col md:flex-row items-center gap-8">
+                <div className="h-[280px] w-full md:w-[55%]" style={{ minHeight: '280px' }}>
+                  <ResponsiveContainer width="99.9%" height="100%">
+                    <PieChart>
+                      <Pie
+                        data={pieData}
+                        cx="50%"
+                        cy="50%"
+                        innerRadius={60}
+                        outerRadius={95}
+                        paddingAngle={3}
+                        dataKey="value"
+                        animationDuration={1500}
+                        onMouseEnter={(_, index) => setSelectedCategory(index)}
+                        onMouseLeave={() => setSelectedCategory(null)}
+                      >
+                        {pieData.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={entry.color} stroke="white" strokeWidth={selectedCategory === index ? 3 : 1} />
+                        ))}
+                      </Pie>
+                      <Tooltip content={<PieTooltip />} />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
+                <div className="w-full md:w-[45%] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-2">
                   {pieData.map((entry, index) => (
                     <motion.div
-                      key={entry.name}
+                      key={`${entry.name}-${index}`}
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.1 }}
-                      className={`p-3 rounded-xl transition-all ${selectedCategory === index ? 'bg-[#8D7B68]/10' : ''}`}
+                      className={`p-3 rounded-xl transition-all ${selectedCategory === index ? 'bg-[#8D7B68]/10' : 'bg-white/40'}`}
                     >
                       <div className="flex items-center gap-2">
                         <div className="w-3 h-3 rounded-full" style={{ backgroundColor: entry.color }} />
@@ -334,8 +336,8 @@ export default function Analytics({
                   <span className="text-sm font-bold text-[#22c55e]">+24%</span>
                 </div>
               </div>
-              <div className="h-[220px]">
-                <ResponsiveContainer width="100%" height="100%">
+              <div className="h-[220px] w-full" style={{ minHeight: '220px' }}>
+                <ResponsiveContainer width="99.9%" height="100%">
                   <LineChart data={lineData}>
                     <CartesianGrid strokeDasharray="3 3" stroke="rgba(141, 123, 104, 0.15)" vertical={false} />
                     <XAxis dataKey="month" tick={{ fill: '#8D7B68', fontSize: 11 }} axisLine={{ stroke: '#C8B6A6/50' }} tickLine={false} />
@@ -361,8 +363,8 @@ export default function Analytics({
                 <h4 className="font-serif text-xl text-[#1a1a1a]">Cumulative Savings</h4>
                 <span className="px-3 py-1 rounded-full text-xs font-bold bg-[#2563eb]/15 text-[#2563eb]">Yearly Goal</span>
               </div>
-              <div className="h-[220px]">
-                <ResponsiveContainer width="100%" height="100%">
+              <div className="h-[220px] w-full" style={{ minHeight: '220px' }}>
+                <ResponsiveContainer width="99.9%" height="100%">
                   <AreaChart data={areaData}>
                     <defs>
                       <linearGradient id="colorCumulative" x1="0" y1="0" x2="0" y2="1">
@@ -391,18 +393,18 @@ export default function Analytics({
           transition={{ delay: 0.8 }}
           className="mt-8"
         >
-          <h4 className="font-serif text-xl text-[#1a1a1a] mb-5">Category Analysis</h4>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <h4 className="font-serif text-xl text-[#1a1a1a] mb-5 px-2">Category Analysis</h4>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-2">
             {categoryStats.map((item, index) => (
               <motion.div
                 key={item.name}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.9 + index * 0.1 }}
-                className={`p-4 rounded-2xl border ${
+                className={`p-4 rounded-2xl border transition-all ${
                   item.status === 'high' 
-                    ? 'bg-[#ef4444]/5 border-[#ef4444]/20' 
-                    : 'bg-[#22c55e]/5 border-[#22c55e]/20'
+                    ? 'bg-[#ef4444]/5 border-[#ef4444]/20 shadow-sm' 
+                    : 'bg-[#22c55e]/5 border-[#22c55e]/20 shadow-sm'
                 }`}
               >
                 <div className="flex items-center gap-2 mb-2">
@@ -411,9 +413,9 @@ export default function Analytics({
                   ) : (
                     <CheckCircle size={18} className="text-[#22c55e]" />
                   )}
-                  <span className="font-bold text-[#1a1a1a]">{item.name}</span>
+                  <span className="font-bold text-[#1a1a1a] text-sm md:text-base">{item.name}</span>
                 </div>
-                <p className={`text-sm ${
+                <p className={`text-xs md:text-sm font-medium ${
                   item.status === 'high' ? 'text-[#ef4444]' : 'text-[#22c55e]'
                 }`}>
                   {item.message}

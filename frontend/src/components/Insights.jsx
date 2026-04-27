@@ -64,6 +64,7 @@ export default function Insights({ insightsData = [], isLoading = false }) {
                   y: -4,
                   boxShadow: '0 20px 40px rgba(0,0,0,0.1)'
                 }}
+                onClick={() => insight.onAction && insight.onAction()}
                 className={`${insight.bg} rounded-2xl p-5 cursor-pointer group transition-all duration-300`}
               >
                 <div className="flex items-start gap-4">

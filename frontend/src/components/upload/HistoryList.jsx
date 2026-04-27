@@ -48,13 +48,13 @@ export default function HistoryList({ onSelectBill, history = [], loading = fals
       transition={{ duration: 0.5 }}
       className="w-full"
     >
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-base font-bold" style={{ color: '#1a1a1a' }}>
+      <div className="flex items-center justify-between mb-4 px-1">
+        <h3 className="text-base md:text-lg font-bold" style={{ color: '#1a1a1a' }}>
           Recent Bills
         </h3>
         <motion.button
           whileHover={{ scale: 1.05, x: 2 }}
-          className="flex items-center gap-1 text-xs font-medium" style={{ color: '#8D7B68' }}
+          className="flex items-center gap-1 text-xs md:text-sm font-medium" style={{ color: '#8D7B68' }}
         >
           View All
           <ChevronRight size={14} />

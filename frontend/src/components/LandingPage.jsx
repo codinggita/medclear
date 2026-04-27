@@ -91,15 +91,15 @@ export default function LandingPage({ onNavigateToLogin }) {
   }, []);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-x-hidden">
       {/* Navigation */}
       <nav className="sticky top-0 z-[100] bg-[#F5F0E8] border-b-2 border-black px-4 py-3">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div className="flex items-center gap-4">
-            <div className="w-20 h-20 flex items-center justify-center">
-              <img src="/logo.png" alt="MedClear Logo" className="w-full h-full object-contain scale-125" />
+          <div className="flex items-center gap-2 md:gap-4">
+            <div className="w-12 h-12 md:w-20 md:h-20 flex items-center justify-center">
+              <img src="/logo.png" alt="MedClear Logo" className="w-full h-full object-contain scale-110 md:scale-125" />
             </div>
-            <span className="text-4xl font-black heading-serif tracking-tighter uppercase text-black">MedClear</span>
+            <span className="text-2xl md:text-4xl font-black heading-serif tracking-tighter uppercase text-black">MedClear</span>
           </div>
           <div className="hidden md:flex items-center gap-8">
             <a href="#investigation" className="text-xs font-bold uppercase tracking-widest hover:text-red-600 transition-colors">The Evidence</a>
@@ -139,21 +139,21 @@ export default function LandingPage({ onNavigateToLogin }) {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-20">
         
         {/* Masthead */}
-        <header className="text-center border-b-8 border-black pb-10 mb-12">
-          <div className="flex justify-between items-end border-b-2 border-black pb-2 mb-4 text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em]">
+        <header className="text-center border-b-4 md:border-b-8 border-black pb-6 md:pb-10 mb-8 md:mb-12">
+          <div className="flex flex-col md:flex-row justify-between items-center md:items-end border-b-2 border-black pb-2 mb-4 text-[8px] md:text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] gap-2">
             <span>Vol. XLII --- No. 12,847</span>
-            <span className="text-black text-xs md:text-sm">TUESDAY, APRIL 14, 2026</span>
+            <span className="text-black text-[10px] md:text-sm">TUESDAY, APRIL 14, 2026</span>
             <span>Price: One Truth</span>
           </div>
           <motion.h1 
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="text-[12vw] md:text-[8rem] font-black leading-[0.8] tracking-tighter heading-serif mb-6"
+            className="text-[12vw] md:text-[8rem] font-black leading-[0.8] tracking-tighter heading-serif mb-4 md:mb-6 break-words"
           >
             MEDCLEAR
           </motion.h1>
-          <div className="h-2 bg-black w-full mb-1"></div>
-          <div className="h-1 bg-black w-full"></div>
+          <div className="h-1.5 md:h-2 bg-black w-full mb-1"></div>
+          <div className="h-0.5 md:h-1 bg-black w-full"></div>
         </header>
 
         {/* Hero Section: The Lead Story */}
@@ -168,18 +168,18 @@ export default function LandingPage({ onNavigateToLogin }) {
                 <span className="text-xs font-black text-red-600 uppercase tracking-widest border-b-2 border-red-600">Special Investigative Report</span>
                 <span className="text-xs text-gray-400 font-bold tracking-widest">• 5 Min Read</span>
               </div>
-              <h2 className="text-5xl md:text-7xl font-black heading-serif leading-[0.9] tracking-tighter mb-8 uppercase">
+              <h2 className="text-4xl md:text-7xl font-black heading-serif leading-[0.9] tracking-tighter mb-8 uppercase">
                 THE GREAT HOSPITAL <span className="text-red-600">HEIST.</span>
               </h2>
               <p className="text-2xl md:text-3xl font-bold leading-tight mb-8 text-gray-700 italic border-l-8 border-black pl-6">
                 "We found line-items marked as 'Administrative Comfort' costing patients ₹12,000 for a single bed-sheet change."
               </p>
               
-              <div className="newspaper-column-2 text-lg text-gray-900 leading-relaxed font-serif space-y-4">
-                <p>
+              <div className="columns-1 md:columns-2 gap-8 text-lg text-gray-900 leading-relaxed font-serif space-y-4 md:space-y-0">
+                <p className="mb-4">
                   <span className="text-6xl float-left mr-3 mt-2 font-black leading-[0.8]">I</span>t starts with a simple admission. A fever, an elective surgery, or an emergency. But by the time the discharge papers arrive, families are handed a document that feels more like a ransom note than a medical invoice. 
                 </p>
-                <p>
+                <p className="mb-4">
                    Investigations by MedClear's data bureau have uncovered a systematic pattern of looting. Hospitals are unbundling procedures, charging for sterile equipment that was never used, and marking up essential medicines by over 800%—direct violations of government price ceilings.
                 </p>
                 <p>

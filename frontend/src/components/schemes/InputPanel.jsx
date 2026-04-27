@@ -46,7 +46,7 @@ export default function InputPanel({ onSearch, isLoading }) {
         Check Eligibility
       </h2>
 
-      <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-12 gap-6">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4 md:grid md:grid-cols-12 md:gap-6">
         
         {/* Income Input */}
         <div className="md:col-span-5 relative group">
@@ -62,8 +62,8 @@ export default function InputPanel({ onSearch, isLoading }) {
               value={formatCurrency(income)}
               onChange={handleIncomeChange}
               required
-              className="w-full pl-10 pr-4 py-3 bg-white/60 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#8D7B68] focus:border-transparent outline-none transition-all text-lg font-medium text-gray-900 placeholder-gray-400"
-              placeholder="e.g. 5,000,000"
+              className="w-full pl-10 pr-4 py-3 bg-white/60 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#8D7B68] focus:border-transparent outline-none transition-all text-base md:text-lg font-medium text-gray-900 placeholder-gray-400"
+              placeholder="e.g. 5,00,000"
             />
           </div>
         </div>
@@ -81,7 +81,7 @@ export default function InputPanel({ onSearch, isLoading }) {
               value={state}
               onChange={(e) => setState(e.target.value)}
               required
-              className="w-full pl-10 pr-4 py-3 bg-white/60 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#8D7B68] focus:border-transparent outline-none transition-all text-lg font-medium text-gray-900 appearance-none cursor-pointer"
+              className="w-full pl-10 pr-4 py-3 bg-white/60 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#8D7B68] focus:border-transparent outline-none transition-all text-base md:text-lg font-medium text-gray-900 appearance-none cursor-pointer"
             >
               <option value="" disabled className="text-gray-400">Select State</option>
               {INDIAN_STATES.map((s) => (
@@ -102,7 +102,7 @@ export default function InputPanel({ onSearch, isLoading }) {
             whileTap={{ scale: 0.98 }}
             type="submit"
             disabled={isLoading || !income || !state}
-            className={`w-full py-3 rounded-xl font-bold text-white shadow-md transition-all flex items-center justify-center gap-2 ${
+            className={`w-full py-3.5 rounded-xl font-bold text-white shadow-md transition-all flex items-center justify-center gap-2 ${
               isLoading || !income || !state 
                 ? 'bg-gray-400 cursor-not-allowed' 
                 : 'bg-gradient-to-r from-[#8D7B68] to-[#A4907C] hover:shadow-lg'
@@ -111,7 +111,10 @@ export default function InputPanel({ onSearch, isLoading }) {
             {isLoading ? (
               <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
             ) : (
-              'Find Schemes'
+              <div className="flex items-center gap-2">
+                <Search size={18} />
+                <span>Find Schemes</span>
+              </div>
             )}
           </motion.button>
         </div>

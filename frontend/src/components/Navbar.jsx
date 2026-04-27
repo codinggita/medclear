@@ -6,6 +6,7 @@ import {
   FileText, 
   Lightbulb, 
   Building2,
+  Pill,
   Bell,
   LogOut,
   User,
@@ -19,9 +20,10 @@ const routes = [
   { name: 'Reports', icon: FileText, path: '/reports' },
   { name: 'Insights', icon: Lightbulb, path: '/insights' },
   { name: 'Government Data', icon: Building2, path: '/gov-data' },
+  { name: 'Nearby Stores', icon: Pill, path: '/jan-aushadhi' },
 ];
 
-export default function Navbar({ onLogout, onNavigateToUpload, onNavigateToDashboard, onNavigateToReports, onNavigateToInsights, onNavigateToGovData, onNavigateToProfile, onNavigateToNotifications, currentPage }) {
+export default function Navbar({ onLogout, onNavigateToUpload, onNavigateToDashboard, onNavigateToReports, onNavigateToInsights, onNavigateToGovData, onNavigateToProfile, onNavigateToNotifications, onNavigateToJanAushadhi, currentPage }) {
   const [scrolled, setScrolled] = useState(false);
   const [activeRoute, setActiveRoute] = useState(currentPage || '/');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -36,6 +38,7 @@ export default function Navbar({ onLogout, onNavigateToUpload, onNavigateToDashb
       'gov-data': '/gov-data',
       'profile': '/profile',
       'notifications': '/notifications',
+      'jan-aushadhi': '/jan-aushadhi',
     };
     setActiveRoute(routeMap[currentPage] || '/');
   }, [currentPage]);
@@ -60,6 +63,8 @@ export default function Navbar({ onLogout, onNavigateToUpload, onNavigateToDashb
       onNavigateToInsights();
     } else if (route.name === 'Government Data' && onNavigateToGovData) {
       onNavigateToGovData();
+    } else if (route.name === 'Nearby Stores' && onNavigateToJanAushadhi) {
+      onNavigateToJanAushadhi();
     }
   };
 
@@ -185,7 +190,7 @@ export default function Navbar({ onLogout, onNavigateToUpload, onNavigateToDashb
             exit={{ opacity: 0, height: 0 }}
             className="md:hidden overflow-hidden"
           >
-            <div className="glass-card mt-4 rounded-xl p-4 space-y-2">
+            <div className="glass-card mt-4 rounded-xl p-4 space-y-2 border border-[#8D7B68]/20">
               {routes.map((route, index) => (
                 <motion.button
                   key={route.name}
@@ -193,12 +198,12 @@ export default function Navbar({ onLogout, onNavigateToUpload, onNavigateToDashb
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
                   onClick={() => {
-                    setActiveRoute(route.path);
+                    handleRouteClick(route);
                     setMobileMenuOpen(false);
                   }}
                   className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors ${
                     activeRoute === route.path
-                      ? 'bg-[#8D7B68] text-white'
+                      ? 'bg-[#8D7B68] text-white shadow-md'
                       : 'text-[#8D7B68] hover:bg-white/40'
                   }`}
                 >
@@ -206,6 +211,19 @@ export default function Navbar({ onLogout, onNavigateToUpload, onNavigateToDashb
                   {route.name}
                 </motion.button>
               ))}
+              
+              <div className="pt-4 border-t border-[#8D7B68]/10 mt-2">
+                <motion.button
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: routes.length * 0.1 }}
+                  onClick={onLogout}
+                  className="w-full flex items-center gap-3 px-4 py-3 rounded-lg font-medium text-red-500 hover:bg-red-50"
+                >
+                  <LogOut size={18} />
+                  Logout
+                </motion.button>
+              </div>
             </div>
           </motion.div>
         )}

@@ -5,13 +5,13 @@ import { TrendingUp, TrendingDown, DollarSign, Percent, Calendar, BarChart3 } fr
 function AnimatedBar({ value, maxValue, delay, label, color }) {
   const heightPercent = maxValue > 0 ? (value / maxValue) * 100 : 0;
   return (
-    <div className="flex flex-col items-center gap-1 flex-1 min-w-[30px]">
+    <div className="flex flex-col items-center gap-1 flex-1 min-w-[20px] sm:min-w-[30px]">
       <motion.div
-        className="w-full relative rounded-t-md overflow-hidden bg-white/20"
+        className="w-full relative rounded-t-sm md:rounded-t-md overflow-hidden bg-white/20"
         style={{ height: '100px' }}
       >
         <motion.div
-          className="absolute bottom-0 left-0 right-0 rounded-t-md"
+          className="absolute bottom-0 left-0 right-0 rounded-t-sm md:rounded-t-md"
           style={{ 
             height: `${heightPercent}%`,
             background: `linear-gradient(to top, ${color}dd, ${color}44)`
@@ -21,8 +21,8 @@ function AnimatedBar({ value, maxValue, delay, label, color }) {
           transition={{ duration: 0.6, delay, ease: 'easeOut' }}
         />
       </motion.div>
-      <p className="text-[10px] font-medium" style={{ color: '#1a1a1a' }}>₹{value > 1000 ? `${(value / 1000).toFixed(1)}k` : value}</p>
-      <p className="text-[10px] text-[#8D7B68]/60">{label}</p>
+      <p className="text-[8px] sm:text-[10px] font-medium hidden sm:block" style={{ color: '#1a1a1a' }}>₹{value > 1000 ? `${(value / 1000).toFixed(1)}k` : value}</p>
+      <p className="text-[8px] sm:text-[10px] text-[#8D7B68]/60">{label.substring(0, 1)}</p>
     </div>
   );
 }

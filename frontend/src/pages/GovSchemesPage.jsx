@@ -6,8 +6,7 @@ import InputPanel from '../components/schemes/InputPanel';
 import ResultsSection from '../components/schemes/ResultsSection';
 import InsightsPanel from '../components/schemes/InsightsPanel';
 import axios from 'axios';
-
-const API_BASE_URL = 'http://localhost:5000/api/v1';
+import { API_BASE_URL } from '../utils/api';
 
 export default function GovSchemesPage({ 
   onLogout, 
@@ -17,6 +16,7 @@ export default function GovSchemesPage({
   onNavigateToInsights, 
   onNavigateToProfile,
   onNavigateToNotifications,
+  onNavigateToJanAushadhi,
   currentPage 
 }) {
   const [schemes, setSchemes] = useState(null);
@@ -58,6 +58,7 @@ export default function GovSchemesPage({
         onNavigateToGovData={() => {}} // current page
         onNavigateToProfile={onNavigateToProfile}
         onNavigateToNotifications={onNavigateToNotifications}
+        onNavigateToJanAushadhi={onNavigateToJanAushadhi}
         currentPage={currentPage} 
       />
       

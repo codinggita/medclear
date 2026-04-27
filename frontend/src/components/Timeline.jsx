@@ -47,13 +47,13 @@ export default function Timeline() {
           </p>
         </div>
 
-        <div className="flex items-center justify-between max-w-4xl mx-auto relative">
-          <div className="absolute top-1/2 left-0 right-0 h-1 bg-[#C8B6A6]/30 rounded-full -translate-y-1/2 z-0" />
+        <div className="flex items-center justify-between max-w-4xl mx-auto relative px-2">
+          <div className="absolute top-1/2 left-4 right-4 h-1 bg-[#C8B6A6]/30 rounded-full -translate-y-1/2 z-0" />
           
           <motion.div
-            className="absolute top-1/2 left-0 h-1 bg-gradient-to-r from-[#8D7B68] to-[#22c55e] rounded-full -translate-y-1/2 z-0"
+            className="absolute top-1/2 left-4 h-1 bg-gradient-to-r from-[#8D7B68] to-[#22c55e] rounded-full -translate-y-1/2 z-0"
             initial={{ width: '0%' }}
-            animate={{ width: `${progress}%` }}
+            animate={{ width: `${progress * 0.92}%` }}
             transition={{ duration: 0.8, ease: 'easeInOut' }}
           />
 
@@ -72,52 +72,44 @@ export default function Timeline() {
                 >
                   <motion.div
                     animate={{
-                      scale: isCurrent ? [1, 1.2, 1] : 1,
+                      scale: isCurrent ? [1, 1.1, 1] : 1,
                       boxShadow: isActive 
-                        ? '0 0 30px rgba(139, 123, 104, 0.5)' 
+                        ? '0 0 20px rgba(139, 123, 104, 0.4)' 
                         : '0 0 0px rgba(139, 123, 104, 0)',
                     }}
                     transition={{
                       scale: { duration: 1, repeat: isCurrent ? Infinity : 0, repeatDelay: 1 },
                       boxShadow: { duration: 0.5 },
                     }}
-                    className={`w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center transition-all duration-300 ${
+                    className={`w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl md:rounded-2xl flex items-center justify-center transition-all duration-300 ${
                       isActive
                         ? 'bg-[#8D7B68] text-white'
-                        : 'bg-white/60 text-[#8D7B68]'
+                        : 'bg-white/80 text-[#8D7B68]'
                     }`}
                   >
-                    <Icon size={28} className="md:w-8 md:h-8" />
+                    <Icon size={20} className="sm:w-6 sm:h-6 md:w-8 md:h-8" />
                   </motion.div>
 
                   {isActive && (
                     <motion.div
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
-                      className="absolute -top-1 -right-1 w-5 h-5 bg-[#22c55e] rounded-full flex items-center justify-center"
+                      className="absolute -top-1 -right-1 w-4 h-4 md:w-5 md:h-5 bg-[#22c55e] rounded-full flex items-center justify-center border-2 border-white"
                     >
-                      <CheckCircle size={12} className="text-white" />
+                      <CheckCircle size={10} className="text-white" />
                     </motion.div>
                   )}
 
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    whileHover={{ opacity: 1, y: 0 }}
-                    className="absolute top-full mt-3 left-1/2 -translate-x-1/2 whitespace-nowrap"
-                  >
-                    <span className={`text-sm font-medium px-3 py-1 rounded-full ${
+                  <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                    <span className={`text-[10px] md:text-sm font-bold md:font-medium px-2 py-0.5 md:px-3 md:py-1 rounded-full ${
                       isActive
-                        ? 'bg-[#8D7B68] text-white'
-                        : 'bg-white/80 text-[#8D7B68]'
+                        ? 'bg-[#8D7B68]/10 text-[#8D7B68]'
+                        : 'text-[#8D7B68]/40'
                     }`}>
-                      {step.label}
+                      {step.name}
                     </span>
-                  </motion.div>
+                  </div>
                 </motion.div>
-
-                {index < steps.length - 1 && (
-                  <div className="hidden md:block absolute top-1/2 left-full w-[calc(100%-5rem)] h-0.5 -translate-y-1/2" />
-                )}
               </div>
             );
           })}

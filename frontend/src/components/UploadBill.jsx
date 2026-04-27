@@ -4,6 +4,7 @@ import {
   Upload, FileText, Image, Camera, X, CheckCircle, 
   Sparkles, Zap, ArrowRight, Loader2, FileCheck, AlertCircle
 } from 'lucide-react';
+import { API_BASE_URL } from '../utils/api';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -170,7 +171,7 @@ export default function UploadBill({ onNavigateToDashboard }) {
     formData.append('file', files[0].file);
 
     try {
-      const res = await fetch('http://localhost:5000/api/v1/bills/upload', {
+      const res = await fetch(`${API_BASE_URL}/bills/upload`, {
         method: 'POST',
         body: formData,
       });
@@ -181,7 +182,7 @@ export default function UploadBill({ onNavigateToDashboard }) {
       setUploadProgress(20);
 
       // Transition to SSE
-      const eventSource = new EventSource(`http://localhost:5000/api/v1/bills/job/${jobId}/stream`);
+      const eventSource = new EventSource(`${API_BASE_URL}/bills/job/${jobId}/stream`);
 
       eventSource.onmessage = (e) => {
         const payload = JSON.parse(e.data);

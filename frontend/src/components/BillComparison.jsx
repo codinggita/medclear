@@ -52,22 +52,22 @@ export default function BillComparison({ rawBillItems = [], structuredData = [],
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 md:gap-8">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4 }}
-            className="glass-card rounded-2xl p-6"
+            className="glass-card rounded-2xl p-4 md:p-6"
           >
             <div className="flex items-center gap-2 mb-6">
               <FileText size={20} className="text-[#8D7B68]" />
-              <h4 className="font-serif text-xl text-[#1a1a1a]">Original Bill</h4>
+              <h4 className="font-serif text-lg md:text-xl text-[#1a1a1a]">Original Bill</h4>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3 md:space-y-4">
               {rawBillItems.map((item, index) => (
                 <motion.div
-                  key={item.name}
+                  key={`${item.name}-${index}`}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.5 + index * 0.1 }}
@@ -75,16 +75,16 @@ export default function BillComparison({ rawBillItems = [], structuredData = [],
                     item.flag ? 'bg-[#ef4444]/5 border border-[#ef4444]/20' : 'bg-white/40'
                   }`}
                 >
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-3 min-w-0 flex-1">
                     {item.flag ? (
-                      <AlertCircle size={16} className="text-[#ef4444]" />
+                      <AlertCircle size={16} className="text-[#ef4444] shrink-0" />
                     ) : (
-                      <CheckCircle size={16} className="text-[#22c55e]" />
+                      <CheckCircle size={16} className="text-[#22c55e] shrink-0" />
                     )}
-                    <span className="text-[#1a1a1a] font-medium text-sm">{item.name}</span>
+                    <span className="text-[#1a1a1a] font-medium text-xs md:text-sm truncate">{item.name}</span>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <span className="text-[#1a1a1a] font-semibold">₹{item.original.toLocaleString()}</span>
+                  <div className="flex items-center gap-2 md:gap-3 ml-2">
+                    <span className="text-[#1a1a1a] font-semibold text-xs md:text-sm">₹{item.original.toLocaleString()}</span>
                     {item.flag && (
                       <ArrowRight size={14} className="text-[#ef4444]" />
                     )}
@@ -94,8 +94,8 @@ export default function BillComparison({ rawBillItems = [], structuredData = [],
             </div>
 
             <div className="mt-6 pt-4 border-t border-[#C8B6A6]/30 flex items-center justify-between">
-              <span className="text-[#8D7B68] font-medium">Total Charged</span>
-              <span className="text-2xl font-serif font-bold text-[#1a1a1a]">
+              <span className="text-[#8D7B68] text-sm font-medium">Total Charged</span>
+              <span className="text-xl md:text-2xl font-serif font-bold text-[#1a1a1a]">
                 ₹{totalOriginal.toLocaleString()}
               </span>
             </div>
@@ -105,36 +105,36 @@ export default function BillComparison({ rawBillItems = [], structuredData = [],
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.5 }}
-            className="glass-card rounded-2xl p-6"
+            className="glass-card rounded-2xl p-4 md:p-6"
           >
             <div className="flex items-center gap-2 mb-6">
               <CheckCircle size={20} className="text-[#22c55e]" />
-              <h4 className="font-serif text-xl text-[#1a1a1a]">Structured Data</h4>
+              <h4 className="font-serif text-lg md:text-xl text-[#1a1a1a]">Structured Data</h4>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3 md:space-y-4">
               {structuredData.map((item, index) => (
                 <motion.div
-                  key={item.category}
+                  key={`${item.category}-${index}`}
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.6 + index * 0.1 }}
                   className="flex items-center justify-between p-3 rounded-xl bg-white/40"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className={`w-2 h-2 rounded-full ${
+                  <div className="flex items-center gap-3 min-w-0 flex-1">
+                    <div className={`w-2 h-2 rounded-full shrink-0 ${
                       item.status === 'verified' ? 'bg-[#22c55e]' : 'bg-[#2563eb]'
                     }`} />
-                    <span className="text-[#1a1a1a] font-medium text-sm">{item.category}</span>
+                    <span className="text-[#1a1a1a] font-medium text-xs md:text-sm truncate">{item.category}</span>
                   </div>
-                  <span className="text-[#1a1a1a] font-semibold">₹{item.amount.toLocaleString()}</span>
+                  <span className="text-[#1a1a1a] font-semibold text-xs md:text-sm ml-2">₹{item.amount.toLocaleString()}</span>
                 </motion.div>
               ))}
             </div>
 
             <div className="mt-6 pt-4 border-t border-[#C8B6A6]/30 flex items-center justify-between">
-              <span className="text-[#8D7B68] font-medium">Expected Cost</span>
-              <span className="text-2xl font-serif font-bold text-[#22c55e]">
+              <span className="text-[#8D7B68] text-sm font-medium">Expected Cost</span>
+              <span className="text-xl md:text-2xl font-serif font-bold text-[#22c55e]">
                 ₹{totalExpected.toLocaleString()}
               </span>
             </div>

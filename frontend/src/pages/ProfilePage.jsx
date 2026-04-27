@@ -27,6 +27,7 @@ export default function ProfilePage({
   onNavigateToInsights, 
   onNavigateToGovData,
   onNavigateToNotifications,
+  onNavigateToJanAushadhi,
   currentPage 
 }) {
   const user = {
@@ -73,6 +74,7 @@ export default function ProfilePage({
         onNavigateToGovData={onNavigateToGovData}
         onNavigateToProfile={() => {}}
         onNavigateToNotifications={onNavigateToNotifications}
+        onNavigateToJanAushadhi={onNavigateToJanAushadhi}
         currentPage={currentPage}
       />
 
@@ -81,17 +83,18 @@ export default function ProfilePage({
           {/* Header Profile Card */}
           <motion.div 
             variants={itemVariants}
-            className="glass-card rounded-3xl p-8 mb-8 relative overflow-hidden"
+            className="glass-card rounded-3xl p-6 md:p-8 mb-8 relative overflow-hidden"
           >
             <div className="absolute top-0 right-0 w-64 h-64 bg-[#8D7B68]/5 rounded-full blur-3xl -mr-20 -mt-20" />
             
-            <div className="flex flex-col md:flex-row items-center gap-8 relative z-10">
+            <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8 relative z-10">
               <div className="relative">
                 <motion.div 
                   whileHover={{ scale: 1.05 }}
-                  className="w-32 h-32 rounded-3xl bg-gradient-to-br from-[#8D7B68] to-[#A4907C] flex items-center justify-center border-4 border-white shadow-xl overflow-hidden"
+                  className="w-24 h-24 md:w-32 md:h-32 rounded-3xl bg-gradient-to-br from-[#8D7B68] to-[#A4907C] flex items-center justify-center border-4 border-white shadow-xl overflow-hidden"
                 >
-                  <User size={64} className="text-white/80" />
+                  <User size={48} className="text-white/80 md:hidden" />
+                  <User size={64} className="text-white/80 hidden md:block" />
                 </motion.div>
                 <motion.button 
                   whileHover={{ scale: 1.1 }}
@@ -103,14 +106,14 @@ export default function ProfilePage({
               </div>
 
               <div className="text-center md:text-left flex-1">
-                <h1 className="text-3xl font-black mb-1" style={{ color: '#1a1a1a' }}>{user.name}</h1>
-                <p className="text-[#8D7B68] font-medium mb-4">Member since {user.joined}</p>
+                <h1 className="text-2xl md:text-3xl font-black mb-1" style={{ color: '#1a1a1a' }}>{user.name}</h1>
+                <p className="text-sm md:text-base text-[#8D7B68] font-medium mb-4">Member since {user.joined}</p>
                 
-                <div className="flex flex-wrap justify-center md:justify-start gap-4">
-                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/60 text-xs font-bold text-[#8D7B68] border border-[#8D7B68]/10">
+                <div className="flex flex-col sm:flex-row flex-wrap justify-center md:justify-start gap-2 md:gap-4">
+                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/60 text-[10px] md:text-xs font-bold text-[#8D7B68] border border-[#8D7B68]/10">
                     <Mail size={14} /> {user.email}
                   </div>
-                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/60 text-xs font-bold text-[#8D7B68] border border-[#8D7B68]/10">
+                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/60 text-[10px] md:text-xs font-bold text-[#8D7B68] border border-[#8D7B68]/10">
                     <MapPin size={14} /> {user.location}
                   </div>
                 </div>

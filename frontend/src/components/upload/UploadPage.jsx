@@ -48,6 +48,7 @@ export default function UploadPage({
   onNavigateToGovData,
   onNavigateToProfile,
   onNavigateToNotifications,
+  onNavigateToJanAushadhi,
   onLogout,
   currentPage 
 }) {
@@ -255,6 +256,7 @@ export default function UploadPage({
         onNavigateToGovData={onNavigateToGovData} 
         onNavigateToProfile={onNavigateToProfile}
         onNavigateToNotifications={onNavigateToNotifications}
+        onNavigateToJanAushadhi={onNavigateToJanAushadhi}
         currentPage={currentPage} 
       />
 
@@ -373,7 +375,7 @@ export default function UploadPage({
                         Try a Sample Bill
                       </motion.button>
                       
-                      <div className="flex flex-wrap justify-center gap-2">
+                      <div className="flex flex-wrap justify-center gap-2 md:gap-3">
                         {[
                           { icon: FileText, label: 'PDF', color: '#ef4444' },
                           { icon: Image, label: 'Images', color: '#2563eb' },
@@ -384,10 +386,10 @@ export default function UploadPage({
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             whileHover={{ scale: 1.08, y: -3 }}
-                            className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/60 backdrop-blur-sm border border-[#8D7B68]/15 text-base font-medium"
+                            className="flex items-center gap-1.5 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-white/60 backdrop-blur-sm border border-[#8D7B68]/15 text-xs md:text-base font-medium"
                             style={{ color: item.color }}
                           >
-                            <item.icon size={16} />
+                            <item.icon size={14} className="md:w-4 md:h-4" />
                             {item.label}
                           </motion.div>
                         ))}
@@ -408,29 +410,29 @@ export default function UploadPage({
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: index * 0.1 }}
-                        className="flex items-center gap-4 p-4 rounded-2xl bg-white/60 backdrop-blur-sm border border-[#8D7B68]/15 shadow-sm"
+                        className="flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-2xl bg-white/60 backdrop-blur-sm border border-[#8D7B68]/15 shadow-sm"
                       >
-                        <div className="w-10 h-10 rounded-xl flex items-center justify-center"
+                        <div className="w-9 h-9 md:w-10 md:h-10 rounded-xl flex items-center justify-center shrink-0"
                           style={{ backgroundColor: file.type === 'application/pdf' ? 'rgba(239, 68, 68, 0.12)' : 'rgba(37, 99, 235, 0.12)' }}>
                           {file.type === 'application/pdf' ? (
-                            <FileText size={18} className="text-[#ef4444]" />
+                            <FileText size={16} className="text-[#ef4444]" />
                           ) : (
-                            <Image size={18} className="text-[#2563eb]" />
+                            <Image size={16} className="text-[#2563eb]" />
                           )}
                         </div>
                         
                         <div className="flex-1 min-w-0">
-                          <p className="text-base font-medium truncate" style={{ color: '#1a1a1a' }}>{file.name}</p>
-                          <p className="text-sm text-[#8D7B68]/70">{formatFileSize(file.size)}</p>
+                           <p className="text-sm md:text-base font-bold truncate" style={{ color: '#1a1a1a' }}>{file.name}</p>
+                           <p className="text-[10px] md:text-sm text-[#8D7B68]/70">{formatFileSize(file.size)}</p>
                         </div>
                         
                         <motion.button
                           whileHover={{ scale: 1.15, rotate: 90 }}
                           whileTap={{ scale: 0.9 }}
-                          onClick={() => removeFile(file.id)}
-                          className="w-8 h-8 rounded-full flex items-center justify-center bg-[#ef4444]/10"
+                          onClick={(e) => { e.stopPropagation(); removeFile(file.id); }}
+                          className="w-8 h-8 rounded-full flex items-center justify-center bg-[#ef4444]/10 shrink-0"
                         >
-                          <X size={16} className="text-[#ef4444]" />
+                          <X size={14} className="text-[#ef4444]" />
                         </motion.button>
                       </motion.div>
                     ))}
@@ -444,15 +446,15 @@ export default function UploadPage({
                     whileHover={{ scale: 1.02, y: -3 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleAnalyze}
-                    className="w-full mt-5 py-4 rounded-2xl font-semibold text-base text-white flex items-center justify-center gap-2 shadow-lg"
+                    className="w-full mt-5 py-3.5 md:py-4 rounded-2xl font-bold text-sm md:text-base text-white flex items-center justify-center gap-2 shadow-lg"
                     style={{ 
                       background: 'linear-gradient(135deg, #8D7B68, #A4907C)',
                       boxShadow: '0 10px 30px -5px rgba(141, 123, 104, 0.35)'
                     }}
                   >
-                    <Zap size={22} />
+                    <Zap size={18} className="md:w-5 md:h-5" />
                     Analyze Bill
-                    <ArrowRight size={20} />
+                    <ArrowRight size={18} className="md:w-5 md:h-5" />
                   </motion.button>
                 )}
 

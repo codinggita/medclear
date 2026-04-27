@@ -27,6 +27,7 @@ export default function NotificationsPage({
   onNavigateToInsights, 
   onNavigateToGovData,
   onNavigateToProfile,
+  onNavigateToJanAushadhi,
   currentPage 
 }) {
   const notifications = [
@@ -99,6 +100,7 @@ export default function NotificationsPage({
         onNavigateToGovData={onNavigateToGovData}
         onNavigateToProfile={onNavigateToProfile}
         onNavigateToNotifications={() => {}}
+        onNavigateToJanAushadhi={onNavigateToJanAushadhi}
         currentPage={currentPage}
       />
 

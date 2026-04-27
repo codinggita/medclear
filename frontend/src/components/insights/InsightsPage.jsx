@@ -195,6 +195,7 @@ export default function InsightsPage({
   onNavigateToGovData, 
   onNavigateToProfile,
   onNavigateToNotifications,
+  onNavigateToJanAushadhi,
   currentPage 
 }) {
   const [activeInsight, setActiveInsight] = useState(null);
@@ -213,6 +214,7 @@ export default function InsightsPage({
         onNavigateToGovData={onNavigateToGovData}
         onNavigateToProfile={onNavigateToProfile}
         onNavigateToNotifications={onNavigateToNotifications}
+        onNavigateToJanAushadhi={onNavigateToJanAushadhi}
         currentPage={currentPage}
       />
 

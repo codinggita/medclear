@@ -1,4 +1,11 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api/v1` : 'http://localhost:5000/api/v1';
+const getBaseUrl = () => {
+  let envUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+  if (envUrl.endsWith('/')) envUrl = envUrl.slice(0, -1);
+  return envUrl.endsWith('/api/v1') ? envUrl : `${envUrl}/api/v1`;
+};
+
+const API_BASE_URL = getBaseUrl();
+export { API_BASE_URL };
 
 export const processBill = async (file) => {
   const formData = new FormData();
@@ -38,7 +45,11 @@ export const getJobStatus = async (jobId) => {
 
 export const checkBackend = async () => {
   try {
-    const healthUrl = import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/health` : 'http://localhost:5000/health';
+    let baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+    if (baseUrl.endsWith('/api/v1')) baseUrl = baseUrl.replace('/api/v1', '');
+    if (baseUrl.endsWith('/')) baseUrl = baseUrl.slice(0, -1);
+    
+    const healthUrl = `${baseUrl}/health`;
     const response = await fetch(healthUrl);
     return response.ok;
   } catch (error) {

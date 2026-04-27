@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard';
 import GovSchemesPage from './pages/GovSchemesPage';
 import ProfilePage from './pages/ProfilePage';
 import NotificationsPage from './pages/NotificationsPage';
+import JanAushadhiMap from './pages/JanAushadhiMap';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('landing');
@@ -17,7 +18,7 @@ function App() {
   };
 
   return (
-    <div className="relative">
+    <div className="relative overflow-x-hidden">
       {currentPage === 'landing' && (
         <LandingPage onNavigateToLogin={() => setCurrentPage('login')} />
       )}
@@ -36,6 +37,7 @@ function App() {
           onNavigateToNotifications={() => setCurrentPage('notifications')}
           onNavigateToReports={() => setCurrentPage('reports')}
           onNavigateToInsights={() => setCurrentPage('insights')}
+          onNavigateToJanAushadhi={() => setCurrentPage('jan-aushadhi')}
           currentPage={currentPage} 
         />
       )}
@@ -47,6 +49,7 @@ function App() {
           onNavigateToGovData={() => setCurrentPage('gov-data')}
           onNavigateToProfile={() => setCurrentPage('profile')}
           onNavigateToNotifications={() => setCurrentPage('notifications')}
+          onNavigateToJanAushadhi={() => setCurrentPage('jan-aushadhi')}
           onLogout={handleLogout}
           currentPage={currentPage}
         />
@@ -59,6 +62,7 @@ function App() {
           onNavigateToGovData={() => setCurrentPage('gov-data')}
           onNavigateToProfile={() => setCurrentPage('profile')}
           onNavigateToNotifications={() => setCurrentPage('notifications')}
+          onNavigateToJanAushadhi={() => setCurrentPage('jan-aushadhi')}
           currentPage={currentPage}
         />
       )}
@@ -69,6 +73,7 @@ function App() {
           onNavigateToGovData={() => setCurrentPage('gov-data')}
           onNavigateToProfile={() => setCurrentPage('profile')}
           onNavigateToNotifications={() => setCurrentPage('notifications')}
+          onNavigateToJanAushadhi={() => setCurrentPage('jan-aushadhi')}
           currentPage={currentPage}
         />
       )}
@@ -81,6 +86,7 @@ function App() {
           onNavigateToInsights={() => setCurrentPage('insights')}
           onNavigateToProfile={() => setCurrentPage('profile')}
           onNavigateToNotifications={() => setCurrentPage('notifications')}
+          onNavigateToJanAushadhi={() => setCurrentPage('jan-aushadhi')}
           currentPage={currentPage}
         />
       )}
@@ -93,6 +99,7 @@ function App() {
           onNavigateToInsights={() => setCurrentPage('insights')}
           onNavigateToGovData={() => setCurrentPage('gov-data')}
           onNavigateToNotifications={() => setCurrentPage('notifications')}
+          onNavigateToJanAushadhi={() => setCurrentPage('jan-aushadhi')}
           currentPage={currentPage}
         />
       )}
@@ -105,6 +112,20 @@ function App() {
           onNavigateToInsights={() => setCurrentPage('insights')}
           onNavigateToGovData={() => setCurrentPage('gov-data')}
           onNavigateToProfile={() => setCurrentPage('profile')}
+          onNavigateToJanAushadhi={() => setCurrentPage('jan-aushadhi')}
+          currentPage={currentPage}
+        />
+      )}
+      {currentPage === 'jan-aushadhi' && (
+        <JanAushadhiMap 
+          onLogout={handleLogout}
+          onNavigateToDashboard={() => setCurrentPage('dashboard')}
+          onNavigateToUpload={() => setCurrentPage('upload')}
+          onNavigateToReports={() => setCurrentPage('reports')}
+          onNavigateToInsights={() => setCurrentPage('insights')}
+          onNavigateToGovData={() => setCurrentPage('gov-data')}
+          onNavigateToProfile={() => setCurrentPage('profile')}
+          onNavigateToNotifications={() => setCurrentPage('notifications')}
           currentPage={currentPage}
         />
       )}

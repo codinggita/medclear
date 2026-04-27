@@ -34,6 +34,7 @@ export default function ReportsPage({
   onNavigateToGovData, 
   onNavigateToProfile,
   onNavigateToNotifications,
+  onNavigateToJanAushadhi,
   currentPage 
 }) {
   const [currentBill, setCurrentBill] = useState(null);
@@ -83,6 +84,7 @@ export default function ReportsPage({
         onNavigateToGovData={onNavigateToGovData}
         onNavigateToProfile={onNavigateToProfile}
         onNavigateToNotifications={onNavigateToNotifications}
+        onNavigateToJanAushadhi={onNavigateToJanAushadhi}
         currentPage={currentPage}
       />
 

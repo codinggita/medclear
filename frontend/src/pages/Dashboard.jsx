@@ -42,6 +42,7 @@ export default function Dashboard({
   onNavigateToNotifications,
   onNavigateToReports,
   onNavigateToInsights,
+  onNavigateToJanAushadhi,
   currentPage 
 }) {
   const [bills, setBills] = useState([]);
@@ -175,6 +176,17 @@ export default function Dashboard({
     });
   }
 
+  dynamicInsights.push({
+    type: 'store',
+    icon: Pill,
+    title: 'Nearby Jan Aushadhi',
+    description: 'Find nearby government-certified stores to save up to 80% on medicines.',
+    action: 'Find Stores',
+    onAction: () => onNavigateToJanAushadhi(),
+    color: '#8D7B68',
+    bg: 'bg-[#8D7B68]/10',
+  });
+
   return (
     <motion.div 
       initial="initial"
@@ -191,6 +203,7 @@ export default function Dashboard({
         onNavigateToGovData={onNavigateToGovData} 
         onNavigateToProfile={onNavigateToProfile}
         onNavigateToNotifications={onNavigateToNotifications}
+        onNavigateToJanAushadhi={onNavigateToJanAushadhi}
         currentPage={currentPage} 
       />
       

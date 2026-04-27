@@ -109,7 +109,7 @@ export default function CurrentBillCard({ bill }) {
             )}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {cardData.map((card, index) => {
               const Icon = card.icon;
               return (
@@ -118,7 +118,7 @@ export default function CurrentBillCard({ bill }) {
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 + index * 0.1 }}
-                  className="p-4 rounded-xl border border-white/40 shadow-sm"
+                  className="p-4 rounded-xl border border-white/40 shadow-sm transition-all"
                   style={{ backgroundColor: card.bgColor }}
                 >
                   <div className="flex items-center gap-2 mb-3">
@@ -138,7 +138,7 @@ export default function CurrentBillCard({ bill }) {
           <div className="mt-8">
             <motion.button
               onClick={() => setShowDetails(!showDetails)}
-              className="flex items-center justify-center gap-2 w-full py-2 text-sm font-bold text-[#8D7B68] rounded-lg hover:bg-[#8D7B68]/5 transition-colors"
+              className="flex items-center justify-center gap-2 w-full py-3 md:py-2 text-sm font-bold text-[#8D7B68] rounded-lg hover:bg-[#8D7B68]/5 transition-colors border border-[#8D7B68]/10"
             >
               {showDetails ? (
                 <>Hide Itemized Audit <ChevronUp size={16} /></>
@@ -165,8 +165,8 @@ export default function CurrentBillCard({ bill }) {
                         </p>
                       </div>
                     ) : (
-                      <div className="overflow-x-auto">
-                        <table className="w-full text-left">
+                      <div className="overflow-x-auto -mx-6 px-6">
+                        <table className="w-full text-left min-w-[500px]">
                           <thead>
                             <tr className="text-[10px] uppercase tracking-wider text-[#8D7B68]/60 font-bold border-b border-[#8D7B68]/10">
                               <th className="pb-3 pl-2">Description</th>
@@ -185,29 +185,26 @@ export default function CurrentBillCard({ bill }) {
                                 className="group hover:bg-[#8D7B68]/5 transition-colors"
                               >
                                 <td className="py-3 pl-2">
-                                  <p className="text-sm font-bold text-[#1a1a1a] uppercase">{item.rawName}</p>
+                                  <p className="text-xs md:text-sm font-bold text-[#1a1a1a] uppercase truncate max-w-[150px] md:max-w-none" title={item.rawName}>{item.rawName}</p>
                                   <div className="flex items-center gap-2 mt-0.5">
-                                    <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-[#8D7B68]/10 text-[#8D7B68]">
+                                    <span className="text-[9px] font-medium px-1 py-0.5 rounded bg-[#8D7B68]/10 text-[#8D7B68]">
                                       {item.matchMethod}
                                     </span>
-                                    {item.ocrConfidence < 0.7 && (
-                                      <span className="text-[10px] font-medium text-amber-600">Low OCR Confidence</span>
-                                    )}
                                   </div>
                                 </td>
-                                <td className="py-3 text-center font-medium text-sm">
+                                <td className="py-3 text-center font-bold text-xs md:text-sm">
                                   {item.totalPrice.toLocaleString('en-IN', { style: 'currency', currency: bill.currency || 'INR', maximumFractionDigits: 0 })}
                                 </td>
-                                <td className="py-3 text-center font-medium text-sm text-blue-600">
+                                <td className="py-3 text-center font-bold text-xs md:text-sm text-blue-600">
                                   {(item.totalPrice - item.overchargeAmount).toLocaleString('en-IN', { style: 'currency', currency: bill.currency || 'INR', maximumFractionDigits: 0 })}
                                 </td>
                                 <td className="py-3 text-right pr-2">
                                   {item.isOvercharged ? (
-                                    <span className="text-sm font-black text-red-500">
+                                    <span className="text-xs md:text-sm font-black text-red-500">
                                       -{item.overchargeAmount.toLocaleString('en-IN', { style: 'currency', currency: bill.currency || 'INR', maximumFractionDigits: 0 })}
                                     </span>
                                   ) : (
-                                    <span className="text-xs font-bold text-[#22c55e]">Verified</span>
+                                    <span className="text-[10px] md:text-xs font-bold text-[#22c55e]">Verified</span>
                                   )}
                                 </td>
                               </motion.tr>

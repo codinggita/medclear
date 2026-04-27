@@ -100,12 +100,12 @@ export default function HeroPanel({ totalBill = 0, expectedCost = 0, overcharge 
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 md:gap-6">
+          <div className="flex flex-col sm:grid sm:grid-cols-2 lg:flex lg:flex-row gap-4 md:gap-6 w-full lg:w-auto">
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.4, type: 'spring' }}
-              className="glass-card rounded-2xl p-6 min-w-[180px]"
+              className="glass-card rounded-2xl p-6 flex-1 min-w-[180px]"
             >
               <div className="flex items-center gap-2 text-[#8D7B68] mb-2">
                 <DollarSign size={18} />
@@ -116,7 +116,7 @@ export default function HeroPanel({ totalBill = 0, expectedCost = 0, overcharge 
               </div>
             </motion.div>
 
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 flex-1">
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -140,7 +140,7 @@ export default function HeroPanel({ totalBill = 0, expectedCost = 0, overcharge 
               >
                 <div className="flex items-center gap-2 text-[#ef4444] mb-2">
                   <AlertTriangle size={18} />
-                  <span className="text-sm font-medium">You Were Overcharged</span>
+                  <span className="text-sm font-medium">Overcharge</span>
                 </div>
                 <div className="font-serif text-3xl md:text-4xl font-bold text-[#ef4444]">
                   <AnimatedNumber value={overcharge} prefix="₹" />

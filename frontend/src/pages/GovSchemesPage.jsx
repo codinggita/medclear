@@ -43,32 +43,29 @@ export default function GovSchemesPage({
   };
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="min-h-screen bg-gradient-to-br from-[#f8f6f4] to-[#f0ece9]"
+      className="min-h-screen bg-background transition-colors duration-300"
     >
-      <Navbar 
-        onLogout={onLogout} 
-        onNavigateToUpload={onNavigateToUpload} 
-        onNavigateToDashboard={onNavigateToDashboard} 
-        onNavigateToReports={onNavigateToReports} 
-        onNavigateToInsights={onNavigateToInsights} 
+      <Navbar
+        onLogout={onLogout}
+        onNavigateToUpload={onNavigateToUpload}
+        onNavigateToDashboard={onNavigateToDashboard}
+        onNavigateToReports={onNavigateToReports}
+        onNavigateToInsights={onNavigateToInsights}
         onNavigateToGovData={() => {}} // current page
         onNavigateToProfile={onNavigateToProfile}
         onNavigateToNotifications={onNavigateToNotifications}
         onNavigateToJanAushadhi={onNavigateToJanAushadhi}
-        currentPage={currentPage} 
+        currentPage={currentPage}
       />
-      
+
       <main className="pt-28 pb-20 px-4 md:px-8">
         <div className="max-w-6xl mx-auto">
-          
           <HeroSection />
-          
           <InputPanel onSearch={handleSearch} isLoading={isLoading} />
-          
           {schemes && !isLoading && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -78,9 +75,7 @@ export default function GovSchemesPage({
               <ResultsSection schemes={schemes} searchedIncome={searchedIncome} />
             </motion.div>
           )}
-
         </div>
       </main>
-    </motion.div>
-  );
+    </motion.div>  );
 }

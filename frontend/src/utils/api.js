@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 const getBaseUrl = () => {
   let envUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
   if (envUrl.endsWith('/')) envUrl = envUrl.slice(0, -1);
@@ -7,40 +9,36 @@ const getBaseUrl = () => {
 const API_BASE_URL = getBaseUrl();
 export { API_BASE_URL };
 
-export const processBill = async (file) => {
+export const uploadBill = async (file) => {
   const formData = new FormData();
   formData.append('file', file);
+  
+  const token = localStorage.getItem('token');
+  const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
-  const response = await fetch(`${API_BASE_URL}/bills/upload`, {
-    method: 'POST',
-    body: formData,
+  const response = await axios.post(`${API_BASE_URL}/bills/upload`, formData, {
+    headers: {
+      ...headers,
+      'Content-Type': 'multipart/form-data',
+    },
   });
-
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => ({}));
-    throw new Error(errorData.error || 'SERVER_ERROR');
-  }
-
-  const result = await response.json();
-  return result.data;
+  return response.data.data;
 };
 
 export const getBillHistory = async () => {
-  const response = await fetch(`${API_BASE_URL}/bills/history`);
-  if (!response.ok) {
-    throw new Error('FAILED_TO_FETCH_HISTORY');
-  }
-  const result = await response.json();
-  return result.data;
+  const token = localStorage.getItem('token');
+  const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
+  const response = await axios.get(`${API_BASE_URL}/bills/history`, { headers });
+  return response.data.data;
 };
 
 export const getJobStatus = async (jobId) => {
-  const response = await fetch(`${API_BASE_URL}/bills/job/${jobId}`);
-  if (!response.ok) {
-    throw new Error('FAILED_TO_FETCH_JOB');
-  }
-  const result = await response.json();
-  return result.data;
+  const token = localStorage.getItem('token');
+  const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
+  const response = await axios.get(`${API_BASE_URL}/bills/job/${jobId}`, { headers });
+  return response.data.data;
 };
 
 export const checkBackend = async () => {
@@ -50,8 +48,8 @@ export const checkBackend = async () => {
     if (baseUrl.endsWith('/')) baseUrl = baseUrl.slice(0, -1);
     
     const healthUrl = `${baseUrl}/health`;
-    const response = await fetch(healthUrl);
-    return response.ok;
+    const response = await axios.get(healthUrl);
+    return response.status === 200;
   } catch (error) {
     return false;
   }

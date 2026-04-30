@@ -78,3 +78,6 @@ tessdata/
 *.traineddata
 # Database
 backend/db/
+
+
+.mongodb/

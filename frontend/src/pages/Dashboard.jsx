@@ -9,6 +9,7 @@ import Analytics from '../components/Analytics';
 import Insights from '../components/Insights';
 import ActionPanel from '../components/ActionPanel';
 import { getBillHistory } from '../utils/api';
+import { trackEvent } from '../utils/analytics';
 
 const pageVariants = {
   initial: { opacity: 0 },
@@ -49,6 +50,7 @@ export default function Dashboard({
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    trackEvent('page_view', { page_title: 'Dashboard' });
     async function fetchData() {
       try {
         const history = await getBillHistory();

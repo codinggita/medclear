@@ -2,6 +2,7 @@ const axios = require('axios');
 const FormData = require('form-data');
 const fs = require('fs');
 const logger = require('../utils/logger');
+const mockOcrResponse = require('../utils/mockOcrResponse');
 
 const MAX_RETRIES = 3;
 const RETRY_DELAY = 1000;
@@ -12,6 +13,11 @@ function sleep(ms) {
 }
 
 async function callOCRService(filePath, filename, retryCount = 0) {
+  if (process.env.USE_MOCK_OCR === "true") {
+    logger.info("[OCR] Using MOCK OCR (configured via env)");
+    return mockOcrResponse();
+  }
+
   const formData = new FormData();
   formData.append('file', fs.createReadStream(filePath), filename);
 
@@ -25,22 +31,26 @@ async function callOCRService(filePath, filename, retryCount = 0) {
       },
       maxContentLength: Infinity,
       maxBodyLength: Infinity,
-      timeout: TIMEOUT
+      timeout: Number(process.env.OCR_TIMEOUT_MS || TIMEOUT)
     });
 
     if (!response.data || !response.data.success) {
       throw new Error(response.data?.error || 'OCR service returned invalid response');
     }
 
+    logger.info("[OCR] Using REAL OCR");
     return response.data.data;
   } catch (err) {
     const isRetryable = err.code === 'ECONNREFUSED' || err.code === 'ETIMEDOUT' || err.response?.status >= 500;
+    
     if (retryCount < MAX_RETRIES && isRetryable) {
       logger.warn(`[OCR] Retry ${retryCount + 1}/${MAX_RETRIES}: ${err.message}`);
       await sleep(RETRY_DELAY * (retryCount + 1));
       return callOCRService(filePath, filename, retryCount + 1);
     }
-    throw err;
+
+    logger.error(`[OCR] Failed, fallback triggered: ${err.message}`);
+    return mockOcrResponse();
   }
 }
 

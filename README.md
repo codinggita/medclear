@@ -6,17 +6,14 @@
 
 <div align="center">
 
-# 📰 MEDCLEAR: THE GREAT HOSPITAL HEIST EXPOSED
+# 📰 MEDCLEAR: EXPOSING THE MEDICAL BILLING FRAUD
 
 **Surgical Precision in Auditing Medical Overcharges. Built for Truth.**
 
-<p align="center">
-  <a href="https://github.com/Rachit-Kakkad1/medclear"><img src="https://img.shields.io/badge/STATUS-ACTIVE-success?style=for-the-badge&color=D9230F&labelColor=0F0F0F" alt="Status"></a>
-  <a href="https://github.com/Rachit-Kakkad1/medclear/blob/main/LICENSE"><img src="https://img.shields.io/badge/LICENSE-MIT-blue?style=for-the-badge&color=0047AB&labelColor=0F0F0F" alt="License"></a>
-  <a href="https://www.figma.com/design/7IhpULI3UQ5F2U0MQe1Z1j/Untitled?node-id=0-1&t=T80jNlhQRdtqB0BP-1"><img src="https://img.shields.io/badge/DESIGN-FIGMA-purple?style=for-the-badge&logo=figma&color=FFD700&labelColor=0F0F0F" alt="Figma"></a>
-  <a href="https://github.com/Rachit-Kakkad1/medclear"><img src="https://img.shields.io/badge/TECH-FULLSTACK-brightgreen?style=for-the-badge&color=0F0F0F&labelColor=4a4a4a" alt="Tech"></a>
-  <a href="https://github.com/Rachit-Kakkad1/medclear/stargazers"><img src="https://img.shields.io/github/stars/Rachit-Kakkad1/medclear?style=for-the-badge&color=FFD700&labelColor=0F0F0F" alt="Stars"></a>
-</p>
+[![Status](https://img.shields.io/badge/STATUS-ACTIVE-success?style=for-the-badge&color=D9230F&labelColor=0F0F0F)](https://github.com/Rachit-Kakkad1/medclear)
+[![License](https://img.shields.io/badge/LICENSE-MIT-blue?style=for-the-badge&color=0047AB&labelColor=0F0F0F)](https://github.com/Rachit-Kakkad1/medclear/blob/main/LICENSE)
+[![Design](https://img.shields.io/badge/DESIGN-FIGMA-purple?style=for-the-badge&logo=figma&color=FFD700&labelColor=0F0F0F)](https://www.figma.com/design/7IhpULI3UQ5F2U0MQe1Z1j/Untitled?node-id=0-1&t=T80jNlhQRdtqB0BP-1)
+[![Tech](https://img.shields.io/badge/TECH-FULLSTACK-brightgreen?style=for-the-badge&color=0F0F0F&labelColor=4a4a4a)](https://github.com/Rachit-Kakkad1/medclear)
 
 ---
 
@@ -26,42 +23,71 @@
 
 ---
 
-## 🎨 THE BLUEPRINT (FIGMA)
+## 🚨 THE PROBLEM: THE HIDDEN LOOT
 
-<p align="center">
-  <a href="https://www.figma.com/design/7IhpULI3UQ5F2U0MQe1Z1j/Untitled?node-id=0-1&t=T80jNlhQRdtqB0BP-1">
-    <img src="https://img.shields.io/badge/VIEW_LIVE_FIGMA_PROTOTYPE-Click_Here-F24E1E?style=for-the-badge&logo=figma&logoColor=white" height="50">
-  </a>
-</p>
+Every year, millions of patients are handed "ransom notes" instead of clear medical invoices. Hospitals often unbundle procedures to hide 800%+ markups on basic supplies, exploiting the lack of transparency in healthcare billing.
 
-<div align="center">
-  <kbd>
-    <a href="https://www.figma.com/design/7IhpULI3UQ5F2U0MQe1Z1j/Untitled?node-id=0-1&t=T80jNlhQRdtqB0BP-1">
-      <img src="https://res.cloudinary.com/dr84lv5ym/image/upload/v1776165575/medclear_banner_pezjqv.jpg" width="85%" alt="Figma Preview" style="border: 2px solid #0F0F0F; border-radius: 8px;">
-    </a>
-  </kbd>
-  <br><br>
-  <em>Explore the surgical UI/UX design that powers MedClear's investigative experience. Every pixel is engineered to inspire trust and deliver devastating clarity.</em>
-</div>
-
----
-
-## 🚨 SPECIAL INVESTIGATIVE REPORT: THE LOOT
-
-MedClear is an **AI-powered healthcare billing audit tool** that detects overcharging in hospital bills using cutting-edge OCR (Optical Character Recognition) and intelligent price comparison against NPPA + CGHS government pricing standards.
+**MedClear** is an **AI-powered healthcare billing audit tool** that detects overcharging in hospital bills using cutting-edge OCR and intelligent price comparison against NPPA + CGHS government pricing standards.
 
 > **Think of it as a "TurboTax for medical bills"** — upload your hospital bill, and MedClear instantly tells you if you've been overcharged, where, and by exactly how much.
 
-### THE EVIDENCE:
-*   ❌ **Hidden Charges**: Hospitals unbundling procedures to hide 800%+ markups on basic supplies.
-*   ❌ **Zero Transparency**: Patients are handed "ransom notes" instead of clear, benchmarked invoices.
-*   ✅ **The MedClear Solution**: Surgical extraction of every line-item, automatically mapped to government-mandated price ceilings.
+---
+
+## ✨ KEY CAPABILITIES
+
+-   **📄 Deep OCR Audit**: Drag-and-drop support for JPG, PNG, or PDF. Extracts every hidden line-item with high precision.
+-   **🖼️ Image Preprocessing**: Auto-rotates, deskews, and sharpens blurry or crumpled hospital bills using OpenCV.
+-   **🔍 Government Sync**: Real-time cross-referencing with NPPA/CGHS price ceilings using fuzzy-matching algorithms.
+-   **⚠️ Fraud Detection**: Specialized logic engines designed to catch duplicate charges and unbundled procedures.
+-   **💰 Savings Report**: Generates beautiful, downloadable PDF reports with itemized savings breakdowns.
+-   **📱 Central Dashboard**: Secure history of all uploaded bills and their historical audit results.
+- **🗺️ Jan Aushadhi Map**: Find nearby generic medicine stores to save even more.
 
 ---
 
-## 🛠️ THE ARSENAL (COMPREHENSIVE TECH STACK)
+## 📸 VISUAL TOUR (SCREENSHOTS)
 
-We chose each technology in MedClear based on **performance, developer experience, and relentless scalability**.
+Explore the surgical UI/UX design of MedClear. Each interface is engineered to provide devastating clarity and inspire trust.
+
+### 🏠 1. Landing Page (The Entryway)
+> *The mission-critical interface where patients learn about the "Great Hospital Heist" and start their audit journey.*
+<p align="center">
+  <img src="https://res.cloudinary.com/dr84lv5ym/image/upload/v1777618685/landing_page_of_medclear_ukckwk.png" width="90%" alt="Landing Page Placeholder" style="border-radius: 8px; border: 2px solid #0F0F0F;">
+</p>
+
+### 📊 2. Patient Dashboard (The Command Center)
+> *A high-level overview of all audited bills, total savings, and historical fraud trends.*
+<p align="center">
+  <img src="https://res.cloudinary.com/dr84lv5ym/image/upload/v1777618685/dashboard_of_the_medclear_qyvlcf.png" width="90%" alt="Dashboard Placeholder" style="border-radius: 8px; border: 2px solid #0F0F0F;">
+</p>
+
+### 📤 3. Upload Bill Page (The Extraction Zone)
+> *The intelligent dropzone where bills are uploaded, pre-processed, and fed into the OCR engine.*
+<p align="center">
+  <img src="https://res.cloudinary.com/dr84lv5ym/image/upload/v1777618685/upload_page_of_the_medclear_lxbbcx.png" width="90%" alt="Upload Page Placeholder" style="border-radius: 8px; border: 2px solid #0F0F0F;">
+</p>
+
+### 📑 4. Detailed Reports Page (The Evidence)
+> *The granular breakdown of every line-item, showing exactly where the overcharges occurred.*
+<p align="center">
+  <img src="https://res.cloudinary.com/dr84lv5ym/image/upload/v1777618685/reports_page_of_the_medclear_zp9yq0.png" width="90%" alt="Reports Page Placeholder" style="border-radius: 8px; border: 2px solid #0F0F0F;">
+</p>
+
+### 💡 5. AI Insights Page (The Intelligence)
+> *Deep-dive analytics into billing patterns, department efficiency, and fraud risk scores.*
+<p align="center">
+  <img src="https://res.cloudinary.com/dr84lv5ym/image/upload/v1777618685/smart_insights_page_of_the_medclear_qsaypd.png" width="90%" alt="Insights Page Placeholder" style="border-radius: 8px; border: 2px solid #0F0F0F;">
+</p>
+
+### 🏛️ 6. Government Data Hub (The Standard)
+> *Direct access to NPPA/CGHS price ceilings and nearby Jan Aushadhi generic store mapping.*
+<p align="center">
+  <img src="https://res.cloudinary.com/dr84lv5ym/image/upload/v1777618685/government_data_of_the_medclear_eawrei.png" width="90%" alt="Gov Data Page Placeholder" style="border-radius: 8px; border: 2px solid #0F0F0F;">
+</p>
+
+---
+
+## 🛠️ THE ARSENAL (TECH STACK)
 
 <table width="100%">
   <tr>
@@ -69,34 +95,33 @@ We chose each technology in MedClear based on **performance, developer experienc
       <img src="https://skillicons.dev/icons?i=react,ts,tailwind,vite,threejs" /><br><br>
       <h3>🎨 FRONTEND</h3>
       <p align="left">
-        • <b>React 18 + Vite</b>: Blazing fast rendering.<br>
-        • <b>TypeScript</b>: Bulletproof static typing.<br>
-        • <b>Tailwind CSS</b>: Utility-first styling.<br>
-        • <b>Framer Motion & GSAP</b>: Fluid animations.<br>
-        • <b>Three.js</b>: 3D interactive elements.<br>
-        • <b>Zustand</b>: Lightweight state management.
+        • <b>React 19 + Vite 8</b><br>
+        • <b>Tailwind 4</b> (CSS-first)<br>
+        • <b>Three.js (R3F)</b>: 3D Dashboards<br>
+        • <b>GSAP & Framer Motion</b><br>
+        • <b>Lenis</b>: Smooth Scrolling
       </p>
     </td>
     <td width="33%" align="center">
-      <img src="https://skillicons.dev/icons?i=nodejs,express,mongodb,prisma" /><br><br>
+      <img src="https://skillicons.dev/icons?i=nodejs,express,mongodb,redis" /><br><br>
       <h3>⚙️ BACKEND</h3>
       <p align="left">
-        • <b>Node.js + Express</b>: Event-driven API.<br>
-        • <b>MongoDB</b>: Flexible NoSQL document storage.<br>
-        • <b>Prisma</b>: Type-safe, next-gen ORM.<br>
-        • <b>JWT & Zod</b>: Auth and strict validation.<br>
-        • <b>Redis (Queue)</b>: Background job handling.
+        • <b>Node.js (Express 5)</b><br>
+        • <b>MongoDB (Mongoose)</b><br>
+        • <b>JWT & OAuth 2.0</b><br>
+        • <b>Winston</b>: Logic Logging<br>
+        • <b>Helmet & Rate Limit</b>
       </p>
     </td>
     <td width="33%" align="center">
       <img src="https://skillicons.dev/icons?i=py,fastapi,docker,githubactions" /><br><br>
-      <h3>🤖 AI & OCR INTELLIGENCE</h3>
+      <h3>🤖 AI & OCR</h3>
       <p align="left">
-        • <b>Python + FastAPI</b>: High-performance async API.<br>
-        • <b>Tesseract OCR</b>: Battle-tested text extraction.<br>
-        • <b>OpenCV</b>: Image deskewing and denoising.<br>
-        • <b>FuzzyWuzzy</b>: Smart algorithmic mapping.<br>
-        • <b>Pandas</b>: Government data processing.
+        • <b>Python (FastAPI)</b><br>
+        • <b>EasyOCR & Tesseract</b><br>
+        • <b>OpenCV</b>: Pre-processing<br>
+        • <b>Levenshtein</b>: Fuzzy Matching<br>
+        • <b>Pandas</b>: Data Processing
       </p>
     </td>
   </tr>
@@ -104,168 +129,120 @@ We chose each technology in MedClear based on **performance, developer experienc
 
 ---
 
-## 📂 THE ARCHITECTURE (DIRECTORY STRUCTURE)
-
-A highly modular, scalable monorepo designed for separation of concerns and rapid iteration.
+## 📂 DIRECTORY STRUCTURE
 
 ```text
 📦 medclear
- ┣ 📂 frontend/                  # 🎨 React/Vite Application
- ┃ ┣ 📂 public/                  # Static assets, icons, sample bills
+ ┣ 📂 frontend/                  # 🎨 React Application (Vite, Tailwind, Three.js)
  ┃ ┣ 📂 src/
- ┃ ┃ ┣ 📂 assets/                # Images, vectors, and heavy media
- ┃ ┃ ┣ 📂 components/            # Reusable UI building blocks
- ┃ ┃ ┃ ┣ 📂 frames/              # Specialized layout frames
- ┃ ┃ ┃ ┣ 📂 insights/            # Data visualization components
- ┃ ┃ ┃ ┣ 📂 reports/             # PDF generation and report UI
- ┃ ┃ ┃ ┗ 📂 upload/              # File dropzones, OCR progress UI
- ┃ ┃ ┣ 📂 pages/                 # Top-level route components
- ┃ ┃ ┣ 📂 utils/                 # API clients, helpers, scroll logic
- ┃ ┃ ┣ 📜 App.jsx                # Main application router
- ┃ ┃ ┣ 📜 index.css              # Global Tailwind styles
- ┃ ┃ ┗ 📜 main.jsx               # React DOM entry point
- ┃ ┣ 📜 eslint.config.js         # Linting rules
- ┃ ┣ 📜 vite.config.js           # Vite bundler configuration
- ┃ ┗ 📜 vercel.json              # Deployment configuration
+ ┃ ┃ ┣ 📂 components/            # UI Blocks (frames, insights, upload)
+ ┃ ┃ ┣ 📂 pages/                 # Route-level views (Dashboard, Map, etc.)
+ ┃ ┃ ┣ 📂 services/              # API clients & hooks
+ ┃ ┃ ┗ 📜 main.jsx               # Entry point
  ┃
- ┣ 📂 backend/                   # ⚙️ Node.js/Express API
+ ┣ 📂 backend/                   # ⚙️ Node.js API (Express, Mongoose)
  ┃ ┣ 📂 src/
- ┃ ┃ ┣ 📂 config/                # Database & environment configurations
- ┃ ┃ ┣ 📂 controllers/           # Request/Response handlers
- ┃ ┃ ┣ 📂 middlewares/           # Auth, error handling, file upload
- ┃ ┃ ┣ 📂 models/                # Mongoose database schemas
- ┃ ┃ ┣ 📂 routes/                # API endpoint definitions
- ┃ ┃ ┣ 📂 services/              # Core business logic (Audit, OCR triggers)
- ┃ ┃ ┗ 📂 utils/                 # Loggers, cache, queue processors
- ┃ ┣ 📜 app.js                   # Express app setup
- ┃ ┣ 📜 server.js                # Server entry point
- ┃ ┗ 📜 clear_cache.js           # Utility script
+ ┃ ┃ ┣ 📂 controllers/           # Request handlers
+ ┃ ┃ ┣ 📂 models/                # DB Schemas (Bills, Schemes, Stores)
+ ┃ ┃ ┣ 📂 services/              # Logic (Audit, OCR Bridge, Auth)
+ ┃ ┃ ┗ 📜 app.js                 # App configuration
+ ┃ ┗ 📜 server.js                # Server bootstrap
  ┃
- ┣ 📂 ocr-service/               # 🤖 Python/FastAPI Microservice
+ ┣ 📂 ocr-service/               # 🤖 Python Microservice (FastAPI, EasyOCR)
  ┃ ┣ 📂 app/
- ┃ ┃ ┣ 📂 routers/               # FastAPI endpoints
- ┃ ┃ ┣ 📂 services/              # Tesseract/OpenCV logic
- ┃ ┃ ┗ 📂 utils/                 # Image preprocessing, noise filters
- ┃ ┣ 📜 main.py                  # FastAPI entry point
- ┃ ┣ 📜 requirements.txt         # Python dependencies
- ┃ ┣ 📜 Dockerfile               # Containerization blueprint
- ┃ ┗ 📜 verify_pipeline.py       # ML pipeline testing script
- ┃
- ┗ 📜 README.md                  # You are here 📍
+ ┃ ┃ ┣ 📂 services/              # OCR & Image Processing logic
+ ┃ ┃ ┗ 📜 main.py                # FastAPI Entry
+ ┃ ┗ 📜 requirements.txt         # Dependencies
 ```
 
 ---
 
-## ⚙️ SURGICAL FEATURES
-
-| 🛠️ Capability | 📝 Description |
-| :--- | :--- |
-| **📄 Deep OCR Audit** | Drag-and-drop support for JPG, PNG, or PDF. Extracts every hidden line-item. |
-| **🖼️ Image Preprocessing** | Auto-rotates, deskews, and sharpens blurry or crumpled hospital bills. |
-| **🔍 Government Sync** | Real-time, fuzzy-matched cross-referencing with NPPA/CGHS price ceilings. |
-| **⚠️ Fraud Detection** | Logic engines designed to catch duplicate charges and unbundled procedures. |
-| **💰 Savings Report** | Generates beautiful, downloadable PDF reports with itemized savings breakdowns. |
-| **📱 Central Dashboard** | Secure history of all uploaded bills and their historical audit results. |
-
----
-
-## 🧠 HOW THE ENGINE TEARS THROUGH LIES
+## 🧠 HOW THE ENGINE WORKS
 
 ```mermaid
 sequenceDiagram
-    participant Patient
-    participant Frontend
-    participant NodeAPI
-    participant OCREngine
-    participant Database
+    participant P as Patient
+    participant F as Frontend
+    participant B as Backend (Node)
+    participant O as OCR Service (Python)
+    participant G as Gov Database
 
-    Patient->>Frontend: Uploads Bill (PDF/Img)
-    Frontend->>NodeAPI: Multipart Form Data
-    NodeAPI->>OCREngine: Forwards Image
-    Note over OCREngine: OpenCV Denoise & Deskew
-    Note over OCREngine: Tesseract OCR Extraction
-    OCREngine->>NodeAPI: Structured JSON (Items & Prices)
-    Note over NodeAPI: FuzzyMatch against NPPA/CGHS
-    NodeAPI->>Database: Save Audit Results
-    NodeAPI->>Frontend: Return Overcharge Data
-    Frontend->>Patient: Display Savings & Fraud Report
+    P->>F: Upload Bill
+    F->>B: Send File
+    B->>O: Image for Extraction
+    Note over O: OpenCV Denoise/Deskew
+    Note over O: EasyOCR + Tesseract
+    O->>B: Structured JSON (Items, Prices)
+    B->>G: Cross-ref NPPA/CGHS (Fuzzy Match)
+    B->>B: Calculate Savings & Fraud
+    B->>F: Send Audit Report
+    F->>P: Display Visual Insights
 ```
 
 ---
 
-## 📊 THE NUMBERS DON'T LIE (LIVE DATA SAMPLE)
-
-| 🩺 PROCEDURE / IMPLANT | 🏥 HOSPITAL AVG | 🏛️ GOVT. CEILING | 🚨 THE OVERCHARGE |
-| :--- | :--- | :--- | :--- |
-| **Cardiac Stent** | <strike>₹1,20,000</strike> | **₹35,000** | <span style="color:red">**+₹85,000 (242%)**</span> |
-| **Knee Implant** | <strike>₹95,000</strike> | **₹42,000** | <span style="color:red">**+₹53,000 (126%)**</span> |
-| **ICU Day Care** | <strike>₹25,000</strike> | **₹6,000** | <span style="color:red">**+₹19,000 (316%)**</span> |
-| **Ceftriaxone 1g Inj.** | <strike>₹850</strike> | **₹45** | <span style="color:red">**+₹805 (1788%)**</span> |
-
----
-
-## 🚀 STANDARD OPERATING PROCEDURES (SETUP)
+## 🚀 INSTALLATION & SETUP
 
 ### 1️⃣ Prerequisites
-Ensure you have the following installed:
 - **Node.js** (v18+)
-- **Python** (v3.9+)
+- **Python** (v3.10+)
 - **MongoDB** (Local or Atlas)
-- **Tesseract OCR** (Installed on host machine)
+- **Tesseract OCR** (Host machine installation required)
 
-### 2️⃣ Clone the Bureau's Archive
+### 2️⃣ Clone the Repository
 ```bash
 git clone https://github.com/Rachit-Kakkad1/medclear.git
 cd medclear
 ```
 
-### 3️⃣ Deploy Frontend
-```bash
-cd frontend
-npm install
-npm run dev
-# Starts on http://localhost:5173
+### 3️⃣ Configure Environment Variables
+You need to set up `.env` files in both `backend` and `frontend` directories.
+
+**Backend (`/backend/.env`):**
+```env
+PORT=5000
+MONGODB_URI=your_mongodb_uri
+JWT_SECRET=your_jwt_secret
+GOOGLE_CLIENT_ID=your_google_id
+OCR_SERVICE_URL=http://localhost:8000/ocr/extract
+FRONTEND_URL=http://localhost:5173
 ```
 
-### 4️⃣ Deploy Backend API
-```bash
-cd ../backend
-npm install
-# Create a .env file with your MONGO_URI and JWT_SECRET
-npm run dev
-# Starts on http://localhost:3000
+**Frontend (`/frontend/.env`):**
+```env
+VITE_API_URL=http://localhost:5000
+VITE_GOOGLE_CLIENT_ID=your_google_id
+VITE_MAPPLS_API_KEY=your_key
 ```
 
-### 5️⃣ Activate OCR Intelligence
-```bash
-cd ../ocr-service
-python -m venv venv
-source venv/Scripts/activate # or venv/bin/activate on Mac/Linux
-pip install -r requirements.txt
-uvicorn app.main:app --reload
-# Starts on http://localhost:8000
-```
+### 4️⃣ Start the Engines (Parallel)
+
+| Service | Commands |
+| :--- | :--- |
+| **Backend** | `cd backend && npm install && npm run dev` |
+| **Frontend** | `cd frontend && npm install && npm run dev` |
+| **OCR Service** | `cd ocr-service && python -m venv venv && source venv/bin/activate && pip install -r requirements.txt && uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload` |
+
+> **Note:** On Windows, use `venv\Scripts\activate` for the OCR service.
 
 ---
 
-## 🔮 THE FUTURE OF TRANSPARENCY (ROADMAP)
+## 📊 LIVE DATA BENCHMARKS
 
-- [ ] 🏥 **Prescription Scanner**: Analyze doctor prescriptions for medication overpricing.
-- [ ] 🛡️ **Insurance Integration**: Auto-submit generated audit reports to insurance providers.
-- [ ] 📈 **Real-time Pricing**: Live API webhook integration from NPPA for the absolute latest drug prices.
-- [ ] 🤖 **AI Legal Drafter**: Auto-generate localized legal dispute letters based on the exact overcharges found.
-- [ ] 📱 **Mobile App**: Native iOS and Android applications using React Native / Expo.
+| 🩺 PROCEDURE / IMPLANT | 🏥 HOSPITAL AVG | 🏛️ GOVT. CEILING | 🚨 THE OVERCHARGE |
+| :--- | :--- | :--- | :--- |
+| **Cardiac Stent** | <strike>₹1,20,000</strike> | **₹35,000** | <span style="color:red">**+₹85,000 (242%)**</span> |
+| **Knee Implant** | <strike>₹95,000</strike> | **₹42,000** | <span style="color:red">**+₹53,000 (126%)**</span> |
+| **Ceftriaxone 1g Inj.** | <strike>₹850</strike> | **₹45** | <span style="color:red">**+₹805 (1788%)**</span> |
 
 ---
 
-## 🤝 JOIN THE INVESTIGATION (CONTRIBUTING)
+## 🔮 ROADMAP
 
-We welcome whistleblowers, developers, and designers.
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+- [ ] 🏥 **Prescription Scanner**: Detect medication overpricing in real-time.
+- [ ] 🛡️ **Insurance Integration**: One-click dispute filing with insurance providers.
+- [ ] 🤖 **AI Legal Assistant**: Generate localized legal notices for hospitals.
+- [ ] 📈 **Crowdsourced Pricing**: Community-driven hospital pricing database.
 
 ---
 

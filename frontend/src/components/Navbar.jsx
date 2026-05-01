@@ -1,233 +1,197 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Menu, X, Bell, User, LayoutDashboard, FileUp, Database, MapPin, LogOut, ChevronDown, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  LayoutDashboard, 
-  Upload, 
-  FileText, 
-  Lightbulb, 
-  Building2,
-  Pill,
-  Bell,
-  LogOut,
-  User,
-  Menu,
-  X
-} from 'lucide-react';
+import ThemeToggle from './ThemeToggle';
 
-const routes = [
-  { name: 'Dashboard', icon: LayoutDashboard, path: '/' },
-  { name: 'Upload Bill', icon: Upload, path: '/upload' },
-  { name: 'Reports', icon: FileText, path: '/reports' },
-  { name: 'Insights', icon: Lightbulb, path: '/insights' },
-  { name: 'Government Data', icon: Building2, path: '/gov-data' },
-  { name: 'Nearby Stores', icon: Pill, path: '/jan-aushadhi' },
-];
-
-export default function Navbar({ onLogout, onNavigateToUpload, onNavigateToDashboard, onNavigateToReports, onNavigateToInsights, onNavigateToGovData, onNavigateToProfile, onNavigateToNotifications, onNavigateToJanAushadhi, currentPage }) {
-  const [scrolled, setScrolled] = useState(false);
-  const [activeRoute, setActiveRoute] = useState(currentPage || '/');
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [hoveredRoute, setHoveredRoute] = useState(null);
-
-  useEffect(() => {
-    const routeMap = {
-      'dashboard': '/',
-      'upload': '/upload',
-      'reports': '/reports',
-      'insights': '/insights',
-      'gov-data': '/gov-data',
-      'profile': '/profile',
-      'notifications': '/notifications',
-      'jan-aushadhi': '/jan-aushadhi',
-    };
-    setActiveRoute(routeMap[currentPage] || '/');
-  }, [currentPage]);
+const Navbar = ({ 
+  onLogout, 
+  onNavigateToUpload, 
+  onNavigateToDashboard, 
+  onNavigateToReports, 
+  onNavigateToInsights, 
+  onNavigateToGovData, 
+  onNavigateToProfile,
+  onNavigateToNotifications,
+  onNavigateToJanAushadhi,
+  currentPage 
+}) => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleRouteClick = (route) => {
-    setActiveRoute(route.path);
-    if (route.name === 'Dashboard' && onNavigateToDashboard) {
-      onNavigateToDashboard();
-    } else if (route.name === 'Upload Bill' && onNavigateToUpload) {
-      onNavigateToUpload();
-    } else if (route.name === 'Reports' && onNavigateToReports) {
-      onNavigateToReports();
-    } else if (route.name === 'Insights' && onNavigateToInsights) {
-      onNavigateToInsights();
-    } else if (route.name === 'Government Data' && onNavigateToGovData) {
-      onNavigateToGovData();
-    } else if (route.name === 'Nearby Stores' && onNavigateToJanAushadhi) {
-      onNavigateToJanAushadhi();
-    }
-  };
+  const navLinks = [
+    { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, action: onNavigateToDashboard },
+    { id: 'upload', label: 'Upload Bill', icon: FileUp, action: onNavigateToUpload },
+    { id: 'jan-aushadhi', label: 'Store Finder', icon: MapPin, action: onNavigateToJanAushadhi },
+    { id: 'gov-data', label: 'Gov Schemes', icon: Database, action: onNavigateToGovData },
+  ];
+
+  const user = JSON.parse(localStorage.getItem('user') || '{"name": "Guest User", "email": "guest@medclear.ai"}');
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ type: 'spring', stiffness: 100, damping: 20 }}
-      className={`fixed top-0 left-0 right-0 z-50 px-4 md:px-8 py-4 ${
-        scrolled 
-          ? 'glass-card shadow-lg' 
-          : 'bg-transparent'
+    <nav 
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        isScrolled 
+          ? 'py-3 bg-background/80 backdrop-blur-xl border-b border-primary/10 shadow-lg' 
+          : 'py-5 bg-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <motion.div 
-          className="flex items-center gap-2"
-          whileHover={{ scale: 1.01 }}
-        >
-          <div className="w-9 h-9 rounded-lg bg-[#8D7B68] flex items-center justify-center">
-            <span className="text-white font-bold text-lg">M</span>
-          </div>
-          <span className="font-bold text-lg" style={{ color: '#1a1a1a' }}>MedClear</span>
-        </motion.div>
-
-        <div className="hidden md:flex items-center gap-1">
-          {routes.map((route) => (
-            <div
-              key={route.name}
-              className="relative"
-              onMouseEnter={() => setHoveredRoute(route.name)}
-              onMouseLeave={() => setHoveredRoute(null)}
-            >
-              <motion.button
-                onClick={() => handleRouteClick(route)}
-                className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  activeRoute === route.path
-                    ? 'text-[#1a1a1a]'
-                    : 'text-[#8D7B68] hover:text-[#1a1a1a]'
-                }`}
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <span className="relative z-10 flex items-center gap-1.5">
-                  <route.icon size={16} />
-                  {route.name}
-                </span>
-                <AnimatePresence>
-                  {((activeRoute === route.path) || (hoveredRoute === route.name && activeRoute !== route.path)) && (
-                    <motion.div
-                      layoutId="nav-bg"
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.8 }}
-                      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                      className="absolute inset-0 bg-white/60 rounded-lg"
-                    />
-                  )}
-                </AnimatePresence>
-                {activeRoute === route.path && (
-                  <motion.div
-                    layoutId="nav-underline"
-                    className="absolute bottom-0 left-2 right-2 h-0.5 bg-[#8D7B68] rounded-full"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                  />
-                )}
-              </motion.button>
-            </div>
-          ))}
-        </div>
-
-        <div className="flex items-center gap-2 md:gap-4">
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={onNavigateToNotifications}
-            className={`relative p-2 rounded-lg transition-colors ${activeRoute === '/notifications' ? 'bg-white/60' : 'hover:bg-white/40'}`}
-          >
-            <Bell size={20} className="text-[#8D7B68]" />
-            <span className="absolute top-1 right-1 w-2 h-2 bg-[#ef4444] rounded-full" />
-          </motion.button>
-
-          <motion.div
+      <div className="max-w-7xl mx-auto px-4 md:px-8">
+        <div className="flex items-center justify-between">
+          {/* Logo */}
+          <motion.div 
             whileHover={{ scale: 1.05 }}
-            onClick={onNavigateToProfile}
-            className={`w-9 h-9 rounded-full flex items-center justify-center cursor-pointer overflow-hidden border-2 transition-colors ${activeRoute === '/profile' ? 'border-[#8D7B68] bg-[#8D7B68]' : 'border-white/50 bg-[#A4907C]'}`}
+            onClick={onNavigateToDashboard}
+            className="flex items-center gap-2.5 cursor-pointer group"
           >
-            <User size={18} className="text-white" />
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg group-hover:shadow-primary/30 transition-all duration-300">
+              <Sparkles className="text-white w-6 h-6" />
+            </div>
+            <span className="text-2xl font-serif font-bold tracking-tight text-text-main">
+              Med<span className="text-primary">Clear</span>
+            </span>
           </motion.div>
 
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={onLogout}
-            className="p-2 rounded-lg hover:bg-white/40 transition-colors"
-            title="Logout"
-          >
-            <LogOut size={20} className="text-[#8D7B68]" />
-          </motion.button>
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center gap-1">
+            {navLinks.map((link) => (
+              <button
+                key={link.id}
+                onClick={link.action}
+                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${
+                  currentPage === link.id 
+                    ? 'bg-primary/10 text-primary' 
+                    : 'text-text-muted hover:bg-primary/5 hover:text-primary'
+                }`}
+              >
+                <link.icon className="w-4 h-4" />
+                {link.label}
+              </button>
+            ))}
+          </div>
 
-          <motion.button
-            whileHover={{ scale: 1.1, rotate: 90 }}
-            whileTap={{ scale: 0.95 }}
-            className="p-2 rounded-lg hover:bg-white/40 transition-colors md:hidden"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? (
-              <X size={20} className="text-[#8D7B68]" />
-            ) : (
-              <Menu size={20} className="text-[#8D7B68]" />
-            )}
-          </motion.button>
+          {/* Right Section */}
+          <div className="hidden lg:flex items-center gap-4">
+            <ThemeToggle />
+            
+            <button 
+              onClick={onNavigateToNotifications}
+              className="p-2.5 rounded-xl hover:bg-primary/5 text-text-muted transition-colors relative"
+            >
+              <Bell className="w-5 h-5" />
+              <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-background"></span>
+            </button>
+
+            <div className="relative">
+              <button 
+                onClick={() => setIsProfileOpen(!isProfileOpen)}
+                className="flex items-center gap-3 pl-3 pr-2 py-1.5 rounded-xl border border-primary/10 hover:border-primary/30 transition-all duration-300 bg-white/5"
+              >
+                <div className="text-right">
+                  <p className="text-xs font-bold text-text-main leading-none mb-1">{user.name}</p>
+                  <p className="text-[10px] text-text-muted leading-none">Pro Plan</p>
+                </div>
+                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <User className="w-5 h-5 text-primary" />
+                </div>
+                <ChevronDown className={`w-4 h-4 text-text-muted transition-transform duration-300 ${isProfileOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              <AnimatePresence>
+                {isProfileOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                    className="absolute top-full right-0 mt-2 w-56 glass-card rounded-2xl py-2 shadow-2xl z-50 overflow-hidden"
+                  >
+                    <button 
+                      onClick={() => { setIsProfileOpen(false); onNavigateToProfile(); }}
+                      className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 transition-colors"
+                    >
+                      <User className="w-4 h-4 text-primary" />
+                      My Profile
+                    </button>
+                    <div className="h-px bg-primary/10 my-1 mx-2"></div>
+                    <button 
+                      onClick={onLogout}
+                      className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-500 hover:bg-red-500/10 transition-colors"
+                    >
+                      <LogOut className="w-4 h-4" />
+                      Sign Out
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <div className="lg:hidden flex items-center gap-3">
+            <ThemeToggle />
+            <button 
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="p-2 rounded-xl text-text-main hover:bg-primary/5 transition-colors"
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </div>
 
+      {/* Mobile Navigation */}
       <AnimatePresence>
-        {mobileMenuOpen && (
+        {isMobileMenuOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden overflow-hidden"
+            className="lg:hidden bg-background border-b border-primary/10 overflow-hidden"
           >
-            <div className="glass-card mt-4 rounded-xl p-4 space-y-2 border border-[#8D7B68]/20">
-              {routes.map((route, index) => (
-                <motion.button
-                  key={route.name}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  onClick={() => {
-                    handleRouteClick(route);
-                    setMobileMenuOpen(false);
-                  }}
-                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors ${
-                    activeRoute === route.path
-                      ? 'bg-[#8D7B68] text-white shadow-md'
-                      : 'text-[#8D7B68] hover:bg-white/40'
+            <div className="px-4 py-6 flex flex-col gap-2">
+              {navLinks.map((link) => (
+                <button
+                  key={link.id}
+                  onClick={() => { link.action(); setIsMobileMenuOpen(false); }}
+                  className={`flex items-center gap-4 px-4 py-3 rounded-xl text-base font-medium transition-all ${
+                    currentPage === link.id 
+                      ? 'bg-primary/10 text-primary' 
+                      : 'text-text-muted hover:bg-primary/5'
                   }`}
                 >
-                  <route.icon size={18} />
-                  {route.name}
-                </motion.button>
+                  <link.icon size={20} />
+                  {link.label}
+                </button>
               ))}
-              
-              <div className="pt-4 border-t border-[#8D7B68]/10 mt-2">
-                <motion.button
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: routes.length * 0.1 }}
-                  onClick={onLogout}
-                  className="w-full flex items-center gap-3 px-4 py-3 rounded-lg font-medium text-red-500 hover:bg-red-50"
-                >
-                  <LogOut size={18} />
-                  Logout
-                </motion.button>
-              </div>
+              <div className="h-px bg-primary/10 my-2"></div>
+              <button 
+                onClick={() => { onNavigateToProfile(); setIsMobileMenuOpen(false); }}
+                className="flex items-center gap-4 px-4 py-3 rounded-xl text-base font-medium text-text-muted"
+              >
+                <User size={20} />
+                Profile
+              </button>
+              <button 
+                onClick={onLogout}
+                className="flex items-center gap-4 px-4 py-3 rounded-xl text-base font-medium text-red-500"
+              >
+                <LogOut size={20} />
+                Sign Out
+              </button>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.nav>
+    </nav>
   );
-}
+};
+
+export default Navbar;

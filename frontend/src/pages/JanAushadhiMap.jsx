@@ -237,35 +237,35 @@ export default function JanAushadhiMap({
   };
 
   return (
-    <motion.div 
+    <motion.div
       initial="initial"
       animate="animate"
       exit="exit"
       variants={pageVariants}
-      className="min-h-screen bg-[#FDFCFB]"
+      className="min-h-screen bg-background transition-colors duration-300"
     >
-      <Navbar 
-        onLogout={onLogout} 
-        onNavigateToUpload={onNavigateToUpload} 
-        onNavigateToDashboard={onNavigateToDashboard} 
-        onNavigateToReports={onNavigateToReports} 
-        onNavigateToInsights={onNavigateToInsights} 
-        onNavigateToGovData={onNavigateToGovData} 
+      <Navbar
+        onLogout={onLogout}
+        onNavigateToUpload={onNavigateToUpload}
+        onNavigateToDashboard={onNavigateToDashboard}
+        onNavigateToReports={onNavigateToReports}
+        onNavigateToInsights={onNavigateToInsights}
+        onNavigateToGovData={onNavigateToGovData}
         onNavigateToProfile={onNavigateToProfile}
         onNavigateToNotifications={onNavigateToNotifications}
         onNavigateToJanAushadhi={() => {}}
-        currentPage={currentPage} 
+        currentPage={currentPage}
       />
 
       <main className="pt-20 h-screen flex flex-col md:flex-row overflow-hidden">
         {/* Sidebar */}
-        <div className="w-full md:w-96 bg-white border-r border-[#C8B6A6]/30 flex flex-col z-10 shadow-xl">
-          <div className="p-6 border-b border-[#C8B6A6]/20">
-            <h2 className="font-serif text-2xl text-[#1a1a1a] flex items-center gap-2">
-              <MapIcon className="text-[#8D7B68]" />
+        <div className="w-full md:w-96 bg-card border-r border-primary/10 flex flex-col z-10 shadow-xl">
+          <div className="p-6 border-b border-primary/10">
+            <h2 className="font-serif text-2xl text-text-main flex items-center gap-2">
+              <MapIcon className="text-primary" />
               Nearby Stores
             </h2>
-            <p className="text-[#8D7B68] text-sm mt-1">
+            <p className="text-primary text-sm mt-1">
               Find government-certified Jan Aushadhi stores near you
             </p>
           </div>
@@ -273,18 +273,18 @@ export default function JanAushadhiMap({
           <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
             {isLoading ? (
               <div className="flex flex-col items-center justify-center py-12">
-                <Loader2 className="animate-spin text-[#8D7B68] mb-4" size={32} />
-                <p className="text-[#8D7B68]">Finding stores...</p>
+                <Loader2 className="animate-spin text-primary mb-4" size={32} />
+                <p className="text-primary">Finding stores...</p>
               </div>
             ) : error ? (
-              <div className="p-4 bg-red-50 rounded-xl border border-red-100 flex items-start gap-3">
+              <div className="p-4 bg-red-500/10 rounded-xl border border-red-500/20 flex items-start gap-3">
                 <Info className="text-red-500 shrink-0" size={20} />
-                <p className="text-red-600 text-sm">{error}</p>
+                <p className="text-red-500 text-sm">{error}</p>
               </div>
             ) : stores.length === 0 ? (
               <div className="text-center py-12">
-                <MapPin className="mx-auto text-[#C8B6A6] mb-4" size={48} />
-                <p className="text-[#8D7B68]">No stores found within 10km.</p>
+                <MapPin className="mx-auto text-primary/30 mb-4" size={48} />
+                <p className="text-primary">No stores found within 10km.</p>
               </div>
             ) : (
               stores.map(store => (
@@ -294,16 +294,16 @@ export default function JanAushadhiMap({
                   whileTap={{ scale: 0.98 }}
                   onClick={() => handleStoreSelect(store)}
                   className={`p-4 rounded-2xl cursor-pointer transition-all border ${
-                    selectedStore?._id === store._id 
-                      ? 'bg-[#8D7B68] border-[#8D7B68] shadow-lg text-white' 
-                      : 'bg-[#FDFCFB] border-[#C8B6A6]/30 text-[#1a1a1a] hover:border-[#8D7B68]/50'
+                    selectedStore?._id === store._id
+                      ? 'bg-primary border-primary shadow-lg text-white'
+                      : 'bg-background border-primary/10 text-text-main hover:border-primary/50'
                   }`}
                 >
                   <div className="flex justify-between items-start mb-2">
                     <h3 className="font-semibold leading-tight">{store.name}</h3>
-                    <Navigation size={16} className={selectedStore?._id === store._id ? 'text-white/80' : 'text-[#8D7B68]'} />
+                    <Navigation size={16} className={selectedStore?._id === store._id ? 'text-white/80' : 'text-primary'} />
                   </div>
-                  <p className={`text-sm mb-3 ${selectedStore?._id === store._id ? 'text-white/80' : 'text-[#8D7B68]'}`}>
+                  <p className={`text-sm mb-3 ${selectedStore?._id === store._id ? 'text-white/80' : 'text-primary/70'}`}>
                     {store.address}, {store.city}
                   </p>
                   <div className="flex items-center gap-4 text-xs">
@@ -317,7 +317,6 @@ export default function JanAushadhiMap({
               ))
             )}
           </div>
-
           <AnimatePresence>
             {selectedStore && routeInfo && (
               <motion.div 

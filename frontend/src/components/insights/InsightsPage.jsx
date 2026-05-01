@@ -161,7 +161,7 @@ function CustomTooltip({ active, payload, label, color, prefix }) {
 
 function AnimatedBarChart({ data, color }) {
   return (
-    <ResponsiveContainer width="100%" height={180}>
+    <ResponsiveContainer width="100%" height={180} minWidth={0} minHeight={0}>
       <BarChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
         <CartesianGrid strokeDasharray="3 3" stroke="rgba(141, 123, 104, 0.1)" vertical={false} />
         <XAxis 

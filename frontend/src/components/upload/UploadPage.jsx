@@ -152,9 +152,9 @@ export default function UploadPage({
             localStorage.setItem('lastBill', JSON.stringify(data.result));
           }
           eventSource.close();
-        } else if (data.status?.startsWith('FAILED')) {
+        } else if (data.status?.startsWith('FAILED') || data.status === 'TIMEOUT') {
           setStatus('error');
-          setError(data.error || 'Processing failed');
+          setError(data.error || 'Processing failed or timed out');
           eventSource.close();
         }
       } catch (err) {

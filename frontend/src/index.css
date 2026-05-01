@@ -2,16 +2,37 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #E3D5CA;
-  --color-card: #C8B6A6;
-  --color-primary: #8D7B68;
-  --color-secondary: #A4907C;
+  --color-background: var(--background);
+  --color-card: var(--card);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-text-main: var(--text-main);
   --color-accent-red: #ef4444;
   --color-accent-blue: #2563eb;
   --color-accent-green: #22c55e;
   
   --font-serif: 'Playfair Display', 'Georgia', serif;
   --font-sans: 'Inter', 'Helvetica Neue', sans-serif;
+}
+
+:root {
+  --background: #E3D5CA;
+  --card: #C8B6A6;
+  --primary: #8D7B68;
+  --secondary: #A4907C;
+  --text-main: #1a1a1a;
+  --text-muted: #4b5563;
+  --border: rgba(141, 123, 104, 0.2);
+}
+
+.dark {
+  --background: #020617;
+  --card: #0f172a;
+  --primary: #3b82f6;
+  --secondary: #64748b;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --border: rgba(255, 255, 255, 0.1);
 }
 
 @layer base {
@@ -28,9 +49,10 @@
   body {
     font-family: var(--font-sans);
     background-color: var(--color-background);
-    color: #1a1a1a;
+    color: var(--color-text-main);
     min-height: 100vh;
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -64,6 +86,13 @@
   box-shadow: 
     0 8px 32px rgba(0, 0, 0, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  transition: background 0.3s ease, border 0.3s ease;
+}
+
+.dark .glass-card {
+  background: rgba(30, 41, 59, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .premium-card {
@@ -73,6 +102,13 @@
   box-shadow: 
     0 20px 60px rgba(0, 0, 0, 0.1),
     0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: background 0.3s ease, border 0.3s ease;
+}
+
+.dark .premium-card {
+  background: linear-gradient(145deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
 }
 
 .glow-red {
@@ -89,6 +125,13 @@
 
 .text-gradient {
   background: linear-gradient(135deg, #8D7B68 0%, #A4907C 50%, #C8B6A6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dark .text-gradient {
+  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

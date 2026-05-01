@@ -91,7 +91,7 @@ export default function JanAushadhiMap({
         position: { lat, lng },
         icon: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png',
         width: 44, height: 44,
-        popupHtml: `<div style="padding:8px;font-family:Inter,sans-serif;font-weight:600;color:#1e40af">📍 Your Location</div>`
+        popupHtml: `<div style="padding:8px;font-family:Inter,sans-serif;font-weight:600;color:#1e40af;background:#fff;border-radius:8px">📍 Your Location</div>`
       });
     } catch (e) {
       console.error('User marker error:', e);
@@ -139,7 +139,7 @@ export default function JanAushadhiMap({
           position: { lat: store.lat, lng: store.lng },
           title: store.placeName,
           width: 32, height: 32,
-          popupHtml: `<div style="padding:10px;font-family:Inter,sans-serif;max-width:220px">
+          popupHtml: `<div style="padding:10px;font-family:Inter,sans-serif;max-width:220px;background:#fff;border-radius:8px;color:#1a1a1a">
             <b style="color:#065f46;font-size:13px">${store.placeName}</b>
             <p style="font-size:11px;color:#6b7280;margin:4px 0">${store.placeAddress}</p>
             <span style="font-size:11px;color:#0284c7;font-weight:600">${dist.toFixed(1)} km away</span>
@@ -165,7 +165,7 @@ export default function JanAushadhiMap({
         position: { lat: store.lat, lng: store.lng },
         icon: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png',
         width: 48, height: 48,
-        popupHtml: `<div style="padding:12px;font-family:Inter,sans-serif;max-width:240px">
+        popupHtml: `<div style="padding:12px;font-family:Inter,sans-serif;max-width:240px;background:#fff;border-radius:8px;color:#1a1a1a">
           <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">
             <span style="font-size:16px">⭐</span>
             <b style="color:#065f46;font-size:14px">NEAREST STORE</b>
@@ -183,9 +183,8 @@ export default function JanAushadhiMap({
   const drawRoute = (userLat, userLng, store) => {
     if (!window.mappls || !mapInstance.current) return;
 
-    // Calculate straight-line distance as fallback
     const dist = haversineDistance(userLat, userLng, store.lat, store.lng);
-    const estimatedMins = Math.round(dist * 3); // rough estimate: 3 min/km in city
+    const estimatedMins = Math.round(dist * 3);
 
     setRouteInfo({ distance: dist.toFixed(1), duration: estimatedMins });
 
@@ -251,15 +250,15 @@ export default function JanAushadhiMap({
 
       <main className="pt-20 h-screen flex flex-col md:flex-row overflow-hidden">
         {/* ── Sidebar ── */}
-        <div className="w-full md:w-[420px] bg-card border-r border-primary/10 flex flex-col z-10 shadow-xl">
+        <div className="w-full md:w-[420px] bg-card border-r border-border flex flex-col z-10 shadow-xl transition-colors duration-300">
           {/* Header */}
-          <div className="p-6 border-b border-primary/10">
+          <div className="p-6 border-b border-border">
             <h2 className="font-serif text-2xl text-text-main flex items-center gap-2">
               <MapIcon className="text-primary" /> Jan Aushadhi Finder
             </h2>
-            <p className="text-primary/70 text-sm mt-1">Find affordable medicine stores near you</p>
+            <p className="text-text-muted text-sm mt-1">Find affordable medicine stores near you</p>
             {isFallback && (
-              <div className="mt-2 px-3 py-1.5 bg-amber-500/10 border border-amber-500/20 rounded-lg text-amber-700 dark:text-amber-400 text-xs flex items-center gap-1.5">
+              <div className="mt-2 px-3 py-1.5 bg-amber-500/10 border border-amber-500/20 rounded-lg text-amber-700 dark:text-amber-400 text-xs flex items-center gap-1.5 transition-colors duration-300">
                 <Info size={14} /> Using default location (Delhi). Enable GPS for accuracy.
               </div>
             )}
@@ -267,9 +266,9 @@ export default function JanAushadhiMap({
 
           {/* Status Bar */}
           {(isLoading || geoLoading) && (
-            <div className="px-6 py-3 bg-primary/5 border-b border-primary/10 flex items-center gap-3">
+            <div className="px-6 py-3 bg-primary/5 border-b border-border flex items-center gap-3 transition-colors duration-300">
               <Loader2 className="animate-spin text-primary" size={16} />
-              <span className="text-sm text-primary/80 font-medium">{searchStatus}</span>
+              <span className="text-sm text-text-muted font-medium">{searchStatus}</span>
             </div>
           )}
 
@@ -284,7 +283,7 @@ export default function JanAushadhiMap({
               <div className="text-center py-16">
                 <MapPin className="mx-auto text-primary/30 mb-4" size={56} />
                 <p className="text-text-main font-semibold text-lg">No stores found</p>
-                <p className="text-primary/60 text-sm mt-1">Try again or check a different area</p>
+                <p className="text-text-muted text-sm mt-1">Try again or check a different area</p>
               </div>
             ) : (
               stores.map((store, idx) => {
@@ -305,12 +304,12 @@ export default function JanAushadhiMap({
                       isSelected
                         ? 'bg-primary border-primary shadow-lg shadow-primary/20 text-white'
                         : isNearest
-                        ? 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-400/50 text-text-main'
-                        : 'bg-background border-primary/10 text-text-main hover:border-primary/40'
+                        ? 'bg-accent-green/10 border-accent-green/40 text-text-main'
+                        : 'bg-background border-border text-text-main hover:border-primary/40'
                     }`}
                   >
                     {isNearest && !isSelected && (
-                      <div className="absolute top-0 right-0 bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-bl-lg">
+                      <div className="absolute top-0 right-0 bg-accent-green text-white text-[10px] font-bold px-2 py-0.5 rounded-bl-lg">
                         ⭐ NEAREST
                       </div>
                     )}
@@ -322,9 +321,9 @@ export default function JanAushadhiMap({
 
                     <div className="flex justify-between items-start mb-1.5">
                       <h3 className="font-semibold leading-tight text-sm pr-16">{store.placeName}</h3>
-                      <Navigation size={14} className={isSelected ? 'text-white/60' : 'text-primary/50'} />
+                      <Navigation size={14} className={isSelected ? 'text-white/60' : 'text-text-muted'} />
                     </div>
-                    <p className={`text-xs mb-2.5 leading-relaxed ${isSelected ? 'text-white/70' : 'text-primary/50'}`}>
+                    <p className={`text-xs mb-2.5 leading-relaxed ${isSelected ? 'text-white/70' : 'text-text-muted'}`}>
                       {store.placeAddress || 'Address not available'}
                     </p>
                     <div className="flex items-center gap-3 text-xs">
@@ -332,7 +331,7 @@ export default function JanAushadhiMap({
                         <Route size={12} /> {dist} km
                       </span>
                       {store.phone && (
-                        <span className={`flex items-center gap-1 ${isSelected ? 'text-white/70' : 'text-primary/60'}`}>
+                        <span className={`flex items-center gap-1 ${isSelected ? 'text-white/70' : 'text-text-muted'}`}>
                           <Phone size={11} /> {store.phone}
                         </span>
                       )}
@@ -350,7 +349,7 @@ export default function JanAushadhiMap({
                 initial={{ y: 100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: 100, opacity: 0 }}
-                className="p-5 bg-gradient-to-r from-primary to-secondary text-white border-t border-white/10"
+                className="p-5 bg-gradient-to-r from-primary to-secondary text-white border-t border-white/10 transition-colors duration-300"
               >
                 <div className="flex justify-between items-end mb-3">
                   <div>
@@ -391,7 +390,7 @@ export default function JanAushadhiMap({
           <div id="mappls-map-container" ref={mapRef} className="w-full h-full" />
 
           {(isLoading || geoLoading) && (
-            <div className="absolute inset-0 bg-background/60 backdrop-blur-sm flex items-center justify-center z-20">
+            <div className="absolute inset-0 bg-background/70 backdrop-blur-sm flex items-center justify-center z-20 transition-colors duration-300">
               <div className="glass-card p-8 rounded-3xl flex flex-col items-center max-w-xs">
                 <div className="relative mb-5">
                   <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center animate-pulse">
@@ -400,7 +399,7 @@ export default function JanAushadhiMap({
                   <Loader2 className="absolute -bottom-1 -right-1 animate-spin text-primary" size={20} />
                 </div>
                 <h3 className="font-serif text-xl text-text-main mb-1">Initializing Map</h3>
-                <p className="text-primary/70 text-sm text-center">{searchStatus}</p>
+                <p className="text-text-muted text-sm text-center">{searchStatus}</p>
               </div>
             </div>
           )}
@@ -420,7 +419,7 @@ export default function JanAushadhiMap({
           {selectedStore && (
             <button
               onClick={() => { setSelectedStore(null); setRouteInfo(null); }}
-              className="absolute top-4 right-4 p-2.5 glass-card rounded-xl shadow-lg text-primary hover:bg-primary hover:text-white transition-all z-20"
+              className="absolute top-4 right-4 p-2.5 glass-card rounded-xl shadow-lg text-text-main hover:bg-primary hover:text-white transition-all z-20"
             >
               <X size={20} />
             </button>
@@ -433,7 +432,8 @@ export default function JanAushadhiMap({
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: var(--secondary); }
-        #mappls-map-container .mappls-logo, #mappls-map-container .mappls-ctrl-logo { opacity: 0.6; }
+        #mappls-map-container .mappls-logo,
+        #mappls-map-container .mappls-ctrl-logo { opacity: 0.6; }
       `}</style>
     </motion.div>
   );

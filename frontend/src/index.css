@@ -7,6 +7,8 @@
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
   --color-text-main: var(--text-main);
+  --color-text-muted: var(--text-muted);
+  --color-border: var(--border);
   --color-accent-red: #ef4444;
   --color-accent-blue: #2563eb;
   --color-accent-green: #22c55e;

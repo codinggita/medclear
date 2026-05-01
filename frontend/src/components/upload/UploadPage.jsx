@@ -4,7 +4,7 @@ import { Upload, ArrowRight, Loader2, CheckCircle, Sparkles, Shield, FileText, I
 
 import Navbar from '../Navbar';
 import ProcessTimeline from './ProcessTimeline';
-import { processBill, getSSEUrl } from '../../utils/api';
+import { uploadBill, getSSEUrl } from '../../utils/api';
 
 const floatVariants = {
   animate: {
@@ -179,7 +179,7 @@ export default function UploadPage({
     setError(null);
 
     try {
-      const data = await processBill(files[0].file);
+      const data = await uploadBill(files[0].file);
       
       if (data && data.jobId) {
         setJobId(data.jobId);

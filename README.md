@@ -87,6 +87,28 @@ Explore the surgical UI/UX design of MedClear. Each interface is engineered to p
 
 ---
 
+## 🎨 DESIGN & PROTOTYPING (FIGMA)
+
+The entire UI/UX of MedClear was meticulously designed in **Figma** before a single line of code was written. Every screen, interaction, and micro-animation was prototyped to deliver a newspaper-inspired, investigative aesthetic.
+
+<p align="center">
+  <a href="https://www.figma.com/design/7IhpULI3UQ5F2U0MQe1Z1j/Untitled?node-id=0-1&t=T80jNlhQRdtqB0BP-1" target="_blank">
+    <img src="https://img.shields.io/badge/🎨_VIEW_FULL_DESIGN_ON_FIGMA-F24E1E?style=for-the-badge&logo=figma&logoColor=white" alt="View on Figma" />
+  </a>
+</p>
+
+| Design Aspect | Details |
+| :--- | :--- |
+| **Design Tool** | Figma |
+| **Design System** | Newspaper/Editorial theme with warm tan palette + dark mode |
+| **Typography** | Playfair Display (headings) + Inter (body) |
+| **Color Palette** | `#E3D5CA` · `#C8B6A6` · `#8D7B68` · `#D9230F` · `#0F0F0F` |
+| **Components** | Dashboard, Upload, Reports, Insights, Gov Schemes, Jan Aushadhi Map |
+
+> 🔗 **Figma Link**: [https://www.figma.com/design/7IhpULI3UQ5F2U0MQe1Z1j](https://www.figma.com/design/7IhpULI3UQ5F2U0MQe1Z1j/Untitled?node-id=0-1&t=T80jNlhQRdtqB0BP-1)
+
+---
+
 ## 🛠️ THE ARSENAL (TECH STACK)
 
 <table width="100%">

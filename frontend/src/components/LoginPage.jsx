@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useGoogleLogin } from '@react-oauth/google';
+import axios from 'axios';
 
 /* ─── Icon Components ─── */
 const ShieldCheckIcon = ({ size = 24, className = '' }) => (
@@ -98,15 +100,29 @@ const features = [
 
 /* ─── Main Component ─── */
 const LoginPage = ({ onNavigateBack, onNavigateToDashboard }) => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(false);
 
-  const handleSignIn = (e) => {
-    e.preventDefault();
-    onNavigateToDashboard();
-  };
+  const login = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      try {
+        const userInfo = await axios.get(
+          'https://www.googleapis.com/oauth2/v3/userinfo',
+          { headers: { Authorization: `Bearer ${tokenResponse.access_token}` } }
+        );
+        
+        localStorage.setItem('user', JSON.stringify({
+          name: userInfo.data.name,
+          email: userInfo.data.email,
+          picture: userInfo.data.picture,
+          joined: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+        }));
+        
+        onNavigateToDashboard();
+      } catch (err) {
+        console.error('Failed to fetch user info', err);
+      }
+    },
+    onError: error => console.error('Login Failed:', error)
+  });
 
   return (
     <div className="min-h-screen flex flex-col lg:flex-row" style={{ backgroundColor: '#F5EFE7' }}>
@@ -248,7 +264,7 @@ const LoginPage = ({ onNavigateBack, onNavigateToDashboard }) => {
 
           {/* Google Button */}
           <motion.button
-            onClick={onNavigateToDashboard}
+            onClick={() => login()}
             whileHover={{ y: -2, boxShadow: '0 8px 25px rgba(0,0,0,0.1)' }}
             whileTap={{ scale: 0.98 }}
             className="w-full py-3.5 px-6 flex items-center justify-center gap-3 rounded-xl font-medium text-[#1a1a1a] bg-white border border-[#e0e0e0] shadow-sm hover:shadow-md transition-all cursor-pointer mb-6"
@@ -257,85 +273,7 @@ const LoginPage = ({ onNavigateBack, onNavigateToDashboard }) => {
             Continue with Google
           </motion.button>
 
-          {/* OR Divider */}
-          <div className="flex items-center gap-4 mb-6">
-            <div className="h-px flex-1 bg-[#e0e0e0]" />
-            <span className="text-[#8D7B68] text-sm font-medium">OR</span>
-            <div className="h-px flex-1 bg-[#e0e0e0]" />
-          </div>
 
-          {/* Sign-In Form */}
-          <form onSubmit={handleSignIn} className="space-y-5">
-            {/* Email */}
-            <div>
-              <label className="block text-sm font-semibold text-[#1a1a1a] mb-2">Email address</label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email"
-                className="w-full px-4 py-3 rounded-xl border border-[#e0e0e0] bg-white text-[#1a1a1a] text-sm placeholder-[#b0a090] focus:outline-none focus:ring-2 focus:ring-[#8D7B68]/30 focus:border-[#8D7B68] transition-all"
-              />
-            </div>
-
-            {/* Password */}
-            <div>
-              <label className="block text-sm font-semibold text-[#1a1a1a] mb-2">Password</label>
-              <div className="relative">
-                <input
-                  type={showPassword ? 'text' : 'password'}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter your password"
-                  className="w-full px-4 py-3 pr-12 rounded-xl border border-[#e0e0e0] bg-white text-[#1a1a1a] text-sm placeholder-[#b0a090] focus:outline-none focus:ring-2 focus:ring-[#8D7B68]/30 focus:border-[#8D7B68] transition-all"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 cursor-pointer opacity-60 hover:opacity-100 transition-opacity"
-                >
-                  <EyeIcon open={showPassword} />
-                </button>
-              </div>
-            </div>
-
-            {/* Remember + Forgot */}
-            <div className="flex items-center justify-between">
-              <label className="flex items-center gap-2 cursor-pointer select-none">
-                <input
-                  type="checkbox"
-                  checked={rememberMe}
-                  onChange={(e) => setRememberMe(e.target.checked)}
-                  className="w-4 h-4 rounded border-[#C8B6A6] accent-[#8D7B68]"
-                />
-                <span className="text-sm text-[#6b6b6b]">Remember me</span>
-              </label>
-              <button type="button" className="text-sm text-[#8D7B68] font-medium hover:underline cursor-pointer">
-                Forgot password?
-              </button>
-            </div>
-
-            {/* Sign In Button */}
-            <motion.button
-              type="submit"
-              whileHover={{ y: -2, boxShadow: '0 10px 30px rgba(141, 123, 104, 0.3)' }}
-              whileTap={{ scale: 0.98 }}
-              className="w-full py-3.5 rounded-xl font-semibold text-white shadow-lg cursor-pointer transition-all text-base"
-              style={{
-                background: 'linear-gradient(135deg, #A4907C 0%, #8D7B68 100%)',
-              }}
-            >
-              Sign in
-            </motion.button>
-          </form>
-
-          {/* Sign Up Link */}
-          <p className="text-center mt-6 text-sm text-[#6b6b6b]">
-            Don't have an account?{' '}
-            <button className="text-[#8D7B68] font-semibold hover:underline cursor-pointer">
-              Sign up
-            </button>
-          </p>
         </motion.div>
 
         {/* Footer */}

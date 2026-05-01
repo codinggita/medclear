@@ -45,10 +45,12 @@ app.get('/health', (req, res) => {
 
 const schemeRoutes = require('./routes/schemeRoutes');
 const storeRoutes = require('./routes/store.routes');
+const authRoutes = require('./routes/auth.routes');
 
 app.use('/api/v1/bills', billRoutes);
 app.use('/api/v1/schemes', schemeRoutes);
 app.use('/api/v1/stores', storeRoutes);
+app.use('/api/v1/auth', authRoutes);
 
 app.use((req, res) => {
   res.status(404).json({ success: false, error: 'ROUTE_NOT_FOUND' });

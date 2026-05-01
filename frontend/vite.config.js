@@ -23,6 +23,20 @@ export default defineConfig({
       '/health': {
         target: 'http://localhost:5000',
         changeOrigin: true
+      },
+      // Mappls OAuth token endpoint (bypasses CORS for dev)
+      '/mappls-auth': {
+        target: 'https://outpost.mappls.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/mappls-auth/, ''),
+        secure: true
+      },
+      // Mappls Atlas REST API (bypasses CORS for dev)
+      '/mappls-api': {
+        target: 'https://atlas.mappls.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/mappls-api/, ''),
+        secure: true
       }
     }
   }

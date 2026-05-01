@@ -84,7 +84,7 @@ export default function JanAushadhiMap({
     if (!window.mappls || !mapRef.current) return;
 
     try {
-        mapInstance.current = new window.mappls.Map(mapRef.current, {
+        mapInstance.current = new window.mappls.Map('mappls-map', {
           center: { lat, lng },
           zoom: 12,
           hybrid: true
@@ -359,7 +359,7 @@ export default function JanAushadhiMap({
 
         {/* Map Container */}
         <div className="flex-1 relative">
-          <div ref={mapRef} className="w-full h-full" />
+          <div id="mappls-map" ref={mapRef} className="w-full h-full" />
           
           {isLoading && (
             <div className="absolute inset-0 bg-white/50 backdrop-blur-sm flex items-center justify-center z-20">

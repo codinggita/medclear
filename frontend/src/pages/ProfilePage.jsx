@@ -30,13 +30,14 @@ export default function ProfilePage({
   onNavigateToJanAushadhi,
   currentPage 
 }) {
+  const storedUser = JSON.parse(localStorage.getItem('user') || 'null');
   const user = {
-    name: 'Rachit Kakkad',
-    email: 'rachit.kakkad@example.com',
+    name: storedUser?.name || 'Rachit Kakkad',
+    email: storedUser?.email || 'rachit.kakkad@example.com',
     phone: '+91 98765 43210',
     location: 'Mumbai, India',
-    joined: 'April 2024',
-    avatar: null
+    joined: storedUser?.joined || 'April 2024',
+    avatar: storedUser?.picture || null
   };
 
   const sections = [
@@ -92,8 +93,14 @@ export default function ProfilePage({
                   whileHover={{ scale: 1.05 }}
                   className="w-24 h-24 md:w-32 md:h-32 rounded-3xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center border-4 border-background shadow-xl overflow-hidden"
                 >
-                  <User size={48} className="text-white/80 md:hidden" />
-                  <User size={64} className="text-white/80 hidden md:block" />
+                  {user.avatar ? (
+                    <img src={user.avatar} alt="Profile" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                  ) : (
+                    <>
+                      <User size={48} className="text-white/80 md:hidden" />
+                      <User size={64} className="text-white/80 hidden md:block" />
+                    </>
+                  )}
                 </motion.div>
                 <motion.button
                   whileHover={{ scale: 1.1 }}

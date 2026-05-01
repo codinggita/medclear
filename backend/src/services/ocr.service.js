@@ -49,8 +49,8 @@ async function callOCRService(filePath, filename, retryCount = 0) {
       return callOCRService(filePath, filename, retryCount + 1);
     }
 
-    logger.error(`[OCR] Failed, fallback triggered: ${err.message}`);
-    return mockOcrResponse();
+    logger.error(`[OCR] Failed: ${err.message}`);
+    throw err;
   }
 }
 

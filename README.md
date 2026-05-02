@@ -24,7 +24,7 @@
 ### 🚀 **MISSION CRITICAL LINKS**
 
 <p align="center">
-  <a href="https://medclear.vercel.app/" target="_blank">
+  <a href="https://med-clear-teal.vercel.app" target="_blank">
     <img src="https://img.shields.io/badge/🌐_LIVE_PROJECT-D9230F?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Project" />
   </a>
   &nbsp;
@@ -37,7 +37,7 @@
   </a>
 </p>
 <p align="center">
-  <a href="https://documenter.getpostman.com/view/YOUR_ID/YOUR_DOC" target="_blank">
+  <a href="https://documenter.getpostman.com/view/50840748/2sBXqKnfF7" target="_blank">
     <img src="https://img.shields.io/badge/📖_POSTMAN_DOCS-FF6C37?style=for-the-badge&logo=postman&logoColor=white" alt="Postman Docs" />
   </a>
   &nbsp;

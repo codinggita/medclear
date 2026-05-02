@@ -10,6 +10,17 @@
 
 **Surgical Precision in Auditing Medical Overcharges. Built for Truth.**
 
+---
+
+### 🚀 **QUICK LINKS**
+- **🎨 [Figma Design](https://www.figma.com/design/7IhpULI3UQ5F2U0MQe1Z1j/Untitled?node-id=0-1&t=T80jNlhQRdtqB0BP-1)**
+- **🌐 [Live Project](https://medclear.vercel.app/)**
+- **📖 [Postman API Documentation](https://documenter.getpostman.com/view/YOUR_ID/YOUR_DOC)**
+- **💻 [Backend Deployed Link](https://medclear-backend.onrender.com)**
+- **📺 [YouTube Demo Video](https://youtube.com/watch?v=YOUR_VIDEO_ID)**
+
+---
+
 [![Status](https://img.shields.io/badge/STATUS-ACTIVE-success?style=for-the-badge&color=D9230F&labelColor=0F0F0F)](https://github.com/Rachit-Kakkad1/medclear)
 [![License](https://img.shields.io/badge/LICENSE-MIT-blue?style=for-the-badge&color=0047AB&labelColor=0F0F0F)](https://github.com/Rachit-Kakkad1/medclear/blob/main/LICENSE)
 [![Design](https://img.shields.io/badge/DESIGN-FIGMA-purple?style=for-the-badge&logo=figma&color=FFD700&labelColor=0F0F0F)](https://www.figma.com/design/7IhpULI3UQ5F2U0MQe1Z1j/Untitled?node-id=0-1&t=T80jNlhQRdtqB0BP-1)
@@ -267,17 +278,6 @@ The following features are planned for future releases to further enhance health
 - [ ] 🛡️ **Insurance Integration**: One-click dispute filing with insurance providers.
 - [ ] 🤖 **AI Legal Assistant**: Generate localized legal notices for hospitals.
 - [ ] 📈 **Crowdsourced Pricing**: Community-driven hospital pricing database.
-
----
-
-<div align="center">
-  <img src="https://img.shields.io/badge/BUILT_WITH_❤️_FOR_HEALTHCARE_TRANSPARENCY-D9230F?style=for-the-badge" />
-  <br><br>
-  <b>© 2026 MedClear Gazette. The truth is free. Auditing is mandatory.</b>
-  <br><br>
-  <a href="#top">Back to top ⬆️</a>
-</div>
-**: Community-driven hospital pricing database.
 
 ---
 

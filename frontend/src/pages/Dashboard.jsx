@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { AlertTriangle, Lightbulb, TrendingDown, Shield, Pill, FileCheck } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 import Navbar from '../components/Navbar';
 import HeroPanel from '../components/HeroPanel';
 import Timeline from '../components/Timeline';
@@ -196,6 +197,10 @@ export default function Dashboard({
       variants={pageVariants}
       className="min-h-screen"
     >
+      <Helmet>
+        <title>Dashboard | MedClear - Your Health Audit</title>
+        <meta name="description" content="View your medical bill history, total savings, and overcharge analytics." />
+      </Helmet>
       <Navbar 
         onLogout={onLogout} 
         onNavigateToUpload={onNavigateToUpload} 

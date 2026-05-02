@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MapPin, Navigation, Phone, Map as MapIcon, ChevronRight, Loader2, X, Info, LocateFixed, Star, Clock, Route } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 import Navbar from '../components/Navbar';
 import useGeolocation from '../hooks/useGeolocation';
 import { loadMapplsMapSDK, loadMapplsPlugins, searchNearbyStores, findNearestStore, haversineDistance } from '../services/mappls.service';
@@ -240,6 +241,10 @@ export default function JanAushadhiMap({
   return (
     <motion.div initial="initial" animate="animate" exit="exit" variants={pageVariants}
       className="min-h-screen bg-background transition-colors duration-300">
+      <Helmet>
+        <title>Jan Aushadhi Map | MedClear - Find Generic Medicines</title>
+        <meta name="description" content="Locate nearby Jan Aushadhi generic medicine stores to save up to 80% on your healthcare costs." />
+      </Helmet>
       <Navbar
         onLogout={onLogout} onNavigateToUpload={onNavigateToUpload}
         onNavigateToDashboard={onNavigateToDashboard} onNavigateToReports={onNavigateToReports}

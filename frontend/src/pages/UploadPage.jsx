@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Upload, ArrowRight, Loader2, CheckCircle, Sparkles, Shield, FileText, Image, X, Zap } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 
 import Navbar from '../components/Navbar';
 import ProcessTimeline from '../components/upload/ProcessTimeline';
@@ -210,6 +211,10 @@ export default function UploadPage({
       animate={{ opacity: 1 }}
       className="min-h-screen relative overflow-hidden bg-background"
     >
+      <Helmet>
+        <title>Upload Bill | MedClear - Start Your Audit</title>
+        <meta name="description" content="Securely upload your medical bill for AI-powered overcharge detection and savings analysis." />
+      </Helmet>
       {/* Animated Background Elements */}
       <motion.div 
         className="absolute inset-0 opacity-30"

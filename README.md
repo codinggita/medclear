@@ -21,12 +21,30 @@
 
 ---
 
-### 🚀 **QUICK LINKS**
-- **🎨 [Figma Design](https://www.figma.com/design/7IhpULI3UQ5F2U0MQe1Z1j/Untitled?node-id=0-1&t=T80jNlhQRdtqB0BP-1)**
-- **🌐 [Live Project](https://medclear.vercel.app/)**
-- **📖 [Postman API Documentation](https://documenter.getpostman.com/view/YOUR_ID/YOUR_DOC)**
-- **💻 [Backend Deployed Link](https://medclear-backend.onrender.com)**
-- **📺 [YouTube Demo Video](https://youtube.com/watch?v=YOUR_VIDEO_ID)**
+### 🚀 **MISSION CRITICAL LINKS**
+
+<p align="center">
+  <a href="https://medclear.vercel.app/" target="_blank">
+    <img src="https://img.shields.io/badge/🌐_LIVE_PROJECT-D9230F?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Project" />
+  </a>
+  &nbsp;
+  <a href="https://youtube.com/watch?v=YOUR_VIDEO_ID" target="_blank">
+    <img src="https://img.shields.io/badge/📺_YOUTUBE_DEMO-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="YouTube Demo" />
+  </a>
+  &nbsp;
+  <a href="https://www.figma.com/design/7IhpULI3UQ5F2U0MQe1Z1j/Untitled?node-id=0-1&t=T80jNlhQRdtqB0BP-1" target="_blank">
+    <img src="https://img.shields.io/badge/🎨_FIGMA_DESIGN-F24E1E?style=for-the-badge&logo=figma&logoColor=white" alt="Figma Design" />
+  </a>
+</p>
+<p align="center">
+  <a href="https://documenter.getpostman.com/view/YOUR_ID/YOUR_DOC" target="_blank">
+    <img src="https://img.shields.io/badge/📖_POSTMAN_DOCS-FF6C37?style=for-the-badge&logo=postman&logoColor=white" alt="Postman Docs" />
+  </a>
+  &nbsp;
+  <a href="https://medclear-backend.onrender.com" target="_blank">
+    <img src="https://img.shields.io/badge/💻_BACKEND_API-000000?style=for-the-badge&logo=render&logoColor=white" alt="Backend API" />
+  </a>
+</p>
 
 ---
 

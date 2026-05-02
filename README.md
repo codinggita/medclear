@@ -19,6 +19,35 @@
 
 ### 🏥 *"We found line-items marked as 'Administrative Comfort' costing patients ₹12,000 for a single bed-sheet change."*
 
+---
+
+### 🚀 **MISSION CRITICAL LINKS**
+
+<p align="center">
+  <a href="https://med-clear-teal.vercel.app" target="_blank">
+    <img src="https://img.shields.io/badge/🌐_LIVE_PROJECT-D9230F?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Project" />
+  </a>
+  &nbsp;
+  <a href="https://youtu.be/3myQG6IWQeY?si=Zl8bqMDGx-8gQ7SF" target="_blank">
+    <img src="https://img.shields.io/badge/📺_YOUTUBE_DEMO-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="YouTube Demo" />
+  </a>
+  &nbsp;
+  <a href="https://www.figma.com/design/7IhpULI3UQ5F2U0MQe1Z1j/Untitled?node-id=0-1&t=T80jNlhQRdtqB0BP-1" target="_blank">
+    <img src="https://img.shields.io/badge/🎨_FIGMA_DESIGN-F24E1E?style=for-the-badge&logo=figma&logoColor=white" alt="Figma Design" />
+  </a>
+</p>
+<p align="center">
+  <a href="https://documenter.getpostman.com/view/50840748/2sBXqKnfF7" target="_blank">
+    <img src="https://img.shields.io/badge/📖_POSTMAN_DOCS-FF6C37?style=for-the-badge&logo=postman&logoColor=white" alt="Postman Docs" />
+  </a>
+  &nbsp;
+  <a href="https://medclear-backend.onrender.com" target="_blank">
+    <img src="https://img.shields.io/badge/💻_BACKEND_API-000000?style=for-the-badge&logo=render&logoColor=white" alt="Backend API" />
+  </a>
+</p>
+
+---
+
 </div>
 
 ---
@@ -67,7 +96,7 @@ Explore the surgical UI/UX design of MedClear. Each interface is engineered to p
   <img src="https://res.cloudinary.com/dr84lv5ym/image/upload/v1777618685/upload_page_of_the_medclear_lxbbcx.png" width="90%" alt="Upload Page Placeholder" style="border-radius: 8px; border: 2px solid #0F0F0F;">
 </p>
 
-### 📑 4. Detailed Reports Page (The Evidence)
+### ⚖️ 4. Detailed Reports Page (The Evidence)
 > *The granular breakdown of every line-item, showing exactly where the overcharges occurred.*
 <p align="center">
   <img src="https://res.cloudinary.com/dr84lv5ym/image/upload/v1777618685/reports_page_of_the_medclear_zp9yq0.png" width="90%" alt="Reports Page Placeholder" style="border-radius: 8px; border: 2px solid #0F0F0F;">
@@ -267,17 +296,6 @@ The following features are planned for future releases to further enhance health
 - [ ] 🛡️ **Insurance Integration**: One-click dispute filing with insurance providers.
 - [ ] 🤖 **AI Legal Assistant**: Generate localized legal notices for hospitals.
 - [ ] 📈 **Crowdsourced Pricing**: Community-driven hospital pricing database.
-
----
-
-<div align="center">
-  <img src="https://img.shields.io/badge/BUILT_WITH_❤️_FOR_HEALTHCARE_TRANSPARENCY-D9230F?style=for-the-badge" />
-  <br><br>
-  <b>© 2026 MedClear Gazette. The truth is free. Auditing is mandatory.</b>
-  <br><br>
-  <a href="#top">Back to top ⬆️</a>
-</div>
-**: Community-driven hospital pricing database.
 
 ---
 

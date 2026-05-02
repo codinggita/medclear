@@ -10,6 +10,15 @@
 
 **Surgical Precision in Auditing Medical Overcharges. Built for Truth.**
 
+[![Status](https://img.shields.io/badge/STATUS-ACTIVE-success?style=for-the-badge&color=D9230F&labelColor=0F0F0F)](https://github.com/Rachit-Kakkad1/medclear)
+[![License](https://img.shields.io/badge/LICENSE-MIT-blue?style=for-the-badge&color=0047AB&labelColor=0F0F0F)](https://github.com/Rachit-Kakkad1/medclear/blob/main/LICENSE)
+[![Design](https://img.shields.io/badge/DESIGN-FIGMA-purple?style=for-the-badge&logo=figma&color=FFD700&labelColor=0F0F0F)](https://www.figma.com/design/7IhpULI3UQ5F2U0MQe1Z1j/Untitled?node-id=0-1&t=T80jNlhQRdtqB0BP-1)
+[![Tech](https://img.shields.io/badge/TECH-FULLSTACK-brightgreen?style=for-the-badge&color=0F0F0F&labelColor=4a4a4a)](https://github.com/Rachit-Kakkad1/medclear)
+
+---
+
+### 🏥 *"We found line-items marked as 'Administrative Comfort' costing patients ₹12,000 for a single bed-sheet change."*
+
 ---
 
 ### 🚀 **QUICK LINKS**
@@ -20,15 +29,6 @@
 - **📺 [YouTube Demo Video](https://youtube.com/watch?v=YOUR_VIDEO_ID)**
 
 ---
-
-[![Status](https://img.shields.io/badge/STATUS-ACTIVE-success?style=for-the-badge&color=D9230F&labelColor=0F0F0F)](https://github.com/Rachit-Kakkad1/medclear)
-[![License](https://img.shields.io/badge/LICENSE-MIT-blue?style=for-the-badge&color=0047AB&labelColor=0F0F0F)](https://github.com/Rachit-Kakkad1/medclear/blob/main/LICENSE)
-[![Design](https://img.shields.io/badge/DESIGN-FIGMA-purple?style=for-the-badge&logo=figma&color=FFD700&labelColor=0F0F0F)](https://www.figma.com/design/7IhpULI3UQ5F2U0MQe1Z1j/Untitled?node-id=0-1&t=T80jNlhQRdtqB0BP-1)
-[![Tech](https://img.shields.io/badge/TECH-FULLSTACK-brightgreen?style=for-the-badge&color=0F0F0F&labelColor=4a4a4a)](https://github.com/Rachit-Kakkad1/medclear)
-
----
-
-### 🏥 *"We found line-items marked as 'Administrative Comfort' costing patients ₹12,000 for a single bed-sheet change."*
 
 </div>
 
@@ -78,7 +78,7 @@ Explore the surgical UI/UX design of MedClear. Each interface is engineered to p
   <img src="https://res.cloudinary.com/dr84lv5ym/image/upload/v1777618685/upload_page_of_the_medclear_lxbbcx.png" width="90%" alt="Upload Page Placeholder" style="border-radius: 8px; border: 2px solid #0F0F0F;">
 </p>
 
-### 📑 4. Detailed Reports Page (The Evidence)
+### ⚖️ 4. Detailed Reports Page (The Evidence)
 > *The granular breakdown of every line-item, showing exactly where the overcharges occurred.*
 <p align="center">
   <img src="https://res.cloudinary.com/dr84lv5ym/image/upload/v1777618685/reports_page_of_the_medclear_zp9yq0.png" width="90%" alt="Reports Page Placeholder" style="border-radius: 8px; border: 2px solid #0F0F0F;">

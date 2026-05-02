@@ -28,7 +28,7 @@
     <img src="https://img.shields.io/badge/🌐_LIVE_PROJECT-D9230F?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Project" />
   </a>
   &nbsp;
-  <a href="https://youtube.com/watch?v=YOUR_VIDEO_ID" target="_blank">
+  <a href="https://youtu.be/3myQG6IWQeY?si=Zl8bqMDGx-8gQ7SF" target="_blank">
     <img src="https://img.shields.io/badge/📺_YOUTUBE_DEMO-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="YouTube Demo" />
   </a>
   &nbsp;

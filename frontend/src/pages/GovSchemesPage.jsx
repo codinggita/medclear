@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 import Navbar from '../components/Navbar';
 import HeroSection from '../components/schemes/HeroSection';
 import InputPanel from '../components/schemes/InputPanel';
@@ -49,6 +50,10 @@ export default function GovSchemesPage({
       exit={{ opacity: 0 }}
       className="min-h-screen bg-background transition-colors duration-300"
     >
+      <Helmet>
+        <title>Government Schemes | MedClear - Eligibility Checker</title>
+        <meta name="description" content="Discover government healthcare schemes and eligibility based on your income and state." />
+      </Helmet>
       <Navbar
         onLogout={onLogout}
         onNavigateToUpload={onNavigateToUpload}

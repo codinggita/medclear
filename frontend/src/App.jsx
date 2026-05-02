@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import LandingPage from './components/LandingPage';
 import LoginPage from './components/LoginPage';
 import UploadPage from './components/upload/UploadPage';
@@ -19,6 +20,10 @@ function App() {
 
   return (
     <div className="relative overflow-x-hidden">
+      <Helmet>
+        <title>MedClear - The Ultimate Medical Bill Advocate</title>
+        <meta name="description" content="AI-powered medical bill auditing tool to detect overcharges and billing fraud." />
+      </Helmet>
       {currentPage === 'landing' && (
         <LandingPage onNavigateToLogin={() => setCurrentPage('login')} />
       )}

@@ -259,12 +259,25 @@ VITE_MAPPLS_API_KEY=your_key
 
 ---
 
-## 🔮 ROADMAP
+## 🔮 NEXT PHASE: FUTURE STEPS
+
+The following features are planned for future releases to further enhance healthcare transparency:
 
 - [ ] 🏥 **Prescription Scanner**: Detect medication overpricing in real-time.
 - [ ] 🛡️ **Insurance Integration**: One-click dispute filing with insurance providers.
 - [ ] 🤖 **AI Legal Assistant**: Generate localized legal notices for hospitals.
 - [ ] 📈 **Crowdsourced Pricing**: Community-driven hospital pricing database.
+
+---
+
+<div align="center">
+  <img src="https://img.shields.io/badge/BUILT_WITH_❤️_FOR_HEALTHCARE_TRANSPARENCY-D9230F?style=for-the-badge" />
+  <br><br>
+  <b>© 2026 MedClear Gazette. The truth is free. Auditing is mandatory.</b>
+  <br><br>
+  <a href="#top">Back to top ⬆️</a>
+</div>
+**: Community-driven hospital pricing database.
 
 ---
 
